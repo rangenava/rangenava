@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://rangenava.github.io/rangenava/sitemap.xml
