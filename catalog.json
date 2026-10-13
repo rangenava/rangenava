@@ -1,0 +1,770 @@
+{
+  "schema_version": "1.0.0",
+  "project": "Rangenava",
+  "language": "fa",
+  "notice": "نمونه ساختار داده؛ داده‌های واقعی و اطلاعات حقوقی باید بررسی و تکمیل شوند. وجود نام هنرمند یا اثر به معنی داشتن مجوز انتشار نیست.",
+  "genres": [
+    {
+      "id": "genre-01",
+      "name": "سنتی و دستگاهی",
+      "slug": "genre-01",
+      "scope": "iranian",
+      "parent_id": null
+    },
+    {
+      "id": "genre-02",
+      "name": "پاپ",
+      "slug": "genre-02",
+      "scope": "iranian",
+      "parent_id": null
+    },
+    {
+      "id": "genre-03",
+      "name": "راک",
+      "slug": "genre-03",
+      "scope": "iranian",
+      "parent_id": null
+    },
+    {
+      "id": "genre-04",
+      "name": "متال",
+      "slug": "genre-04",
+      "scope": "iranian",
+      "parent_id": null
+    },
+    {
+      "id": "genre-05",
+      "name": "رپ و هیپ‌هاپ",
+      "slug": "genre-05",
+      "scope": "iranian",
+      "parent_id": null
+    },
+    {
+      "id": "genre-06",
+      "name": "فیوژن و تلفیقی",
+      "slug": "genre-06",
+      "scope": "iranian",
+      "parent_id": null
+    },
+    {
+      "id": "genre-07",
+      "name": "موسیقی نواحی ایران",
+      "slug": "genre-07",
+      "scope": "iranian",
+      "parent_id": null
+    },
+    {
+      "id": "genre-08",
+      "name": "بی‌کلام",
+      "slug": "genre-08",
+      "scope": "iranian",
+      "parent_id": null
+    },
+    {
+      "id": "genre-09",
+      "name": "کلاسیک ایرانی",
+      "slug": "genre-09",
+      "scope": "iranian",
+      "parent_id": null
+    },
+    {
+      "id": "genre-10",
+      "name": "مذهبی و آیینی",
+      "slug": "genre-10",
+      "scope": "iranian",
+      "parent_id": null
+    },
+    {
+      "id": "genre-11",
+      "name": "کودک و نوجوان",
+      "slug": "genre-11",
+      "scope": "iranian",
+      "parent_id": null
+    },
+    {
+      "id": "genre-12",
+      "name": "موسیقی فیلم و سریال",
+      "slug": "genre-12",
+      "scope": "iranian",
+      "parent_id": null
+    },
+    {
+      "id": "genre-13",
+      "name": "الکترونیک و رقص",
+      "slug": "genre-13",
+      "scope": "iranian",
+      "parent_id": null
+    },
+    {
+      "id": "genre-14",
+      "name": "حماسی",
+      "slug": "genre-14",
+      "scope": "iranian",
+      "parent_id": null
+    },
+    {
+      "id": "genre-15",
+      "name": "جاز",
+      "slug": "genre-15",
+      "scope": "international",
+      "parent_id": null
+    },
+    {
+      "id": "genre-16",
+      "name": "بلوز",
+      "slug": "genre-16",
+      "scope": "international",
+      "parent_id": null
+    },
+    {
+      "id": "genre-17",
+      "name": "کلاسیک غربی و اپرا",
+      "slug": "genre-17",
+      "scope": "international",
+      "parent_id": null
+    },
+    {
+      "id": "genre-18",
+      "name": "فولک و کانتری",
+      "slug": "genre-18",
+      "scope": "international",
+      "parent_id": null
+    },
+    {
+      "id": "genre-19",
+      "name": "لاتین",
+      "slug": "genre-19",
+      "scope": "international",
+      "parent_id": null
+    },
+    {
+      "id": "genre-20",
+      "name": "عربی",
+      "slug": "genre-20",
+      "scope": "international",
+      "parent_id": null
+    },
+    {
+      "id": "genre-21",
+      "name": "ترکی",
+      "slug": "genre-21",
+      "scope": "international",
+      "parent_id": null
+    },
+    {
+      "id": "genre-22",
+      "name": "هندی",
+      "slug": "genre-22",
+      "scope": "international",
+      "parent_id": null
+    },
+    {
+      "id": "genre-23",
+      "name": "شرق آسیا",
+      "slug": "genre-23",
+      "scope": "international",
+      "parent_id": null
+    },
+    {
+      "id": "genre-24",
+      "name": "آفریقایی",
+      "slug": "genre-24",
+      "scope": "international",
+      "parent_id": null
+    },
+    {
+      "id": "genre-25",
+      "name": "موسیقی بازی",
+      "slug": "genre-25",
+      "scope": "international",
+      "parent_id": null
+    },
+    {
+      "id": "genre-26",
+      "name": "معنوی و مراقبه",
+      "slug": "genre-26",
+      "scope": "international",
+      "parent_id": null
+    }
+  ],
+  "regions": [
+    {
+      "id": "region-01",
+      "name": "لری",
+      "slug": "region-01",
+      "language_or_culture": "لری"
+    },
+    {
+      "id": "region-02",
+      "name": "لکی",
+      "slug": "region-02",
+      "language_or_culture": "لکی"
+    },
+    {
+      "id": "region-03",
+      "name": "کردی",
+      "slug": "region-03",
+      "language_or_culture": "کردی"
+    },
+    {
+      "id": "region-04",
+      "name": "ترکی آذری",
+      "slug": "region-04",
+      "language_or_culture": "ترکی آذری"
+    },
+    {
+      "id": "region-05",
+      "name": "گیلکی",
+      "slug": "region-05",
+      "language_or_culture": "گیلکی"
+    },
+    {
+      "id": "region-06",
+      "name": "مازندرانی",
+      "slug": "region-06",
+      "language_or_culture": "مازندرانی"
+    },
+    {
+      "id": "region-07",
+      "name": "بلوچی",
+      "slug": "region-07",
+      "language_or_culture": "بلوچی"
+    },
+    {
+      "id": "region-08",
+      "name": "بختیاری",
+      "slug": "region-08",
+      "language_or_culture": "بختیاری"
+    },
+    {
+      "id": "region-09",
+      "name": "قشقایی",
+      "slug": "region-09",
+      "language_or_culture": "قشقایی"
+    },
+    {
+      "id": "region-10",
+      "name": "خراسانی",
+      "slug": "region-10",
+      "language_or_culture": "خراسانی"
+    },
+    {
+      "id": "region-11",
+      "name": "فارسی",
+      "slug": "region-11",
+      "language_or_culture": "فارسی"
+    },
+    {
+      "id": "region-12",
+      "name": "عربی",
+      "slug": "region-12",
+      "language_or_culture": "عربی"
+    },
+    {
+      "id": "region-13",
+      "name": "ترکی استانبولی",
+      "slug": "region-13",
+      "language_or_culture": "ترکی استانبولی"
+    },
+    {
+      "id": "region-14",
+      "name": "هندی",
+      "slug": "region-14",
+      "language_or_culture": "هندی"
+    },
+    {
+      "id": "region-15",
+      "name": "آذری",
+      "slug": "region-15",
+      "language_or_culture": "آذری"
+    },
+    {
+      "id": "region-16",
+      "name": "ارمنی",
+      "slug": "region-16",
+      "language_or_culture": "ارمنی"
+    },
+    {
+      "id": "region-17",
+      "name": "آفریقایی",
+      "slug": "region-17",
+      "language_or_culture": "آفریقایی"
+    }
+  ],
+  "instruments": [
+    {
+      "id": "instrument-001",
+      "name": "سنتور",
+      "scope": "ایرانی",
+      "family": "زهی مضرابی",
+      "description": "شرح و تاریخچه در مرحله تکمیل بانک اطلاعاتی افزوده می‌شود.",
+      "artist_ids": [],
+      "work_ids": []
+    },
+    {
+      "id": "instrument-002",
+      "name": "تار",
+      "scope": "ایرانی",
+      "family": "زهی مضرابی",
+      "description": "شرح و تاریخچه در مرحله تکمیل بانک اطلاعاتی افزوده می‌شود.",
+      "artist_ids": [],
+      "work_ids": []
+    },
+    {
+      "id": "instrument-003",
+      "name": "سه‌تار",
+      "scope": "ایرانی",
+      "family": "زهی مضرابی",
+      "description": "شرح و تاریخچه در مرحله تکمیل بانک اطلاعاتی افزوده می‌شود.",
+      "artist_ids": [],
+      "work_ids": []
+    },
+    {
+      "id": "instrument-004",
+      "name": "کمانچه",
+      "scope": "ایرانی",
+      "family": "زهی آرشه‌ای",
+      "description": "شرح و تاریخچه در مرحله تکمیل بانک اطلاعاتی افزوده می‌شود.",
+      "artist_ids": [],
+      "work_ids": []
+    },
+    {
+      "id": "instrument-005",
+      "name": "نی",
+      "scope": "ایرانی",
+      "family": "بادی",
+      "description": "شرح و تاریخچه در مرحله تکمیل بانک اطلاعاتی افزوده می‌شود.",
+      "artist_ids": [],
+      "work_ids": []
+    },
+    {
+      "id": "instrument-006",
+      "name": "عود / بربط",
+      "scope": "ایرانی و منطقه‌ای",
+      "family": "زهی مضرابی",
+      "description": "شرح و تاریخچه در مرحله تکمیل بانک اطلاعاتی افزوده می‌شود.",
+      "artist_ids": [],
+      "work_ids": []
+    },
+    {
+      "id": "instrument-007",
+      "name": "قانون",
+      "scope": "ایرانی و منطقه‌ای",
+      "family": "زهی مضرابی",
+      "description": "شرح و تاریخچه در مرحله تکمیل بانک اطلاعاتی افزوده می‌شود.",
+      "artist_ids": [],
+      "work_ids": []
+    },
+    {
+      "id": "instrument-008",
+      "name": "تنبک",
+      "scope": "ایرانی",
+      "family": "کوبه‌ای",
+      "description": "شرح و تاریخچه در مرحله تکمیل بانک اطلاعاتی افزوده می‌شود.",
+      "artist_ids": [],
+      "work_ids": []
+    },
+    {
+      "id": "instrument-009",
+      "name": "دف",
+      "scope": "ایرانی و منطقه‌ای",
+      "family": "کوبه‌ای",
+      "description": "شرح و تاریخچه در مرحله تکمیل بانک اطلاعاتی افزوده می‌شود.",
+      "artist_ids": [],
+      "work_ids": []
+    },
+    {
+      "id": "instrument-010",
+      "name": "دایره",
+      "scope": "ایرانی و منطقه‌ای",
+      "family": "کوبه‌ای",
+      "description": "شرح و تاریخچه در مرحله تکمیل بانک اطلاعاتی افزوده می‌شود.",
+      "artist_ids": [],
+      "work_ids": []
+    },
+    {
+      "id": "instrument-011",
+      "name": "نقاره",
+      "scope": "ایرانی و منطقه‌ای",
+      "family": "کوبه‌ای",
+      "description": "شرح و تاریخچه در مرحله تکمیل بانک اطلاعاتی افزوده می‌شود.",
+      "artist_ids": [],
+      "work_ids": []
+    },
+    {
+      "id": "instrument-012",
+      "name": "دهل",
+      "scope": "ایرانی و منطقه‌ای",
+      "family": "کوبه‌ای",
+      "description": "شرح و تاریخچه در مرحله تکمیل بانک اطلاعاتی افزوده می‌شود.",
+      "artist_ids": [],
+      "work_ids": []
+    },
+    {
+      "id": "instrument-013",
+      "name": "سرنا",
+      "scope": "ایرانی و منطقه‌ای",
+      "family": "بادی",
+      "description": "شرح و تاریخچه در مرحله تکمیل بانک اطلاعاتی افزوده می‌شود.",
+      "artist_ids": [],
+      "work_ids": []
+    },
+    {
+      "id": "instrument-014",
+      "name": "دوتار",
+      "scope": "ایرانی و منطقه‌ای",
+      "family": "زهی مضرابی",
+      "description": "شرح و تاریخچه در مرحله تکمیل بانک اطلاعاتی افزوده می‌شود.",
+      "artist_ids": [],
+      "work_ids": []
+    },
+    {
+      "id": "instrument-015",
+      "name": "تنبور",
+      "scope": "ایرانی و منطقه‌ای",
+      "family": "زهی مضرابی",
+      "description": "شرح و تاریخچه در مرحله تکمیل بانک اطلاعاتی افزوده می‌شود.",
+      "artist_ids": [],
+      "work_ids": []
+    },
+    {
+      "id": "instrument-016",
+      "name": "گیتار کلاسیک",
+      "scope": "جهانی",
+      "family": "زهی",
+      "description": "شرح و تاریخچه در مرحله تکمیل بانک اطلاعاتی افزوده می‌شود.",
+      "artist_ids": [],
+      "work_ids": []
+    },
+    {
+      "id": "instrument-017",
+      "name": "گیتار آکوستیک",
+      "scope": "جهانی",
+      "family": "زهی",
+      "description": "شرح و تاریخچه در مرحله تکمیل بانک اطلاعاتی افزوده می‌شود.",
+      "artist_ids": [],
+      "work_ids": []
+    },
+    {
+      "id": "instrument-018",
+      "name": "گیتار الکتریک",
+      "scope": "جهانی",
+      "family": "زهی الکتریکی",
+      "description": "شرح و تاریخچه در مرحله تکمیل بانک اطلاعاتی افزوده می‌شود.",
+      "artist_ids": [],
+      "work_ids": []
+    },
+    {
+      "id": "instrument-019",
+      "name": "گیتار باس",
+      "scope": "جهانی",
+      "family": "زهی الکتریکی",
+      "description": "شرح و تاریخچه در مرحله تکمیل بانک اطلاعاتی افزوده می‌شود.",
+      "artist_ids": [],
+      "work_ids": []
+    },
+    {
+      "id": "instrument-020",
+      "name": "ویولن",
+      "scope": "جهانی",
+      "family": "زهی آرشه‌ای",
+      "description": "شرح و تاریخچه در مرحله تکمیل بانک اطلاعاتی افزوده می‌شود.",
+      "artist_ids": [],
+      "work_ids": []
+    },
+    {
+      "id": "instrument-021",
+      "name": "ویولا",
+      "scope": "جهانی",
+      "family": "زهی آرشه‌ای",
+      "description": "شرح و تاریخچه در مرحله تکمیل بانک اطلاعاتی افزوده می‌شود.",
+      "artist_ids": [],
+      "work_ids": []
+    },
+    {
+      "id": "instrument-022",
+      "name": "ویولنسل",
+      "scope": "جهانی",
+      "family": "زهی آرشه‌ای",
+      "description": "شرح و تاریخچه در مرحله تکمیل بانک اطلاعاتی افزوده می‌شود.",
+      "artist_ids": [],
+      "work_ids": []
+    },
+    {
+      "id": "instrument-023",
+      "name": "کنترباس",
+      "scope": "جهانی",
+      "family": "زهی آرشه‌ای",
+      "description": "شرح و تاریخچه در مرحله تکمیل بانک اطلاعاتی افزوده می‌شود.",
+      "artist_ids": [],
+      "work_ids": []
+    },
+    {
+      "id": "instrument-024",
+      "name": "پیانو",
+      "scope": "جهانی",
+      "family": "کلاویه‌ای",
+      "description": "شرح و تاریخچه در مرحله تکمیل بانک اطلاعاتی افزوده می‌شود.",
+      "artist_ids": [],
+      "work_ids": []
+    },
+    {
+      "id": "instrument-025",
+      "name": "ارگ",
+      "scope": "جهانی",
+      "family": "کلاویه‌ای",
+      "description": "شرح و تاریخچه در مرحله تکمیل بانک اطلاعاتی افزوده می‌شود.",
+      "artist_ids": [],
+      "work_ids": []
+    },
+    {
+      "id": "instrument-026",
+      "name": "آکاردئون",
+      "scope": "جهانی",
+      "family": "کلاویه‌ای و بادی",
+      "description": "شرح و تاریخچه در مرحله تکمیل بانک اطلاعاتی افزوده می‌شود.",
+      "artist_ids": [],
+      "work_ids": []
+    },
+    {
+      "id": "instrument-027",
+      "name": "فلوت",
+      "scope": "جهانی",
+      "family": "بادی چوبی",
+      "description": "شرح و تاریخچه در مرحله تکمیل بانک اطلاعاتی افزوده می‌شود.",
+      "artist_ids": [],
+      "work_ids": []
+    },
+    {
+      "id": "instrument-028",
+      "name": "کلارینت",
+      "scope": "جهانی",
+      "family": "بادی چوبی",
+      "description": "شرح و تاریخچه در مرحله تکمیل بانک اطلاعاتی افزوده می‌شود.",
+      "artist_ids": [],
+      "work_ids": []
+    },
+    {
+      "id": "instrument-029",
+      "name": "ابوا",
+      "scope": "جهانی",
+      "family": "بادی چوبی",
+      "description": "شرح و تاریخچه در مرحله تکمیل بانک اطلاعاتی افزوده می‌شود.",
+      "artist_ids": [],
+      "work_ids": []
+    },
+    {
+      "id": "instrument-030",
+      "name": "فاگوت",
+      "scope": "جهانی",
+      "family": "بادی چوبی",
+      "description": "شرح و تاریخچه در مرحله تکمیل بانک اطلاعاتی افزوده می‌شود.",
+      "artist_ids": [],
+      "work_ids": []
+    },
+    {
+      "id": "instrument-031",
+      "name": "ساکسوفون",
+      "scope": "جهانی",
+      "family": "بادی چوبی",
+      "description": "شرح و تاریخچه در مرحله تکمیل بانک اطلاعاتی افزوده می‌شود.",
+      "artist_ids": [],
+      "work_ids": []
+    },
+    {
+      "id": "instrument-032",
+      "name": "ترومپت",
+      "scope": "جهانی",
+      "family": "بادی برنجی",
+      "description": "شرح و تاریخچه در مرحله تکمیل بانک اطلاعاتی افزوده می‌شود.",
+      "artist_ids": [],
+      "work_ids": []
+    },
+    {
+      "id": "instrument-033",
+      "name": "ترومبون",
+      "scope": "جهانی",
+      "family": "بادی برنجی",
+      "description": "شرح و تاریخچه در مرحله تکمیل بانک اطلاعاتی افزوده می‌شود.",
+      "artist_ids": [],
+      "work_ids": []
+    },
+    {
+      "id": "instrument-034",
+      "name": "هورن",
+      "scope": "جهانی",
+      "family": "بادی برنجی",
+      "description": "شرح و تاریخچه در مرحله تکمیل بانک اطلاعاتی افزوده می‌شود.",
+      "artist_ids": [],
+      "work_ids": []
+    },
+    {
+      "id": "instrument-035",
+      "name": "توبا",
+      "scope": "جهانی",
+      "family": "بادی برنجی",
+      "description": "شرح و تاریخچه در مرحله تکمیل بانک اطلاعاتی افزوده می‌شود.",
+      "artist_ids": [],
+      "work_ids": []
+    },
+    {
+      "id": "instrument-036",
+      "name": "درامز",
+      "scope": "جهانی",
+      "family": "کوبه‌ای",
+      "description": "شرح و تاریخچه در مرحله تکمیل بانک اطلاعاتی افزوده می‌شود.",
+      "artist_ids": [],
+      "work_ids": []
+    },
+    {
+      "id": "instrument-037",
+      "name": "کاخن",
+      "scope": "جهانی",
+      "family": "کوبه‌ای",
+      "description": "شرح و تاریخچه در مرحله تکمیل بانک اطلاعاتی افزوده می‌شود.",
+      "artist_ids": [],
+      "work_ids": []
+    },
+    {
+      "id": "instrument-038",
+      "name": "ماریمبا",
+      "scope": "جهانی",
+      "family": "کوبه‌ای کوک‌شده",
+      "description": "شرح و تاریخچه در مرحله تکمیل بانک اطلاعاتی افزوده می‌شود.",
+      "artist_ids": [],
+      "work_ids": []
+    },
+    {
+      "id": "instrument-039",
+      "name": "زیلوفون",
+      "scope": "جهانی",
+      "family": "کوبه‌ای کوک‌شده",
+      "description": "شرح و تاریخچه در مرحله تکمیل بانک اطلاعاتی افزوده می‌شود.",
+      "artist_ids": [],
+      "work_ids": []
+    },
+    {
+      "id": "instrument-040",
+      "name": "طبلا",
+      "scope": "هندی",
+      "family": "کوبه‌ای",
+      "description": "شرح و تاریخچه در مرحله تکمیل بانک اطلاعاتی افزوده می‌شود.",
+      "artist_ids": [],
+      "work_ids": []
+    },
+    {
+      "id": "instrument-041",
+      "name": "بانگو",
+      "scope": "جهانی",
+      "family": "کوبه‌ای",
+      "description": "شرح و تاریخچه در مرحله تکمیل بانک اطلاعاتی افزوده می‌شود.",
+      "artist_ids": [],
+      "work_ids": []
+    },
+    {
+      "id": "instrument-042",
+      "name": "کونگا",
+      "scope": "جهانی",
+      "family": "کوبه‌ای",
+      "description": "شرح و تاریخچه در مرحله تکمیل بانک اطلاعاتی افزوده می‌شود.",
+      "artist_ids": [],
+      "work_ids": []
+    },
+    {
+      "id": "instrument-043",
+      "name": "هندپن",
+      "scope": "جهانی",
+      "family": "کوبه‌ای کوک‌شده",
+      "description": "شرح و تاریخچه در مرحله تکمیل بانک اطلاعاتی افزوده می‌شود.",
+      "artist_ids": [],
+      "work_ids": []
+    }
+  ],
+  "artists": [
+    {
+      "id": "artist-sample-001",
+      "name": "نمونه هنرمند سنتی",
+      "slug": "sample-traditional-artist",
+      "artist_types": [
+        "خواننده",
+        "نوازنده"
+      ],
+      "genres": [
+        "سنتی و دستگاهی"
+      ],
+      "instrument_ids": [
+        "instrument-001"
+      ],
+      "region_ids": [
+        "region-11"
+      ],
+      "biography_status": "placeholder",
+      "works": [],
+      "rights_status": "unverified"
+    },
+    {
+      "id": "artist-sample-002",
+      "name": "نمونه نوازنده ساز ایرانی",
+      "slug": "sample-iranian-instrumentalist",
+      "artist_types": [
+        "نوازنده"
+      ],
+      "genres": [
+        "بی‌کلام"
+      ],
+      "instrument_ids": [
+        "instrument-002",
+        "instrument-003"
+      ],
+      "region_ids": [
+        "region-11"
+      ],
+      "biography_status": "placeholder",
+      "works": [],
+      "rights_status": "unverified"
+    }
+  ],
+  "works": [
+    {
+      "id": "work-sample-001",
+      "title": "نمونه قطعه موسیقی",
+      "slug": "sample-music-work",
+      "work_type": "track",
+      "artist_ids": [
+        "artist-sample-001"
+      ],
+      "composer_ids": [],
+      "lyricist_ids": [],
+      "genre_ids": [
+        "genre-01"
+      ],
+      "instrument_ids": [
+        "instrument-001"
+      ],
+      "region_ids": [
+        "region-11"
+      ],
+      "album_id": null,
+      "duration_seconds": null,
+      "media": {
+        "stream_url": null,
+        "download_url": null
+      },
+      "rights": {
+        "owner": null,
+        "permission_status": "not_checked",
+        "streaming_allowed": false,
+        "download_allowed": false,
+        "territories": [],
+        "valid_until": null
+      },
+      "is_placeholder": true
+    }
+  ],
+  "albums": [],
+  "poems": [],
+  "books": [],
+  "podcasts": [],
+  "events": [],
+  "lessons": []
+}
