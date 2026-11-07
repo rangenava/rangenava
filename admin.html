@@ -1,232 +1,45 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="fa" dir="rtl">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>پنل مدیریت رنگ‌نوا</title>
-
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>پنل مدیریت | رنگ‌نوا</title>
 <style>
-* {
-  box-sizing: border-box;
-}
-
-body {
-  font-family: Tahoma, sans-serif;
-  background: #f4f1eb;
-  color: #292929;
-  margin: 0;
-  padding: 16px;
-  line-height: 1.9;
-}
-
-main {
-  max-width: 950px;
-  margin: 25px auto;
-  background: white;
-  padding: 24px;
-  border-radius: 16px;
-  box-shadow: 0 4px 20px #0001;
-}
-
-h1, h2, h3 {
-  color: #76533e;
-}
-
-input, button {
-  display: block;
-  width: 100%;
-  padding: 13px;
-  margin: 12px 0;
-  border: 1px solid #ddd;
-  border-radius: 9px;
-  font: inherit;
-}
-
-input {
-  background: #fff;
-  color: #292929;
-}
-
-button {
-  background: #76533e;
-  color: white;
-  cursor: pointer;
-  border: none;
-}
-
-button:disabled {
-  opacity: .6;
-  cursor: wait;
-}
-
-.card {
-  background: #f7f4ef;
-  padding: 17px;
-  border-radius: 12px;
-  margin: 10px 0;
-  border-right: 4px solid #b99a5a;
-}
-
-.grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
-  gap: 8px;
-}
-
-#dashboard {
-  display: none;
-}
-
-#message, #analyticsMessage {
-  overflow-wrap: anywhere;
-  color: #76533e;
-}
-
-.page-item {
-  background: #f7f4ef;
-  padding: 10px;
-  margin: 7px 0;
-  border-radius: 8px;
-  overflow-wrap: anywhere;
-}
-
-.error {
-  color: #b3261e !important;
-}
-
-.success {
-  color: #287a43 !important;
-}
-</style>
-</head>
-
-<body>
-
-<main>
-
-<h1>پنل مدیریت رنگ‌نوا</h1>
-<p>مدیریت و مشاهده آمار پلتفرم</p>
-
-<!-- بخش ورود مدیر -->
-
-<section id="login">
-
-<h2>ورود مدیر</h2>
-
-<input
-  id="email"
-  type="email"
-  placeholder="ایمیل مدیر"
-  autocomplete="username"
->
-
-<input
-  id="password"
-  type="password"
-  placeholder="رمز عبور"
-  autocomplete="current-password"
->
-
-<button id="loginButton" type="button">
-ورود به پنل
-</button>
-
-<p id="message" role="status">
-در حال آماده‌سازی پنل...
-</p>
-
-</section>
-
-
-<!-- داشبورد مدیریت -->
-
-<section id="dashboard">
-
-<h2>آمار بازدید</h2>
-
-<div class="grid">
-
-  <div class="card">
-    کل بازدیدها: <b id="total">—</b>
-  </div>
-
-  <div class="card">
-    بازدید امروز: <b id="today">—</b>
-  </div>
-
-  <div class="card">
-    بازدید هفته: <b id="week">—</b>
-  </div>
-
-  <div class="card">
-    بازدید ماه: <b id="month">—</b>
-  </div>
-
-</div>
-
-<h3>۱۰ صفحه پربازدید</h3>
-
-<div id="pages">
-در انتظار دریافت اطلاعات...
-</div>
-
-<hr>
-
-<h2>آمار عملکرد پلتفرم</h2>
-
-<div class="grid">
-
-  <div class="card">
-    تعداد پخش‌ها: <b id="plays">—</b>
-  </div>
-
-  <div class="card">
-    تعداد دانلودها: <b id="downloads">—</b>
-  </div>
-
-  <div class="card">
-    نمایش تبلیغات: <b id="adImpressions">—</b>
-  </div>
-
-  <div class="card">
-    کلیک تبلیغات: <b id="adClicks">—</b>
-  </div>
-
-  <div class="card">
-    ثبت‌نام‌ها: <b id="signups">—</b>
-  </div>
-
-  <div class="card">
-    بازدید محتوا: <b id="contentViews">—</b>
-  </div>
-
-  <div class="card">
-    ثبت‌نام دوره‌ها: <b id="enrollments">—</b>
-  </div>
-
-  <div class="card">
-    جست‌وجوها: <b id="searches">—</b>
-  </div>
-
-</div>
-
-<p id="analyticsMessage">
-در انتظار دریافت آمار...
-</p>
-
-<button id="refreshButton" type="button">
-به‌روزرسانی آمار
-</button>
-
-<button id="logoutButton" type="button">
-خروج از پنل
-</button>
-
-</section>
-
-</main>
-
-
-<!-- کتابخانه Supabase -->
-
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2
+:root{--bg:#f3f5f7;--card:#fff;--ink:#17212b;--muted:#64748b;--line:#e2e8f0;--brand:#245b52;--brand2:#347c70;--danger:#b42318;--ok:#18794e;--shadow:0 8px 28px #17212b12}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:Tahoma,Arial,sans-serif;line-height:1.7}
+button,input{font:inherit}
+button{cursor:pointer;border:0;border-radius:9px;padding:10px 16px;background:var(--brand);color:#fff}
+button:hover{background:var(--brand2)}
+button:disabled{opacity:.5;cursor:not-allowed}
+input{width:100%;padding:12px;border:1px solid var(--line);border-radius:9px;background:#fff;color:var(--ink)}
+.wrap{max-width:1200px;margin:auto;padding:22px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:20px;box-shadow:var(--shadow);margin-bottom:18px}
+h1,h2,h3{margin:0 0 12px}
+h1{font-size:24px}
+h2{font-size:19px}
+p{margin:6px 0;color:var(--muted)}
+.login{max-width:440px;margin:7vh auto}
+.field{margin:14px 0}
+.field label{display:block;margin-bottom:6px;font-weight:bold}
+.status{padding:10px 13px;border-radius:9px;background:#eef2f6;color:#334155;margin:12px 0;white-space:pre-wrap}
+.status.error{background:#fff0ef;color:var(--danger)}
+.status.success{background:#eaf7ef;color:var(--ok)}
+.hidden{display:none!important}
+.top{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap}
+.muted{color:var(--muted);font-size:13px}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:14px}
+.metric{background:#f8fafc;border:1px solid var(--line);border-radius:12px;padding:16px}
+.metric strong{display:block;font-size:27px;color:var(--brand)}
+nav{display:flex;gap:8px;flex-wrap:wrap;margin:16px 0}
+nav button{background:#e4ecea;color:#17483f}
+nav button.active{background:var(--brand);color:#fff}
+.table-wrap{overflow:auto}
+table{border-collapse:collapse;width:100%;min-width:650px}
+th,td{padding:10px;border-bottom:1px solid var(--line);text-align:right;vertical-align:top;font-size:13px}
+th{background:#f8fafc}
+pre{white-space:pre-wrap;overflow-wrap:anywhere;margin:0;font-family:inherit}
+.actions{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+.secondary{background:#64748b}
+.danger{background:#a83232}
+.badge{display:inline-block;padding:3px 9px;border-radius:20px;background:#e7f1ef;color:#20584f;font-size:12
