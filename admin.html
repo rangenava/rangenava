@@ -1,8 +1,11 @@
-<!DOCTYPE html><html lang="fa" dir="rtl">
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>پنل مدیریت رنگ‌نوا</title><style>
+<title>پنل مدیریت رنگ‌نوا</title>
+
+<style>
 * {
   box-sizing: border-box;
 }
@@ -30,12 +33,18 @@ h1, h2, h3 {
 }
 
 input, button {
+  display: block;
   width: 100%;
   padding: 13px;
-  margin: 8px 0;
+  margin: 12px 0;
   border: 1px solid #ddd;
   border-radius: 9px;
   font: inherit;
+}
+
+input {
+  background: #fff;
+  color: #292929;
 }
 
 button {
@@ -69,8 +78,8 @@ button:disabled {
 }
 
 #message, #analyticsMessage {
-  color: #76533e;
   overflow-wrap: anywhere;
+  color: #76533e;
 }
 
 .page-item {
@@ -81,654 +90,143 @@ button:disabled {
   overflow-wrap: anywhere;
 }
 
-.status-error {
+.error {
   color: #b3261e !important;
 }
 
-.status-success {
+.success {
   color: #287a43 !important;
 }
+</style>
+</head>
 
-</style></head><body><main><h1>پنل مدیریت رنگ‌نوا</h1>
-<p>مدیریت و مشاهده آمار پلتفرم</p><section id="login"><h2>ورود مدیر</h2><input
-id="email"
-type="email"
-placeholder="ایمیل مدیر"
-autocomplete="username"
+<body>
 
-«»
+<main>
+
+<h1>پنل مدیریت رنگ‌نوا</h1>
+<p>مدیریت و مشاهده آمار پلتفرم</p>
+
+<!-- بخش ورود مدیر -->
+
+<section id="login">
+
+<h2>ورود مدیر</h2>
 
 <input
-id="password"
-type="password"
-placeholder="رمز عبور"
-autocomplete="current-password"
+  id="email"
+  type="email"
+  placeholder="ایمیل مدیر"
+  autocomplete="username"
+>
 
-«»
+<input
+  id="password"
+  type="password"
+  placeholder="رمز عبور"
+  autocomplete="current-password"
+>
 
 <button id="loginButton" type="button">
 ورود به پنل
-</button><p id="message" role="status">
+</button>
+
+<p id="message" role="status">
 در حال آماده‌سازی پنل...
-</p></section><section id="dashboard"><h2>آمار بازدید</h2><div class="grid">  <div class="card">
+</p>
+
+</section>
+
+
+<!-- داشبورد مدیریت -->
+
+<section id="dashboard">
+
+<h2>آمار بازدید</h2>
+
+<div class="grid">
+
+  <div class="card">
     کل بازدیدها: <b id="total">—</b>
-  </div>  <div class="card">
+  </div>
+
+  <div class="card">
     بازدید امروز: <b id="today">—</b>
-  </div>  <div class="card">
+  </div>
+
+  <div class="card">
     بازدید هفته: <b id="week">—</b>
-  </div>  <div class="card">
+  </div>
+
+  <div class="card">
     بازدید ماه: <b id="month">—</b>
-  </div></div><h3>۱۰ صفحه پربازدید</h3><div id="pages">
+  </div>
+
+</div>
+
+<h3>۱۰ صفحه پربازدید</h3>
+
+<div id="pages">
 در انتظار دریافت اطلاعات...
-</div><hr><h2>آمار عملکرد پلتفرم</h2><div class="grid">  <div class="card">
+</div>
+
+<hr>
+
+<h2>آمار عملکرد پلتفرم</h2>
+
+<div class="grid">
+
+  <div class="card">
     تعداد پخش‌ها: <b id="plays">—</b>
-  </div>  <div class="card">
+  </div>
+
+  <div class="card">
     تعداد دانلودها: <b id="downloads">—</b>
-  </div>  <div class="card">
+  </div>
+
+  <div class="card">
     نمایش تبلیغات: <b id="adImpressions">—</b>
-  </div>  <div class="card">
+  </div>
+
+  <div class="card">
     کلیک تبلیغات: <b id="adClicks">—</b>
-  </div>  <div class="card">
+  </div>
+
+  <div class="card">
     ثبت‌نام‌ها: <b id="signups">—</b>
-  </div>  <div class="card">
+  </div>
+
+  <div class="card">
     بازدید محتوا: <b id="contentViews">—</b>
-  </div>  <div class="card">
+  </div>
+
+  <div class="card">
     ثبت‌نام دوره‌ها: <b id="enrollments">—</b>
-  </div>  <div class="card">
+  </div>
+
+  <div class="card">
     جست‌وجوها: <b id="searches">—</b>
-  </div></div><p id="analyticsMessage">
+  </div>
+
+</div>
+
+<p id="analyticsMessage">
 در انتظار دریافت آمار...
-</p><button id="refreshButton" type="button">
+</p>
+
+<button id="refreshButton" type="button">
 به‌روزرسانی آمار
-</button><button id="logoutButton" type="button">
+</button>
+
+<button id="logoutButton" type="button">
 خروج از پنل
-</button></section></main><!-- کتابخانه Supabase --><script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script><!-- تنظیمات اتصال پروژه --><script src="rangenava-config.js"></script><script>
-(function () {
+</button>
 
-"use strict";
+</section>
 
+</main>
 
-/* عناصر صفحه */
 
-const loginSection = document.getElementById("login");
-const dashboard = document.getElementById("dashboard");
+<!-- کتابخانه Supabase -->
 
-const message = document.getElementById("message");
-const analyticsMessage = document.getElementById("analyticsMessage");
-
-const loginButton = document.getElementById("loginButton");
-const refreshButton = document.getElementById("refreshButton");
-const logoutButton = document.getElementById("logoutButton");
-
-let db = null;
-
-
-/* نمایش پیام */
-
-function showMessage(text, type) {
-
-  message.textContent = text;
-
-  message.className = "";
-
-  if (type === "error") {
-    message.classList.add("status-error");
-  }
-
-  if (type === "success") {
-    message.classList.add("status-success");
-  }
-
-}
-
-
-/* نمایش اعداد */
-
-function setNumber(id, value) {
-
-  const element = document.getElementById(id);
-
-  if (element) {
-    element.textContent =
-      Number(value || 0).toLocaleString("fa-IR");
-  }
-
-}
-
-
-/* راه‌اندازی اتصال */
-
-function initialize() {
-
-  if (!window.supabase) {
-
-    showMessage(
-      "کتابخانه Supabase بارگذاری نشده است. اتصال اینترنت را بررسی کنید.",
-      "error"
-    );
-
-    return false;
-  }
-
-  const config = window.RANGENAVA_CONFIG;
-
-  if (
-    !config ||
-    !config.url ||
-    !config.anonKey
-  ) {
-
-    showMessage(
-      "تنظیمات اتصال Supabase پیدا نشد. فایل rangenava-config.js را بررسی کنید.",
-      "error"
-    );
-
-    return false;
-  }
-
-  try {
-
-    db = window.supabase.createClient(
-      config.url,
-      config.anonKey
-    );
-
-    return true;
-
-  } catch (error) {
-
-    showMessage(
-      "خطا در ساخت اتصال: " + error.message,
-      "error"
-    );
-
-    return false;
-  }
-
-}
-
-
-/* بررسی دسترسی مدیر */
-
-async function checkAdmin(user) {
-
-  if (!user) {
-    return false;
-  }
-
-  const { data, error } = await db
-    .from("admin_users")
-    .select("user_id, role, is_active")
-    .eq("user_id", user.id)
-    .eq("is_active", true)
-    .maybeSingle();
-
-  if (error) {
-
-    console.error("Admin check error:", error);
-
-    showMessage(
-      "خطا در بررسی دسترسی مدیر: " + error.message,
-      "error"
-    );
-
-    return false;
-  }
-
-  if (!data) {
-
-    showMessage(
-      "این حساب کاربری دسترسی مدیریت رنگ‌نوا را ندارد.",
-      "error"
-    );
-
-    await db.auth.signOut();
-
-    return false;
-  }
-
-  return true;
-
-}
-
-
-/* ورود به داشبورد */
-
-async function openDashboard(user) {
-
-  const allowed = await checkAdmin(user);
-
-  if (!allowed) {
-    return;
-  }
-
-  loginSection.style.display = "none";
-  dashboard.style.display = "block";
-
-  await refreshStats();
-
-}
-
-
-/* ورود مدیر */
-
-async function login() {
-
-  if (!db) {
-
-    showMessage(
-      "اتصال Supabase برقرار نیست. صفحه را تازه‌سازی کنید.",
-      "error"
-    );
-
-    return;
-  }
-
-  const email = document
-    .getElementById("email")
-    .value
-    .trim();
-
-  const password = document
-    .getElementById("password")
-    .value;
-
-  if (!email || !password) {
-
-    showMessage(
-      "ایمیل و رمز عبور را وارد کنید.",
-      "error"
-    );
-
-    return;
-  }
-
-  loginButton.disabled = true;
-
-  showMessage("در حال بررسی اطلاعات ورود...");
-
-  try {
-
-    const { data, error } = await db.auth.signInWithPassword({
-      email: email,
-      password: password
-    });
-
-    if (error) {
-
-      showMessage(
-        "ورود ناموفق: " + error.message,
-        "error"
-      );
-
-      return;
-    }
-
-    if (!data.user) {
-
-      showMessage(
-        "اطلاعات حساب کاربری دریافت نشد.",
-        "error"
-      );
-
-      return;
-    }
-
-    await openDashboard(data.user);
-
-  } catch (error) {
-
-    console.error(error);
-
-    showMessage(
-      "خطای غیرمنتظره هنگام ورود: " + error.message,
-      "error"
-    );
-
-  } finally {
-
-    loginButton.disabled = false;
-
-  }
-
-}
-
-
-/* دریافت آمار بازدید */
-
-async function loadStats() {
-
-  const now = new Date();
-
-  const todayStart = new Date(
-    now.getFullYear(),
-    now.getMonth(),
-    now.getDate()
-  ).toISOString();
-
-  const weekStart = new Date(
-    now.getTime() - 7 * 24 * 60 * 60 * 1000
-  ).toISOString();
-
-  const monthStart = new Date(
-    now.getFullYear(),
-    now.getMonth(),
-    1
-  ).toISOString();
-
-
-  const results = await Promise.all([
-
-    db.from("page_views")
-      .select("*", { count: "exact", head: true }),
-
-    db.from("page_views")
-      .select("*", { count: "exact", head: true })
-      .gte("created_at", todayStart),
-
-    db.from("page_views")
-      .select("*", { count: "exact", head: true })
-      .gte("created_at", weekStart),
-
-    db.from("page_views")
-      .select("*", { count: "exact", head: true })
-      .gte("created_at", monthStart)
-
-  ]);
-
-
-  const failed = results.find(result => result.error);
-
-  if (failed) {
-    throw failed.error;
-  }
-
-  setNumber("total", results[0].count);
-  setNumber("today", results[1].count);
-  setNumber("week", results[2].count);
-  setNumber("month", results[3].count);
-
-
-  /* صفحات پربازدید */
-
-  const { data, error } = await db
-    .from("page_views")
-    .select("path")
-    .limit(5000);
-
-  if (error) {
-    throw error;
-  }
-
-  const counts = {};
-
-  (data || []).forEach(row => {
-
-    const path = row.path || "/";
-
-    counts[path] = (counts[path] || 0) + 1;
-
-  });
-
-
-  const topPages = Object.entries(counts)
-    .sort((a, b) => b[1] - a[1])
-    .slice(0, 10);
-
-
-  const container = document.getElementById("pages");
-
-  container.textContent = "";
-
-  if (topPages.length === 0) {
-
-    container.textContent =
-      "هنوز بازدیدی ثبت نشده است.";
-
-  } else {
-
-    topPages.forEach(([path, count], index) => {
-
-      const item = document.createElement("div");
-
-      item.className = "page-item";
-
-      item.textContent =
-        (index + 1) +
-        ". " +
-        path +
-        " — " +
-        Number(count).toLocaleString("fa-IR") +
-        " بازدید";
-
-      container.appendChild(item);
-
-    });
-
-  }
-
-}
-
-
-/* دریافت آمار عملکرد */
-
-async function loadAnalytics() {
-
-  analyticsMessage.textContent =
-    "در حال دریافت آمار عملکرد...";
-
-  try {
-
-    const { data, error } = await db
-      .from("analytics_events")
-      .select("event_type");
-
-    if (error) {
-      throw error;
-    }
-
-    const counts = {
-
-      play: 0,
-      download: 0,
-      ad_impression: 0,
-      ad_click: 0,
-      signup: 0,
-      content_view: 0,
-      course_enrollment: 0,
-      search: 0
-
-    };
-
-    (data || []).forEach(event => {
-
-      if (counts[event.event_type] !== undefined) {
-        counts[event.event_type]++;
-      }
-
-    });
-
-
-    setNumber("plays", counts.play);
-    setNumber("downloads", counts.download);
-    setNumber("adImpressions", counts.ad_impression);
-    setNumber("adClicks", counts.ad_click);
-    setNumber("signups", counts.signup);
-    setNumber("contentViews", counts.content_view);
-    setNumber("enrollments", counts.course_enrollment);
-    setNumber("searches", counts.search);
-
-
-    analyticsMessage.textContent =
-      "آمار عملکرد با موفقیت به‌روزرسانی شد.";
-
-  } catch (error) {
-
-    console.error("Analytics error:", error);
-
-    analyticsMessage.textContent =
-      "خطا در دریافت آمار عملکرد: " + error.message;
-
-  }
-
-}
-
-
-/* به‌روزرسانی همه آمار */
-
-async function refreshStats() {
-
-  if (!db) {
-
-    analyticsMessage.textContent =
-      "اتصال به پایگاه داده برقرار نیست.";
-
-    return;
-  }
-
-  refreshButton.disabled = true;
-
-  refreshButton.textContent =
-    "در حال به‌روزرسانی...";
-
-  try {
-
-    try {
-
-      await loadStats();
-
-    } catch (error) {
-
-      console.error("Page views error:", error);
-
-      document.getElementById("pages").textContent =
-        "خطا در دریافت آمار بازدید: " + error.message;
-
-    }
-
-    await loadAnalytics();
-
-  } finally {
-
-    refreshButton.disabled = false;
-
-    refreshButton.textContent =
-      "به‌روزرسانی آمار";
-
-  }
-
-}
-
-
-/* خروج از پنل */
-
-async function logout() {
-
-  if (!db) {
-    return;
-  }
-
-  logoutButton.disabled = true;
-
-  try {
-
-    const { error } = await db.auth.signOut();
-
-    if (error) {
-      throw error;
-    }
-
-    dashboard.style.display = "none";
-    loginSection.style.display = "block";
-
-    document.getElementById("password").value = "";
-
-    showMessage(
-      "با موفقیت از پنل خارج شدید.",
-      "success"
-    );
-
-  } catch (error) {
-
-    showMessage(
-      "خطا در خروج: " + error.message,
-      "error"
-    );
-
-  } finally {
-
-    logoutButton.disabled = false;
-
-  }
-
-}
-
-
-/* اتصال دکمه‌ها */
-
-loginButton.addEventListener("click", login);
-
-refreshButton.addEventListener("click", refreshStats);
-
-logoutButton.addEventListener("click", logout);
-
-
-document
-  .getElementById("password")
-  .addEventListener("keydown", function(event) {
-
-    if (event.key === "Enter") {
-      login();
-    }
-
-  });
-
-
-/* شروع پنل */
-
-async function start() {
-
-  if (!initialize()) {
-    return;
-  }
-
-  showMessage(
-    "اتصال برقرار شد. در انتظار ورود مدیر...",
-    "success"
-  );
-
-  try {
-
-    const { data, error } = await db.auth.getSession();
-
-    if (error) {
-      throw error;
-    }
-
-    if (data.session && data.session.user) {
-
-      await openDashboard(data.session.user);
-
-    }
-
-  } catch (error) {
-
-    console.error("Startup error:", error);
-
-    showMessage(
-      "خطا در راه‌اندازی پنل: " + error.message,
-      "error"
-    );
-
-  }
-
-}
-
-
-/* اجرای اولیه */
-
-start();
-
-})();
-</script></body>
-</html>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2
