@@ -50,6 +50,47 @@ small{color:#777}
 
 <p id="analyticsMessage">در انتظار دریافت آمار...</p>
 <button onclick="loadStats()">به‌روزرسانی آمار</button>
+async function loadAnalytics() {
+  const message = document.getElementById('analyticsMessage');
+
+  const { data, error } = await db
+    .from('analytics_events')
+    .select('event_type');
+
+  if (error) {
+    message.textContent = 'خطا در دریافت آمار عملکرد.';
+    console.error(error);
+    return;
+  }
+
+  const counts = {
+    play: 0,
+    download: 0,
+    ad_impression: 0,
+    ad_click: 0,
+    signup: 0,
+    content_view: 0,
+    course_enrollment: 0,
+    search: 0
+  };
+
+  (data || []).forEach(event => {
+    if (counts[event.event_type] !== undefined) {
+      counts[event.event_type]++;
+    }
+  });
+
+  document.getElementById('plays').textContent = counts.play;
+  document.getElementById('downloads').textContent = counts.download;
+  document.getElementById('adImpressions').textContent = counts.ad_impression;
+  document.getElementById('adClicks').textContent = counts.ad_click;
+  document.getElementById('signups').textContent = counts.signup;
+  document.getElementById('contentViews').textContent = counts.content_view;
+  document.getElementById('enrollments').textContent = counts.course_enrollment;
+  document.getElementById('searches').textContent = counts.search;
+
+  message.textContent = 'آمار با موفقیت به‌روزرسانی شد.';
+}
 <button onclick="logout()">خروج</button>
 </section>
 </main>
@@ -90,6 +131,7 @@ async function loadStats(){
     .select('path,created_at');
   if(error){document.getElementById('pages').textContent='خطا در دریافت آمار';return;}
   const rows=data||[];
+loadAnalytics();
   const now=new Date();
   const startToday=new Date(now);startToday.setHours(0,0,0,0);
   const startWeek=new Date(now);startWeek.setDate(now.getDate()-6);startWeek.setHours(0,0,0,0);
