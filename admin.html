@@ -3,160 +3,302 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>مدیریت رنگ‌نوا</title>
+<title>پنل مدیریت رنگ‌نوا</title>
+
 <style>
-body{font-family:Tahoma,sans-serif;background:#f4f1eb;color:#292929;margin:0;padding:20px}
-main{max-width:850px;margin:35px auto;background:white;padding:25px;border-radius:16px;box-shadow:0 4px 20px #0001}
-h1{color:#76533e}
-input,button{padding:12px;margin:7px 0;border:1px solid #ddd;border-radius:8px;font:inherit;max-width:100%}
-button{background:#76533e;color:white;cursor:pointer}
-.card{background:#f7f4ef;padding:18px;border-radius:12px;margin:12px 0}
+*{box-sizing:border-box}
+
+body{
+  font-family:Tahoma,sans-serif;
+  background:#f4f1eb;
+  color:#292929;
+  margin:0;
+  padding:20px;
+  line-height:1.9;
+}
+
+main{
+  max-width:900px;
+  margin:35px auto;
+  background:white;
+  padding:25px;
+  border-radius:16px;
+  box-shadow:0 4px 20px #0001;
+}
+
+h1,h2,h3{color:#76533e}
+
+input,button{
+  padding:12px;
+  margin:7px 0;
+  border:1px solid #ddd;
+  border-radius:8px;
+  font:inherit;
+  max-width:100%;
+}
+
+input{width:100%}
+
+button{
+  background:#76533e;
+  color:white;
+  cursor:pointer;
+  border:none;
+  padding:12px 20px;
+}
+
+button:hover{background:#5d402f}
+
+.card{
+  background:#f7f4ef;
+  padding:18px;
+  border-radius:12px;
+  margin:12px 0;
+  border-right:4px solid #b99a5a;
+}
+
 #dashboard{display:none}
+
+#message,#analyticsMessage{
+  color:#76533e;
+  font-size:14px;
+}
+
+.stats-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(190px,1fr));
+  gap:8px;
+}
+
+section{margin-top:20px}
+
 small{color:#777}
 </style>
 </head>
+
 <body>
+
 <main>
+
 <h1>پنل مدیریت رنگ‌نوا</h1>
-<p>ورود مدیر و مشاهده آمار بازدید سایت</p>
+<p>مدیریت و بررسی آمار پلتفرم</p>
 
 <section id="login">
-<input id="email" type="email" placeholder="ایمیل مدیر">
-<br>
-<input id="password" type="password" placeholder="رمز عبور">
-<br>
+
+<h2>ورود مدیر</h2>
+
+<input id="email" type="email"
+placeholder="ایمیل مدیر">
+
+<input id="password" type="password"
+placeholder="رمز عبور">
+
 <button onclick="login()">ورود</button>
+
 <p id="message"></p>
+
 </section>
 
 <section id="dashboard">
+
 <h2>آمار بازدید</h2>
-<div class="card">کل بازدیدها: <b id="total">—</b></div>
-<div class="card">بازدید امروز: <b id="today">—</b></div>
-<div class="card">بازدید هفته: <b id="week">—</b></div>
-<div class="card">بازدید ماه: <b id="month">—</b></div>
+
+<div class="stats-grid">
+
+<div class="card">
+کل بازدیدها: <b id="total">—</b>
+</div>
+
+<div class="card">
+بازدید امروز: <b id="today">—</b>
+</div>
+
+<div class="card">
+بازدید هفته: <b id="week">—</b>
+</div>
+
+<div class="card">
+بازدید ماه: <b id="month">—</b>
+</div>
+
+</div>
+
 <h3>صفحات پربازدید</h3>
+
 <div id="pages">در حال دریافت اطلاعات...</div>
+
+<hr>
+
 <h2>آمار عملکرد پلتفرم</h2>
 
-<div class="card">تعداد پخش‌ها: <b id="plays">—</b></div>
-<div class="card">تعداد دانلودها: <b id="downloads">—</b></div>
-<div class="card">نمایش تبلیغات: <b id="adImpressions">—</b></div>
-<div class="card">کلیک تبلیغات: <b id="adClicks">—</b></div>
-<div class="card">ثبت‌نام‌ها: <b id="signups">—</b></div>
-<div class="card">بازدید محتوا: <b id="contentViews">—</b></div>
-<div class="card">ثبت‌نام دوره‌ها: <b id="enrollments">—</b></div>
-<div class="card">جست‌وجوها: <b id="searches">—</b></div>
+<div class="stats-grid">
 
-<p id="analyticsMessage">در انتظار دریافت آمار...</p>
-<button onclick="loadStats()">به‌روزرسانی آمار</button>
-async function loadAnalytics() {
-  const message = document.getElementById('analyticsMessage');
+<div class="card">
+تعداد پخش‌ها: <b id="plays">—</b>
+</div>
 
-  const { data, error } = await db
-    .from('analytics_events')
-    .select('event_type');
+<div class="card">
+تعداد دانلودها: <b id="downloads">—</b>
+</div>
 
-  if (error) {
-    message.textContent = 'خطا در دریافت آمار عملکرد.';
-    console.error(error);
-    return;
-  }
+<div class="card">
+نمایش تبلیغات: <b id="adImpressions">—</b>
+</div>
 
-  const counts = {
-    play: 0,
-    download: 0,
-    ad_impression: 0,
-    ad_click: 0,
-    signup: 0,
-    content_view: 0,
-    course_enrollment: 0,
-    search: 0
-  };
+<div class="card">
+کلیک تبلیغات: <b id="adClicks">—</b>
+</div>
 
-  (data || []).forEach(event => {
-    if (counts[event.event_type] !== undefined) {
-      counts[event.event_type]++;
-    }
-  });
+<div class="card">
+ثبت‌نام‌ها: <b id="signups">—</b>
+</div>
 
-  document.getElementById('plays').textContent = counts.play;
-  document.getElementById('downloads').textContent = counts.download;
-  document.getElementById('adImpressions').textContent = counts.ad_impression;
-  document.getElementById('adClicks').textContent = counts.ad_click;
-  document.getElementById('signups').textContent = counts.signup;
-  document.getElementById('contentViews').textContent = counts.content_view;
-  document.getElementById('enrollments').textContent = counts.course_enrollment;
-  document.getElementById('searches').textContent = counts.search;
+<div class="card">
+بازدید محتوا: <b id="contentViews">—</b>
+</div>
 
-  message.textContent = 'آمار با موفقیت به‌روزرسانی شد.';
-}
-<button onclick="logout()">خروج</button>
+<div class="card">
+ثبت‌نام دوره‌ها: <b id="enrollments">—</b>
+</div>
+
+<div class="card">
+جست‌وجوها: <b id="searches">—</b>
+</div>
+
+</div>
+
+<p id="analyticsMessage">
+در انتظار دریافت آمار...
+</p>
+
+<button onclick="refreshStats()">
+به‌روزرسانی آمار
+</button>
+
+<button onclick="logout()">
+خروج از پنل
+</button>
+
 </section>
+
 </main>
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script src="rangenava-config.js"></script>
+
 <script>
-const db = supabase.createClient(
-  window.RANGENAVA_CONFIG.url,
-  window.RANGENAVA_CONFIG.anonKey
+
+const config = window.RANGENAVA_CONFIG;
+
+if (!window.supabase || !config || !config.url || !config.anonKey) {
+  document.getElementById('message').textContent =
+    'خطا در بارگذاری تنظیمات اتصال.';
+  throw new Error('Supabase configuration is missing.');
+}
+
+const db = window.supabase.createClient(
+  config.url,
+  config.anonKey
 );
 
 async function login(){
-  const {data,error}=await db.auth.signInWithPassword({
-    email:document.getElementById('email').value,
-    password:document.getElementById('password').value
+
+  const email = document.getElementById('email').value.trim();
+  const password = document.getElementById('password').value;
+
+  const message = document.getElementById('message');
+
+  if(!email || !password){
+    message.textContent = 'ایمیل و رمز عبور را وارد کنید.';
+    return;
+  }
+
+  message.textContent = 'در حال بررسی اطلاعات...';
+
+  const {error} = await db.auth.signInWithPassword({
+    email,
+    password
   });
-  if(error){document.getElementById('message').textContent=error.message;return;}
+
+  if(error){
+    message.textContent = 'ورود ناموفق بود: ' + error.message;
+    return;
+  }
+
   await checkAdmin();
 }
 
 async function checkAdmin(){
-  const {data:{user}}=await db.auth.getUser();
-  if(!user)return;
-  const {data,error}=await db.from('admin_users')
-    .select('user_id').eq('user_id',user.id).eq('is_active',true).maybeSingle();
-  if(error||!data){
-    document.getElementById('message').textContent='دسترسی مدیر تأیید نشد.';
-    await db.auth.signOut();return;
+
+  const {data:{user},error:userError} = await db.auth.getUser();
+
+  if(userError || !user){
+    return;
   }
-  document.getElementById('login').style.display='none';
-  document.getElementById('dashboard').style.display='block';
-  loadStats();
+
+  const {data,error} = await db
+    .from('admin_users')
+    .select('user_id')
+    .eq('user_id',user.id)
+    .eq('is_active',true)
+    .maybeSingle();
+
+  if(error || !data){
+
+    document.getElementById('message').textContent =
+      'دسترسی مدیر تأیید نشد.';
+
+    await db.auth.signOut();
+    return;
+  }
+
+  document.getElementById('login').style.display = 'none';
+  document.getElementById('dashboard').style.display = 'block';
+
+  await refreshStats();
+}
+
+async function refreshStats(){
+
+  await loadStats();
+  await loadAnalytics();
+
 }
 
 async function loadStats(){
-  const {data,error}=await db.from('page_views')
+
+  const pages = document.getElementById('pages');
+
+  const {data,error} = await db
+    .from('page_views')
     .select('path,created_at');
-  if(error){document.getElementById('pages').textContent='خطا در دریافت آمار';return;}
-  const rows=data||[];
-loadAnalytics();
-  const now=new Date();
-  const startToday=new Date(now);startToday.setHours(0,0,0,0);
-  const startWeek=new Date(now);startWeek.setDate(now.getDate()-6);startWeek.setHours(0,0,0,0);
-  const startMonth=new Date(now.getFullYear(),now.getMonth(),1);
-  const countSince=(date)=>rows.filter(x=>new Date(x.created_at)>=date).length;
 
-  document.getElementById('total').textContent=rows.length;
-  document.getElementById('today').textContent=countSince(startToday);
-  document.getElementById('week').textContent=countSince(startWeek);
-  document.getElementById('month').textContent=countSince(startMonth);
+  if(error){
+    pages.textContent = 'خطا در دریافت آمار بازدید.';
+    console.error(error);
+    return;
+  }
 
-  const counts={};
-  rows.forEach(x=>{const p=x.path||'/';counts[p]=(counts[p]||0)+1;});
-  const sorted=Object.entries(counts).sort((a,b)=>b[1]-a[1]).slice(0,10);
-  document.getElementById('pages').innerHTML=sorted.length
-    ? sorted.map(x=>`<div class="card">${x[0]} — ${x[1]} بازدید</div>`).join('')
-    : 'هنوز بازدیدی ثبت نشده است.';
-}
+  const rows = data || [];
 
-async function logout(){
-  await db.auth.signOut();
-  location.reload();
-}
+  const now = new Date();
 
-checkAdmin();
-</script>
-</body>
-</html>
+  const startToday = new Date(now);
+  startToday.setHours(0,0,0,0);
+
+  const startWeek = new Date(now);
+  startWeek.setDate(now.getDate()-6);
+  startWeek.setHours(0,0,0,0);
+
+  const startMonth = new Date(
+    now.getFullYear(),
+    now.getMonth(),
+    1
+  );
+
+  const countSince = date =>
+    rows.filter(x =>
+      new Date(x.created_at) >= date
+    ).length;
+
+  document.getElementBy
