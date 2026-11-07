@@ -1,4 +1,4 @@
 window.RANGENAVA_CONFIG = {
   url: "https://yfubmsmsqjoqniioavo.supabase.co",
-  anonKey: "PASTE_YOUR_PUBLISHABLE_KEY_HERE"
+  anonKey: "sb_publishable_0X8Ck4SjYuiICzjtvD2wBw_Y5-arFPs"
 };
