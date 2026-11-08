@@ -232,7 +232,18 @@ return;
 }
 
 try{
-db=window.supabase.createClient(c.url,c.anonKey);
+const cleanUrl = String(c.url).trim();
+const cleanKey = String(c.anonKey).replace(/[^\x21-\x7E]/g, "");
+
+if (!/^https:\/\/[a-z0-9.-]+\.supabase\.co$/i.test(cleanUrl)) {
+  throw new Error("آدرس Supabase معتبر نیست.");
+}
+
+if (!cleanKey.startsWith("sb_publishable_")) {
+  throw new Error("کلید عمومی Supabase معتبر نیست.");
+}
+
+db = window.supabase.createClient(cleanUrl, cleanKey);
 }catch(e){
 setStatus('loginStatus','ساخت اتصال Supabase ناموفق بود: '+readableError(e),'error');
 $('loginBtn').disabled=true;
