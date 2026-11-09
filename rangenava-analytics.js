@@ -6,6 +6,20 @@
 
   const client = supabase.createClient(config.url, config.anonKey);
 
+  // هر بار ورود یا بارگذاری صفحه، یک بازدید جدید ثبت می‌شود.
+  async function recordPageView() {
+    const { error } = await client
+      .from("page_views")
+      .insert({
+        path: location.pathname
+      });
+
+    if (error) {
+      console.error("Page view error:", error);
+    }
+  }
+
+  // شناسه نشست برای آمار بازدیدکنندگان تقریبی
   let sessionId = sessionStorage.getItem("rn_session");
 
   if (!sessionId) {
@@ -14,24 +28,27 @@
   }
 
   async function track(eventType, entityType, entityId) {
-    try {
-      await client.from("analytics_events").insert({
+    const { error } = await client
+      .from("analytics_events")
+      .insert({
         event_type: eventType,
         entity_type: entityType || null,
         entity_id: entityId || null,
         path: location.pathname,
         session_id: sessionId
       });
-    } catch (error) {
+
+    if (error) {
       console.error("Analytics error:", error);
     }
   }
 
   window.RangenavaAnalytics = { track };
 
+  recordPageView();
+
   document.addEventListener("click", function (event) {
     const link = event.target.closest("a");
-
     if (!link) return;
 
     if (link.hasAttribute("download") ||
@@ -60,7 +77,7 @@
         if (entry.isIntersecting) {
           track("ad_impression", "advertisement",
                 ad.dataset.adId);
-          observer.unobserve(ad);
+          observer.unobserve(entry.target);
         }
       });
     });
