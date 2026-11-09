@@ -207,5 +207,7 @@ body{background:#fff!important;color:#171717!important}
 <script>
 (function(){const input=document.getElementById('rnCatalogSearch'),type=document.getElementById('rnTypeFilter'),cards=[...document.querySelectorAll('.rn-record')],empty=document.getElementById('rnNoResults');if(!input||!type)return;const norm=s=>(s||'').toLocaleLowerCase('fa').replace(/[ي]/g,'ی').replace(/[ك]/g,'ک').replace(/[ً-ٰٟ]/g,'').replace(/\s+/g,' ').trim();function run(){let n=0;const q=norm(input.value),t=type.value;cards.forEach(c=>{const ok=(t==='all'||c.dataset.type===t)&&(!q||norm(c.innerText+' '+c.dataset.search).includes(q));c.style.display=ok?'':'none';if(ok)n++});empty.style.display=n?'none':'block'}input.addEventListener('input',run);type.addEventListener('change',run)})();
 </script>
-
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="rangenava-config.js"></script>
+<script src="rangenava-analytics.js"></script>
 </body></html>
