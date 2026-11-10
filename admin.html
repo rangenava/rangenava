@@ -4,56 +4,224 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>پنل مدیریت | رنگ‌نوا</title>
+
 <style>
-:root{--bg:#f3f5f7;--card:#fff;--ink:#17212b;--muted:#64748b;--line:#e2e8f0;--brand:#245b52;--brand2:#347c70;--danger:#b42318;--ok:#18794e;--shadow:0 8px 28px #17212b12}
+:root{
+--bg:#f3f5f7;
+--card:#fff;
+--ink:#17212b;
+--muted:#64748b;
+--line:#e2e8f0;
+--brand:#245b52;
+--brand2:#347c70;
+--danger:#b42318;
+--ok:#18794e;
+--shadow:0 8px 28px #17212b12
+}
+
 *{box-sizing:border-box}
-body{margin:0;background:var(--bg);color:var(--ink);font-family:Tahoma,Arial,sans-serif;line-height:1.7}
-button,input{font:inherit}
-button{cursor:pointer;border:0;border-radius:9px;padding:10px 16px;background:var(--brand);color:#fff}
+
+body{
+margin:0;
+background:var(--bg);
+color:var(--ink);
+font-family:Tahoma,Arial,sans-serif;
+line-height:1.7
+}
+
+button,input{
+font:inherit
+}
+
+button{
+cursor:pointer;
+border:0;
+border-radius:9px;
+padding:10px 16px;
+background:var(--brand);
+color:#fff
+}
+
 button:hover{background:var(--brand2)}
 button:disabled{opacity:.5;cursor:not-allowed}
-input{width:100%;padding:12px;border:1px solid var(--line);border-radius:9px;background:#fff;color:var(--ink)}
-.wrap{max-width:1200px;margin:auto;padding:22px}
-.card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:20px;box-shadow:var(--shadow);margin-bottom:18px}
+
+input{
+width:100%;
+padding:12px;
+border:1px solid var(--line);
+border-radius:9px;
+background:#fff;
+color:var(--ink)
+}
+
+.wrap{
+max-width:1200px;
+margin:auto;
+padding:22px
+}
+
+.card{
+background:var(--card);
+border:1px solid var(--line);
+border-radius:14px;
+padding:20px;
+box-shadow:var(--shadow);
+margin-bottom:18px
+}
+
 h1,h2,h3{margin:0 0 12px}
 h1{font-size:24px}
 h2{font-size:19px}
+
 p{margin:6px 0;color:var(--muted)}
-.login{max-width:440px;margin:7vh auto}
+
+.login{
+max-width:440px;
+margin:7vh auto
+}
+
 .field{margin:14px 0}
-.field label{display:block;margin-bottom:6px;font-weight:bold}
-.status{padding:10px 13px;border-radius:9px;background:#eef2f6;color:#334155;margin:12px 0;white-space:pre-wrap}
+
+.field label{
+display:block;
+margin-bottom:6px;
+font-weight:bold
+}
+
+.status{
+padding:10px 13px;
+border-radius:9px;
+background:#eef2f6;
+color:#334155;
+margin:12px 0;
+white-space:pre-wrap
+}
+
 .status.error{background:#fff0ef;color:var(--danger)}
 .status.success{background:#eaf7ef;color:var(--ok)}
+
 .hidden{display:none!important}
-.top{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap}
+
+.top{
+display:flex;
+justify-content:space-between;
+align-items:center;
+gap:12px;
+flex-wrap:wrap
+}
+
 .muted{color:var(--muted);font-size:13px}
-.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:14px}
-.metric{background:#f8fafc;border:1px solid var(--line);border-radius:12px;padding:16px}
-.metric strong{display:block;font-size:27px;color:var(--brand)}
-nav{display:flex;gap:8px;flex-wrap:wrap;margin:16px 0}
-nav button{background:#e4ecea;color:#17483f}
-nav button.active{background:var(--brand);color:#fff}
+
+.grid{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(170px,1fr));
+gap:14px
+}
+
+.metric{
+background:#f8fafc;
+border:1px solid var(--line);
+border-radius:12px;
+padding:16px
+}
+
+.metric strong{
+display:block;
+font-size:27px;
+color:var(--brand)
+}
+
+nav{
+display:flex;
+gap:8px;
+flex-wrap:wrap;
+margin:16px 0
+}
+
+nav button{
+background:#e4ecea;
+color:#17483f
+}
+
+nav button.active{
+background:var(--brand);
+color:#fff
+}
+
 .table-wrap{overflow:auto}
-table{border-collapse:collapse;width:100%;min-width:650px}
-th,td{padding:10px;border-bottom:1px solid var(--line);text-align:right;vertical-align:top;font-size:13px}
+
+table{
+border-collapse:collapse;
+width:100%;
+min-width:650px
+}
+
+th,td{
+padding:10px;
+border-bottom:1px solid var(--line);
+text-align:right;
+vertical-align:top;
+font-size:13px
+}
+
 th{background:#f8fafc}
-pre{white-space:pre-wrap;overflow-wrap:anywhere;margin:0;font-family:inherit}
-.actions{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+
+pre{
+white-space:pre-wrap;
+overflow-wrap:anywhere;
+margin:0;
+font-family:inherit
+}
+
+.actions{
+display:flex;
+gap:8px;
+align-items:center;
+flex-wrap:wrap
+}
+
 .secondary{background:#64748b}
 .danger{background:#a83232}
-.badge{display:inline-block;padding:3px 9px;border-radius:20px;background:#e7f1ef;color:#20584f;font-size:12px}
-.notice{border-right:4px solid #c58a25;background:#fff8e8;padding:12px;border-radius:8px;margin:12px 0}
-select{padding:9px;border:1px solid var(--line);border-radius:8px}
-@media(max-width:600px){.wrap{padding:12px}.card{padding:15px}h1{font-size:21px}}
+
+.badge{
+display:inline-block;
+padding:3px 9px;
+border-radius:20px;
+background:#e7f1ef;
+color:#20584f;
+font-size:12px
+}
+
+.notice{
+border-right:4px solid #c58a25;
+background:#fff8e8;
+padding:12px;
+border-radius:8px;
+margin:12px 0
+}
+
+select{
+padding:9px;
+border:1px solid var(--line);
+border-radius:8px
+}
+
+@media(max-width:600px){
+.wrap{padding:12px}
+.card{padding:15px}
+h1{font-size:21px}
+}
 </style>
 </head>
+
 <body>
 
 <div class="wrap">
 
 <section id="loginView" class="card login">
+
 <h1>ورود به پنل مدیریت رنگ‌نوا</h1>
+
 <p>برای ورود، ایمیل و رمز عبور حساب مدیر Supabase را وارد کنید.</p>
 
 <div class="field">
@@ -67,12 +235,17 @@ select{padding:9px;border:1px solid var(--line);border-radius:8px}
 </div>
 
 <button id="loginBtn" style="width:100%">ورود</button>
-<div id="loginStatus" class="status" role="status">در انتظار ورود مدیر...</div>
+
+<div id="loginStatus" class="status" role="status">
+در انتظار ورود مدیر...
+</div>
+
 </section>
 
 <main id="appView" class="hidden">
 
 <header class="card top">
+
 <div>
 <h1>داشبورد مدیریت رنگ‌نوا</h1>
 <div id="adminIdentity" class="muted">در حال بررسی حساب...</div>
@@ -82,24 +255,60 @@ select{padding:9px;border:1px solid var(--line);border-radius:8px}
 <button id="refreshBtn" class="secondary">به‌روزرسانی</button>
 <button id="logoutBtn" class="danger">خروج</button>
 </div>
+
 </header>
 
 <div id="globalStatus" class="status">پنل آماده است.</div>
+
 <div id="roleNotice" class="notice hidden"></div>
 
 <section class="card">
+
 <h2>خلاصه آمار</h2>
 
 <div class="grid">
-<div class="metric">درخواست‌های هنرمندان<strong id="countArtists">—</strong></div>
-<div class="metric">سفارش‌های تبلیغات<strong id="countAds">—</strong></div>
-<div class="metric">پیام‌های تماس<strong id="countMessages">—</strong></div>
-<div class="metric">بازدیدهای ثبت‌شده<strong id="countViews">—</strong></div>
-<div class="metric">رویدادهای آماری<strong id="countEvents">—</strong></div>
+
+<div class="metric">
+درخواست‌های هنرمندان
+<strong id="countArtists">—</strong>
 </div>
+
+<div class="metric">
+سفارش‌های تبلیغات
+<strong id="countAds">—</strong>
+</div>
+
+<div class="metric">
+پیام‌های تماس
+<strong id="countMessages">—</strong>
+</div>
+
+<div class="metric">
+کل بازدید صفحات
+<strong id="countViews">—</strong>
+</div>
+
+<div class="metric">
+بازدیدهای امروز
+<strong id="countViewsToday">—</strong>
+</div>
+
+<div class="metric">
+بازدیدهای ۷ روز اخیر
+<strong id="countViewsWeek">—</strong>
+</div>
+
+<div class="metric">
+رویدادهای آماری
+<strong id="countEvents">—</strong>
+</div>
+
+</div>
+
 </section>
 
 <nav id="tabs">
+
 <button class="active" data-tab="artists">درخواست هنرمندان</button>
 <button data-tab="ads">سفارش تبلیغات</button>
 <button data-tab="messages">پیام‌های تماس</button>
@@ -107,68 +316,106 @@ select{padding:9px;border:1px solid var(--line);border-radius:8px}
 <button data-tab="events">رویدادهای آماری</button>
 <button data-tab="activity">فعالیت مدیران</button>
 <button data-tab="backup">پشتیبان‌گیری</button>
+
 </nav>
 
 <section id="panel-artists" class="card tabPanel">
+
 <div class="top">
 <h2>درخواست‌های هنرمندان</h2>
 <button data-reload="artists" class="secondary">بارگذاری مجدد</button>
 </div>
+
 <div id="artistsContent">در حال بارگذاری...</div>
+
 </section>
 
 <section id="panel-ads" class="card tabPanel hidden">
+
 <div class="top">
 <h2>سفارش‌های تبلیغات</h2>
 <button data-reload="ads" class="secondary">بارگذاری مجدد</button>
 </div>
+
 <div id="adsContent">در حال بارگذاری...</div>
+
 </section>
 
 <section id="panel-messages" class="card tabPanel hidden">
+
 <div class="top">
 <h2>پیام‌های تماس</h2>
 <button data-reload="messages" class="secondary">بارگذاری مجدد</button>
 </div>
+
 <div id="messagesContent">در حال بارگذاری...</div>
+
 </section>
 
 <section id="panel-views" class="card tabPanel hidden">
+
 <div class="top">
-<h2>بازدید صفحات</h2>
+<h2>آمار بازدید صفحات</h2>
 <button data-reload="views" class="secondary">بارگذاری مجدد</button>
 </div>
+
+<div class="notice">
+تعداد کل، امروز و هفت روز اخیر از دیتابیس محاسبه می‌شوند.
+جدول صفحات پربازدید بر اساس ۱۰۰۰ بازدید اخیر است.
+</div>
+
+<h3>صفحات پربازدید</h3>
+
+<div id="popularPagesContent">در حال بارگذاری...</div>
+
+<hr style="border:0;border-top:1px solid var(--line);margin:22px 0">
+
+<h3>آخرین بازدیدهای ثبت‌شده</h3>
+
 <div id="viewsContent">در حال بارگذاری...</div>
+
 </section>
 
 <section id="panel-events" class="card tabPanel hidden">
+
 <div class="top">
 <h2>رویدادهای آماری</h2>
 <button data-reload="events" class="secondary">بارگذاری مجدد</button>
 </div>
+
 <div id="eventsContent">در حال بارگذاری...</div>
+
 </section>
 
 <section id="panel-activity" class="card tabPanel hidden">
+
 <div class="top">
 <h2>فعالیت مدیران</h2>
 <button data-reload="activity" class="secondary">بارگذاری مجدد</button>
 </div>
+
 <div id="activityContent">در حال بارگذاری...</div>
+
 </section>
 
 <section id="panel-backup" class="card tabPanel hidden">
+
 <h2>پشتیبان‌گیری و بازیابی</h2>
+
 <div class="notice">
 این بخش فعلاً در نقشه راه است و هنوز عملیات پشتیبان‌گیری یا بازیابی انجام نمی‌دهد.
 </div>
+
 <p>
 برای بکاپ واقعی و امن پایگاه داده و فایل‌های رسانه‌ای، باید از ابزار یا بک‌اند امن مانند Supabase CLI و فضای ذخیره‌سازی پشتیبان استفاده شود.
 این کار نباید با کلید محرمانه در کد مرورگر انجام شود.
 </p>
+
 </section>
 
-<footer class="muted">رنگ‌نوا · نسخه پایه پنل مدیریت</footer>
+<footer class="muted">
+رنگ‌نوا · نسخه توسعه‌یافته پنل مدیریت
+</footer>
 
 </main>
 </div>
@@ -178,6 +425,7 @@ select{padding:9px;border:1px solid var(--line);border-radius:8px}
 
 <script>
 (() => {
+
 'use strict';
 
 const $ = id => document.getElementById(id);
@@ -195,13 +443,18 @@ activity:'admin_activity'
 };
 
 function setStatus(id,message,type=''){
+
 const el=$(id);
+
 if(!el)return;
+
 el.textContent=message;
 el.className='status'+(type?' '+type:'');
+
 }
 
 function esc(value){
+
 return String(value ?? '').replace(/[&<>"']/g,c=>({
 '&':'&amp;',
 '<':'&lt;',
@@ -209,10 +462,13 @@ return String(value ?? '').replace(/[&<>"']/g,c=>({
 '"':'&quot;',
 "'":'&#39;'
 }[c]));
+
 }
 
 function readableError(error){
+
 return error?.message || error?.details || String(error || 'خطای نامشخص');
+
 }
 
 function init(){
@@ -220,33 +476,57 @@ function init(){
 const c=window.RANGENAVA_CONFIG;
 
 if(!window.supabase){
-setStatus('loginStatus','کتابخانه Supabase بارگذاری نشد. اتصال اینترنت یا CDN را بررسی کنید.','error');
+
+setStatus(
+'loginStatus',
+'کتابخانه Supabase بارگذاری نشد. اتصال اینترنت یا CDN را بررسی کنید.',
+'error'
+);
+
 $('loginBtn').disabled=true;
 return;
+
 }
 
 if(!c?.url || !c?.anonKey){
-setStatus('loginStatus','تنظیمات Supabase پیدا نشد. فایل rangenava-config.js باید قبل از این اسکریپت بارگذاری شود.','error');
+
+setStatus(
+'loginStatus',
+'تنظیمات Supabase پیدا نشد. فایل rangenava-config.js را بررسی کنید.',
+'error'
+);
+
 $('loginBtn').disabled=true;
 return;
+
 }
 
 try{
-const cleanUrl = String(c.url).trim();
-const cleanKey = String(c.anonKey).replace(/[^\x21-\x7E]/g, "");
 
-if (!/^https:\/\/[a-z0-9.-]+\.supabase\.co$/i.test(cleanUrl)) {
-  throw new Error("آدرس Supabase معتبر نیست.");
+const cleanUrl=String(c.url).trim();
+
+const cleanKey=String(c.anonKey).replace(/[^\x21-\x7E]/g,'');
+
+if(!/^https:\/\/[a-z0-9.-]+\.supabase\.co$/i.test(cleanUrl)){
+throw new Error('آدرس Supabase معتبر نیست.');
 }
 
-if (!cleanKey.startsWith("sb_publishable_")) {
-  throw new Error("کلید عمومی Supabase معتبر نیست.");
+if(!cleanKey.startsWith('sb_publishable_')){
+throw new Error('کلید عمومی Supabase معتبر نیست.');
 }
 
-db = window.supabase.createClient(cleanUrl, cleanKey);
+db=window.supabase.createClient(cleanUrl,cleanKey);
+
 }catch(e){
-setStatus('loginStatus','ساخت اتصال Supabase ناموفق بود: '+readableError(e),'error');
+
+setStatus(
+'loginStatus',
+'ساخت اتصال Supabase ناموفق بود: '+readableError(e),
+'error'
+);
+
 $('loginBtn').disabled=true;
+
 }
 
 }
@@ -257,16 +537,29 @@ const email=$('email').value.trim();
 const password=$('password').value;
 
 if(!email||!password){
+
 setStatus('loginStatus','ایمیل و رمز عبور را وارد کنید.','error');
 return;
+
+}
+
+if(!db){
+
+setStatus('loginStatus','اتصال Supabase آماده نیست.','error');
+return;
+
 }
 
 $('loginBtn').disabled=true;
+
 setStatus('loginStatus','در حال بررسی اطلاعات ورود...');
 
 try{
 
-const {data,error}=await db.auth.signInWithPassword({email,password});
+const {data,error}=await db.auth.signInWithPassword({
+email,
+password
+});
 
 if(error)throw error;
 
@@ -282,15 +575,20 @@ const {data:admin,error:adminError}=await db
 .maybeSingle();
 
 if(adminError){
+
 throw new Error(
-'ورود انجام شد، اما بررسی عضویت مدیر ناموفق بود. ساختار ستون‌های admin_users و دسترسی RLS را بررسی کنید. جزئیات: '
+'ورود انجام شد، اما بررسی عضویت مدیر ناموفق بود. جزئیات: '
 +readableError(adminError)
 );
+
 }
 
 if(!admin){
+
 await db.auth.signOut();
+
 throw new Error('این حساب در جدول admin_users مدیر فعال نیست.');
+
 }
 
 currentAdmin=admin;
@@ -298,301 +596,11 @@ currentAdmin=admin;
 $('loginView').classList.add('hidden');
 $('appView').classList.remove('hidden');
 
-const role=admin.role || 'نامشخص';
+const role=admin.role||'نامشخص';
 
 $('adminIdentity').textContent='حساب: '+user.email+' | نقش: '+role;
 
 if(role!=='owner'){
-$('roleNotice').textContent='نقش فعلی شما «'+role+'» است. محدودسازی کامل دسترسی نقش‌ها هنوز در این نسخه تضمین نشده است.';
-$('roleNotice').classList.remove('hidden');
-}
 
-setStatus('globalStatus','ورود موفق بود. داده‌های پنل در حال بارگذاری هستند.','success');
-
-await loadAll();
-
-}catch(e){
-
-setStatus('loginStatus','خطا: '+readableError(e),'error');
-
-}finally{
-
-$('loginBtn').disabled=false;
-
-}
-
-}
-
-async function getRows(table,limit=100,order='created_at'){
-
-let q=db.from(table).select('*').limit(limit);
-
-if(order){
-q=q.order(order,{ascending:false});
-}
-
-const {data,error}=await q;
-
-if(error)throw error;
-
-return data||[];
-
-}
-
-function renderTable(rows){
-
-if(!rows.length){
-return '<p>هنوز رکوردی برای نمایش وجود ندارد.</p>';
-}
-
-const keys=[...new Set(rows.flatMap(r=>Object.keys(r)))].slice(0,12);
-
-return '<div class="table-wrap"><table><thead><tr>'
-+keys.map(k=>'<th>'+esc(k)+'</th>').join('')
-+'</tr></thead><tbody>'
-+rows.map(r=>'<tr>'
-+keys.map(k=>'<td><pre>'+esc(
-typeof r[k]==='object'&&r[k]!==null
-?JSON.stringify(r[k])
-:r[k]
-)+'</pre></td>').join('')
-+'</tr>').join('')
-+'</tbody></table></div>';
-
-}
-
-async function loadGeneric(key){
-
-const target=$(key+'Content');
-target.textContent='در حال بارگذاری...';
-
-try{
-
-const rows=await getRows(tableNames[key],100,'created_at');
-target.innerHTML=renderTable(rows);
-
-}catch(e){
-
-target.innerHTML='<div class="status error">بارگذاری جدول '
-+esc(tableNames[key])
-+' ناموفق بود: '+esc(readableError(e))
-+'</div>';
-
-}
-
-}
-
-async function loadArtists(){
-
-const target=$('artistsContent');
-target.textContent='در حال بارگذاری...';
-
-try{
-
-const rows=await getRows('artist_requests',100,'created_at');
-
-if(!rows.length){
-target.innerHTML='<p>درخواستی ثبت نشده است.</p>';
-return;
-}
-
-target.innerHTML=rows.map(r=>`
-<article class="card" style="box-shadow:none">
-
-<div class="top">
-<h3>${esc(r.full_name||'بدون نام')}
-<span class="badge">${esc(r.status||'بدون وضعیت')}</span>
-</h3>
-<span class="muted">${esc(r.created_at||'')}</span>
-</div>
-
-<p>
-<b>نقش هنری:</b> ${esc(r.artist_role||'—')}
-<b>ایمیل:</b> ${esc(r.email||'—')}
-<b>تلفن:</b> ${esc(r.phone||'—')}
-</p>
-
-<p><b>موضوع:</b> ${esc(r.subject||'—')}</p>
-<p><b>پیام:</b></p>
-<pre>${esc(r.message||'—')}</pre>
-
-<p><b>نمونه‌کار:</b>
-${r.portfolio_url
-?'<a target="_blank" rel="noopener" href="'+esc(r.portfolio_url)+'">مشاهده پیوند</a>'
-:'—'}
-</p>
-
-<div class="field">
-<label>یادداشت مدیر</label>
-<input id="note-${esc(r.id)}" value="${esc(r.admin_notes||'')}" placeholder="یادداشت داخلی">
-</div>
-
-<div class="actions">
-<label for="state-${esc(r.id)}">وضعیت:</label>
-
-<select id="state-${esc(r.id)}">
-${['new','reviewing','answered','approved','rejected','closed']
-.map(s=>`<option value="${s}" ${r.status===s?'selected':''}>${s}</option>`)
-.join('')}
-</select>
-
-<button data-save-artist="${esc(r.id)}">ذخیره تغییرات</button>
-</div>
-
-</article>
-`).join('');
-
-}catch(e){
-
-target.innerHTML='<div class="status error">بارگذاری درخواست‌ها ناموفق بود: '
-+esc(readableError(e))
-+'</div>';
-
-}
-
-}
-
-async function saveArtist(id){
-
-const status=$('state-'+id)?.value;
-const admin_notes=$('note-'+id)?.value||'';
-
-try{
-
-const {error}=await db
-.from('artist_requests')
-.update({status,admin_notes})
-.eq('id',id);
-
-if(error)throw error;
-
-setStatus('globalStatus','تغییرات درخواست هنرمند ذخیره شد.','success');
-
-await loadArtists();
-
-}catch(e){
-
-setStatus('globalStatus','ذخیره تغییرات ناموفق بود: '+readableError(e),'error');
-
-}
-
-}
-
-async function loadCounts(){
-
-const targets={
-artists:'artist_requests',
-ads:'ad_orders',
-messages:'contact_messages',
-views:'page_views',
-events:'analytics_events'
-};
-
-for(const [key,table] of Object.entries(targets)){
-
-try{
-
-const {count,error}=await db
-.from(table)
-.select('*',{count:'exact',head:true});
-
-if(error)throw error;
-
-$('count'+key[0].toUpperCase()+key.slice(1)).textContent=count??0;
-
-}catch(e){
-
-$('count'+key[0].toUpperCase()+key.slice(1)).textContent='—';
-
-}
-
-}
-
-}
-
-async function loadAll(){
-
-await loadCounts();
-
-await Promise.all([
-loadArtists(),
-loadGeneric('ads'),
-loadGeneric('messages'),
-loadGeneric('views'),
-loadGeneric('events'),
-loadGeneric('activity')
-]);
-
-}
-
-async function logout(){
-
-try{
-await db.auth.signOut();
-}catch(e){}
-
-currentAdmin=null;
-
-$('appView').classList.add('hidden');
-$('loginView').classList.remove('hidden');
-$('password').value='';
-
-setStatus('loginStatus','از حساب مدیر خارج شدید.');
-
-}
-
-$('loginBtn').addEventListener('click',signIn);
-
-$('password').addEventListener('keydown',e=>{
-if(e.key==='Enter')signIn();
-});
-
-$('logoutBtn').addEventListener('click',logout);
-$('refreshBtn').addEventListener('click',loadAll);
-
-$('tabs').addEventListener('click',e=>{
-
-const b=e.target.closest('[data-tab]');
-if(!b)return;
-
-document.querySelectorAll('#tabs button').forEach(x=>{
-x.classList.toggle('active',x===b);
-});
-
-document.querySelectorAll('.tabPanel').forEach(x=>{
-x.classList.add('hidden');
-});
-
-$('panel-'+b.dataset.tab).classList.remove('hidden');
-
-});
-
-document.addEventListener('click',e=>{
-
-const save=e.target.closest('[data-save-artist]');
-
-if(save){
-saveArtist(save.dataset.saveArtist);
-}
-
-const reload=e.target.closest('[data-reload]');
-
-if(reload){
-
-if(reload.dataset.reload==='artists'){
-loadArtists();
-}else{
-loadGeneric(reload.dataset.reload);
-}
-
-}
-
-});
-
-init();
-
-})();
-</script>
-
-</body>
-</html>
+$('roleNotice').textContent=
+'نقش
