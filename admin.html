@@ -5,50 +5,236 @@
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="theme-color" content="#245b52">
 <title>پنل مدیریت | رنگ‌نوا</title>
+
 <style>
-:root{--bg:#f3f5f7;--card:#fff;--ink:#17212b;--muted:#64748b;--line:#e2e8f0;--brand:#245b52;--brand2:#347c70;--danger:#b42318;--ok:#18794e;--shadow:0 8px 28px #17212b12}
+:root{
+--bg:#f3f5f7;
+--card:#fff;
+--ink:#17212b;
+--muted:#64748b;
+--line:#e2e8f0;
+--brand:#245b52;
+--brand2:#347c70;
+--danger:#b42318;
+--ok:#18794e;
+--shadow:0 8px 28px #17212b12
+}
+
 *{box-sizing:border-box}
-body{margin:0;background:var(--bg);color:var(--ink);font-family:Tahoma,Arial,sans-serif;line-height:1.7}
+
+body{
+margin:0;
+background:var(--bg);
+color:var(--ink);
+font-family:Tahoma,Arial,sans-serif;
+line-height:1.7
+}
+
 button,input,select,textarea{font:inherit}
-button{cursor:pointer;border:0;border-radius:9px;padding:10px 16px;background:var(--brand);color:#fff}
+
+button{
+cursor:pointer;
+border:0;
+border-radius:9px;
+padding:10px 16px;
+background:var(--brand);
+color:#fff
+}
+
 button:hover{background:var(--brand2)}
 button:disabled{opacity:.55;cursor:not-allowed}
-input,select,textarea{max-width:100%;padding:11px;border:1px solid var(--line);border-radius:9px;background:#fff;color:var(--ink)}
+
+input,select,textarea{
+max-width:100%;
+padding:11px;
+border:1px solid var(--line);
+border-radius:9px;
+background:#fff;
+color:var(--ink)
+}
+
 input{width:100%}
-.wrap{max-width:1200px;margin:auto;padding:22px}
-.card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:20px;box-shadow:var(--shadow);margin-bottom:18px}
+
+.wrap{
+max-width:1200px;
+margin:auto;
+padding:22px
+}
+
+.card{
+background:var(--card);
+border:1px solid var(--line);
+border-radius:14px;
+padding:20px;
+box-shadow:var(--shadow);
+margin-bottom:18px
+}
+
 h1,h2,h3{margin:0 0 12px}
 h1{font-size:24px}
 h2{font-size:19px}
 h3{font-size:16px}
+
 p{margin:6px 0;color:var(--muted)}
-.login{max-width:440px;margin:7vh auto}
+
+.login{
+max-width:440px;
+margin:7vh auto
+}
+
 .field{margin:14px 0}
-.field label{display:block;margin-bottom:6px;font-weight:bold}
-.status{padding:10px 13px;border-radius:9px;background:#eef2f6;color:#334155;margin:12px 0;white-space:pre-wrap;overflow-wrap:anywhere}
-.status.error{background:#fff0ef;color:var(--danger)}
-.status.success{background:#eaf7ef;color:var(--ok)}
+
+.field label{
+display:block;
+margin-bottom:6px;
+font-weight:bold
+}
+
+.status{
+padding:10px 13px;
+border-radius:9px;
+background:#eef2f6;
+color:#334155;
+margin:12px 0;
+white-space:pre-wrap;
+overflow-wrap:anywhere
+}
+
+.status.error{
+background:#fff0ef;
+color:var(--danger)
+}
+
+.status.success{
+background:#eaf7ef;
+color:var(--ok)
+}
+
 .hidden{display:none!important}
-.top{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap}
-.muted,.small{color:var(--muted);font-size:13px}
-.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:14px}
-.metric{background:#f8fafc;border:1px solid var(--line);border-radius:12px;padding:16px}
-.metric strong{display:block;font-size:27px;color:var(--brand)}
-nav{display:flex;gap:8px;flex-wrap:wrap;margin:16px 0}
-nav button{background:#e4ecea;color:#17483f}
-nav button.active{background:var(--brand);color:#fff}
-.table-wrap{overflow:auto;border:1px solid var(--line);border-radius:10px}
-table{border-collapse:collapse;width:100%;min-width:650px}
-th,td{padding:10px;border-bottom:1px solid var(--line);text-align:right;vertical-align:top;font-size:13px;max-width:360px;overflow-wrap:anywhere}
+
+.top{
+display:flex;
+justify-content:space-between;
+align-items:center;
+gap:12px;
+flex-wrap:wrap
+}
+
+.muted,.small{
+color:var(--muted);
+font-size:13px
+}
+
+.grid{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(160px,1fr));
+gap:14px
+}
+
+.metric{
+background:#f8fafc;
+border:1px solid var(--line);
+border-radius:12px;
+padding:16px
+}
+
+.metric strong{
+display:block;
+font-size:27px;
+color:var(--brand)
+}
+
+nav{
+display:flex;
+gap:8px;
+flex-wrap:wrap;
+margin:16px 0
+}
+
+nav button{
+background:#e4ecea;
+color:#17483f
+}
+
+nav button.active{
+background:var(--brand);
+color:#fff
+}
+
+.table-wrap{
+overflow:auto;
+border:1px solid var(--line);
+border-radius:10px
+}
+
+table{
+border-collapse:collapse;
+width:100%;
+min-width:650px
+}
+
+th,td{
+padding:10px;
+border-bottom:1px solid var(--line);
+text-align:right;
+vertical-align:top;
+font-size:13px;
+max-width:360px;
+overflow-wrap:anywhere
+}
+
 th{background:#f8fafc}
-.actions{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+
+.actions{
+display:flex;
+gap:8px;
+align-items:center;
+flex-wrap:wrap
+}
+
 .secondary{background:#64748b}
 .danger{background:#a83232}
-.badge{display:inline-block;padding:3px 9px;border-radius:20px;background:#e7f1ef;color:#20584f;font-size:12px}
-.notice{border-right:4px solid #c58a25;background:#fff8e8;padding:12px;border-radius:8px;margin:12px 0}
-.row-card{border:1px solid var(--line);border-radius:10px;padding:14px;margin:12px 0;background:#fff}
-.row-card textarea{width:100%;min-height:75px;padding:10px;border:1px solid var(--line);border-radius:8px;font:inherit}
-hr{border:0;border-top:1px solid var(--line);margin:20px 0}
+
+.badge{
+display:inline-block;
+padding:3px 9px;
+border-radius:20px;
+background:#e7f1ef;
+color:#20584f;
+font-size:12px
+}
+
+.notice{
+border-right:4px solid #c58a25;
+background:#fff8e8;
+padding:12px;
+border-radius:8px;
+margin:12px 0
+}
+
+.row-card{
+border:1px solid var(--line);
+border-radius:10px;
+padding:14px;
+margin:12px 0;
+background:#fff
+}
+
+.row-card textarea{
+width:100%;
+min-height:75px;
+padding:10px;
+border:1px solid var(--line);
+border-radius:8px;
+font:inherit
+}
+
+hr{
+border:0;
+border-top:1px solid var(--line);
+margin:20px 0
+}
+
 @media(max-width:600px){
 .wrap{padding:12px}
 .card{padding:15px}
@@ -59,98 +245,219 @@ h1{font-size:21px}
 </head>
 
 <body>
+
 <div class="wrap">
 
 <section id="loginView" class="card login">
+
 <h1>ورود به پنل مدیریت رنگ‌نوا</h1>
+
 <p>ایمیل و رمز عبور حساب مدیر Supabase را وارد کنید.</p>
 
 <form id="loginForm">
+
 <div class="field">
 <label for="email">ایمیل مدیر</label>
-<input id="email" type="email" autocomplete="username" required placeholder="ایمیل حساب مدیر">
+<input
+id="email"
+type="email"
+autocomplete="username"
+required
+placeholder="ایمیل حساب مدیر">
 </div>
 
 <div class="field">
 <label for="password">رمز عبور</label>
-<input id="password" type="password" autocomplete="current-password" required placeholder="رمز عبور">
+<input
+id="password"
+type="password"
+autocomplete="current-password"
+required
+placeholder="رمز عبور">
 </div>
 
-<button id="loginBtn" type="submit" style="width:100%">ورود</button>
+<button id="loginBtn" type="submit" style="width:100%">
+ورود
+</button>
+
 </form>
 
-<div id="loginStatus" class="status" role="status">در حال آماده‌سازی اتصال...</div>
+<div id="loginStatus" class="status" role="status">
+در حال آماده‌سازی اتصال...
+</div>
+
 </section>
+
 
 <main id="appView" class="hidden">
 
 <header class="card top">
+
 <div>
 <h1>داشبورد مدیریت رنگ‌نوا</h1>
 <div id="adminIdentity" class="muted">—</div>
 </div>
 
 <div class="actions">
-<button id="refreshBtn" class="secondary" type="button">به‌روزرسانی همه</button>
-<button id="logoutBtn" class="danger" type="button">خروج</button>
+
+<button id="refreshBtn" class="secondary" type="button">
+به‌روزرسانی همه
+</button>
+
+<button id="logoutBtn" class="danger" type="button">
+خروج
+</button>
+
 </div>
+
 </header>
 
-<div id="globalStatus" class="status">پنل آماده است.</div>
+
+<div id="globalStatus" class="status">
+پنل آماده است.
+</div>
+
 <div id="roleNotice" class="notice hidden"></div>
 
+
 <section class="card">
+
 <h2>خلاصه آمار</h2>
 
 <div class="grid">
-<div class="metric">درخواست‌های هنرمندان<strong id="countArtists">—</strong></div>
-<div class="metric">سفارش‌های تبلیغات<strong id="countAds">—</strong></div>
-<div class="metric">پیام‌های تماس<strong id="countMessages">—</strong></div>
-<div class="metric">کل بازدید صفحات<strong id="countViews">—</strong></div>
-<div class="metric">بازدیدهای امروز<strong id="countViewsToday">—</strong></div>
-<div class="metric">بازدیدهای ۷ روز اخیر<strong id="countViewsWeek">—</strong></div>
-<div class="metric">رویدادهای آماری<strong id="countEvents">—</strong></div>
+
+<div class="metric">
+درخواست‌های هنرمندان
+<strong id="countArtists">—</strong>
 </div>
+
+<div class="metric">
+سفارش‌های تبلیغات
+<strong id="countAds">—</strong>
+</div>
+
+<div class="metric">
+پیام‌های تماس
+<strong id="countMessages">—</strong>
+</div>
+
+<div class="metric">
+کل بازدید صفحات
+<strong id="countViews">—</strong>
+</div>
+
+<div class="metric">
+بازدیدهای امروز
+<strong id="countViewsToday">—</strong>
+</div>
+
+<div class="metric">
+بازدیدهای ۷ روز اخیر
+<strong id="countViewsWeek">—</strong>
+</div>
+
+<div class="metric">
+رویدادهای آماری
+<strong id="countEvents">—</strong>
+</div>
+
+</div>
+
 </section>
+
 
 <nav id="tabs" aria-label="بخش‌های پنل">
-<button class="active" data-tab="artists" type="button">درخواست هنرمندان</button>
-<button data-tab="ads" type="button">سفارش تبلیغات</button>
-<button data-tab="messages" type="button">پیام‌های تماس</button>
-<button data-tab="views" type="button">بازدید صفحات</button>
-<button data-tab="events" type="button">رویدادهای آماری</button>
-<button data-tab="activity" type="button">فعالیت مدیران</button>
-<button data-tab="backup" type="button">پشتیبان‌گیری</button>
+
+<button class="active" data-tab="artists" type="button">
+درخواست هنرمندان
+</button>
+
+<button data-tab="ads" type="button">
+سفارش تبلیغات
+</button>
+
+<button data-tab="messages" type="button">
+پیام‌های تماس
+</button>
+
+<button data-tab="views" type="button">
+بازدید صفحات
+</button>
+
+<button data-tab="events" type="button">
+رویدادهای آماری
+</button>
+
+<button data-tab="activity" type="button">
+فعالیت مدیران
+</button>
+
+<button data-tab="backup" type="button">
+پشتیبان‌گیری
+</button>
+
 </nav>
 
+
 <section id="panel-artists" class="card tabPanel">
+
 <div class="top">
 <h2>درخواست‌های هنرمندان</h2>
-<button data-reload="artists" class="secondary" type="button">بارگذاری مجدد</button>
+
+<button data-reload="artists" class="secondary" type="button">
+بارگذاری مجدد
+</button>
 </div>
-<div id="artistsContent">در حال بارگذاری...</div>
+
+<div id="artistsContent">
+در حال بارگذاری...
+</div>
+
 </section>
+
 
 <section id="panel-ads" class="card tabPanel hidden">
+
 <div class="top">
 <h2>سفارش‌های تبلیغات</h2>
-<button data-reload="ads" class="secondary" type="button">بارگذاری مجدد</button>
+
+<button data-reload="ads" class="secondary" type="button">
+بارگذاری مجدد
+</button>
 </div>
-<div id="adsContent">در حال بارگذاری...</div>
+
+<div id="adsContent">
+هنوز بارگذاری نشده است.
+</div>
+
 </section>
+
 
 <section id="panel-messages" class="card tabPanel hidden">
+
 <div class="top">
 <h2>پیام‌های تماس</h2>
-<button data-reload="messages" class="secondary" type="button">بارگذاری مجدد</button>
+
+<button data-reload="messages" class="secondary" type="button">
+بارگذاری مجدد
+</button>
 </div>
-<div id="messagesContent">در حال بارگذاری...</div>
+
+<div id="messagesContent">
+هنوز بارگذاری نشده است.
+</div>
+
 </section>
 
+
 <section id="panel-views" class="card tabPanel hidden">
+
 <div class="top">
 <h2>آمار بازدید صفحات</h2>
-<button data-reload="views" class="secondary" type="button">بارگذاری مجدد</button>
+
+<button data-reload="views" class="secondary" type="button">
+بارگذاری مجدد
+</button>
 </div>
 
 <div class="notice">
@@ -159,31 +466,58 @@ h1{font-size:21px}
 </div>
 
 <h3>صفحات پربازدید</h3>
-<div id="popularPagesContent">در حال بارگذاری...</div>
+
+<div id="popularPagesContent">
+هنوز بارگذاری نشده است.
+</div>
 
 <hr>
 
 <h3>آخرین بازدیدهای ثبت‌شده</h3>
-<div id="viewsContent">در حال بارگذاری...</div>
+
+<div id="viewsContent">
+هنوز بارگذاری نشده است.
+</div>
+
 </section>
+
 
 <section id="panel-events" class="card tabPanel hidden">
+
 <div class="top">
 <h2>رویدادهای آماری</h2>
-<button data-reload="events" class="secondary" type="button">بارگذاری مجدد</button>
+
+<button data-reload="events" class="secondary" type="button">
+بارگذاری مجدد
+</button>
 </div>
-<div id="eventsContent">در حال بارگذاری...</div>
+
+<div id="eventsContent">
+هنوز بارگذاری نشده است.
+</div>
+
 </section>
+
 
 <section id="panel-activity" class="card tabPanel hidden">
+
 <div class="top">
 <h2>فعالیت مدیران</h2>
-<button data-reload="activity" class="secondary" type="button">بارگذاری مجدد</button>
+
+<button data-reload="activity" class="secondary" type="button">
+بارگذاری مجدد
+</button>
 </div>
-<div id="activityContent">در حال بارگذاری...</div>
+
+<div id="activityContent">
+هنوز بارگذاری نشده است.
+</div>
+
 </section>
 
+
 <section id="panel-backup" class="card tabPanel hidden">
+
 <h2>پشتیبان‌گیری و بازیابی</h2>
 
 <div class="notice">
@@ -195,20 +529,32 @@ h1{font-size:21px}
 باید از ابزار یا بک‌اند امن استفاده شود.
 کلید محرمانه نباید در کد مرورگر یا مخزن عمومی قرار بگیرد.
 </p>
+
 </section>
 
-<footer class="muted">رنگ‌نوا · پنل مدیریت</footer>
+
+<footer class="muted">
+رنگ‌نوا · پنل مدیریت
+</footer>
+
 </main>
+
 </div>
+
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script src="rangenava-config.js"></script>
 
+
 <script>
+
 (function(){
+
 'use strict';
 
+
 const $=id=>document.getElementById(id);
+
 
 const TABLES={
 artists:'artist_requests',
@@ -219,6 +565,7 @@ events:'analytics_events',
 activity:'admin_activity'
 };
 
+
 const CONTENT={
 artists:'artistsContent',
 ads:'adsContent',
@@ -228,6 +575,12 @@ events:'eventsContent',
 activity:'activityContent'
 };
 
+
+// نگهداری وضعیت بارگذاری بخش‌ها
+const loadedTabs=new Set();
+const loadingTabs=new Set();
+
+
 const esc=v=>String(v??'').replace(/[&<>"']/g,c=>({
 '&':'&amp;',
 '<':'&lt;',
@@ -236,97 +589,173 @@ const esc=v=>String(v??'').replace(/[&<>"']/g,c=>({
 "'":'&#39;'
 }[c]));
 
-const errText=e=>e?.message||e?.details||e?.hint||String(e||'خطای نامشخص');
+
+const errText=e=>
+e?.message||
+e?.details||
+e?.hint||
+String(e||'خطای نامشخص');
+
 
 function status(id,msg,type=''){
+
 const el=$(id);
+
 if(el){
 el.textContent=msg;
 el.className='status'+(type?' '+type:'');
 }
+
 }
 
-let db=null,busy=false;
+
+let db=null;
+let busy=false;
+
 
 function init(){
 
 const c=window.RANGENAVA_CONFIG;
 
+
 if(!window.supabase){
-status('loginStatus','کتابخانه Supabase بارگذاری نشد. اتصال اینترنت یا CDN را بررسی کنید.','error');
+
+status(
+'loginStatus',
+'کتابخانه Supabase بارگذاری نشد. اتصال اینترنت یا CDN را بررسی کنید.',
+'error'
+);
+
 $('loginBtn').disabled=true;
+
 return;
 }
 
+
 if(!c?.url||!c?.anonKey){
-status('loginStatus','تنظیمات پیدا نشد. فایل rangenava-config.js را بررسی کنید.','error');
+
+status(
+'loginStatus',
+'تنظیمات پیدا نشد. فایل rangenava-config.js را بررسی کنید.',
+'error'
+);
+
 $('loginBtn').disabled=true;
+
 return;
 }
+
 
 try{
 
 const url=String(c.url).trim().replace(/\/+$/,'');
 const key=String(c.anonKey).trim();
 
+
 if(!/^https:\/\/[a-z0-9.-]+\.supabase\.co$/i.test(url))
 throw Error('آدرس Supabase معتبر نیست.');
 
-// فقط کلید عمومی مجاز است.
+
 if(!(key.startsWith('sb_publishable_')||(key.startsWith('eyJ')&&key.length>80)))
 throw Error('کلید عمومی معتبر نیست. فقط anon یا publishable مجاز است؛ از service_role یا secret استفاده نکنید.');
 
+
 db=window.supabase.createClient(url,key);
+
 
 $('loginBtn').disabled=false;
 
-status('loginStatus','اتصال اولیه آماده است. ایمیل و رمز عبور را وارد کنید.','success');
+
+status(
+'loginStatus',
+'اتصال اولیه آماده است. ایمیل و رمز عبور را وارد کنید.',
+'success'
+);
+
 
 }catch(e){
-status('loginStatus','خطا در تنظیم اتصال: '+errText(e),'error');
+
+status(
+'loginStatus',
+'خطا در تنظیم اتصال: '+errText(e),
+'error'
+);
+
 $('loginBtn').disabled=true;
+
 }
+
 }
+
+
 
 async function signIn(e){
 
 e.preventDefault();
 
+
 if(busy)return;
+
 
 const email=$('email').value.trim();
 const password=$('password').value;
 
+
 if(!email||!password){
-status('loginStatus','ایمیل و رمز عبور را وارد کنید.','error');
+
+status(
+'loginStatus',
+'ایمیل و رمز عبور را وارد کنید.',
+'error'
+);
+
 return;
 }
 
+
 if(!db){
-status('loginStatus','اتصال Supabase آماده نیست. صفحه را تازه‌سازی کنید.','error');
+
+status(
+'loginStatus',
+'اتصال Supabase آماده نیست. صفحه را تازه‌سازی کنید.',
+'error'
+);
+
 return;
 }
+
 
 busy=true;
 $('loginBtn').disabled=true;
 
-status('loginStatus','در حال بررسی اطلاعات ورود...');
+
+status(
+'loginStatus',
+'در حال بررسی اطلاعات ورود...'
+);
+
 
 let authenticated=false;
 
+
 try{
+
 
 const {data,error}=await db.auth.signInWithPassword({
 email,
 password
 });
 
+
 if(error)throw error;
+
 
 if(!data.user)
 throw Error('کاربر از Supabase دریافت نشد.');
 
+
 authenticated=true;
+
 
 const {data:admin,error:adminError}=await db
 .from('admin_users')
@@ -335,38 +764,78 @@ const {data:admin,error:adminError}=await db
 .eq('is_active',true)
 .maybeSingle();
 
+
 if(adminError)
-throw Error('ورود انجام شد، اما بررسی دسترسی مدیر ناموفق بود: '+errText(adminError));
+throw Error(
+'ورود انجام شد، اما بررسی دسترسی مدیر ناموفق بود: '+errText(adminError)
+);
+
 
 if(!admin){
+
 await db.auth.signOut();
+
 authenticated=false;
-throw Error('این حساب مدیر فعال نیست. user_id باید در جدول admin_users ثبت شده و is_active برابر true باشد.');
+
+throw Error(
+'این حساب مدیر فعال نیست. user_id باید در جدول admin_users ثبت شده و is_active برابر true باشد.'
+);
+
 }
 
-$('adminIdentity').textContent='حساب: '+(data.user.email||email)+' | نقش: '+(admin.role||'نامشخص');
+
+$('adminIdentity').textContent=
+'حساب: '+(data.user.email||email)+
+' | نقش: '+(admin.role||'نامشخص');
+
 
 if(admin.role!=='owner'){
-$('roleNotice').textContent='نقش شما «'+(admin.role||'نامشخص')+'» است. دسترسی واقعی به اطلاعات بر اساس سیاست‌های امنیتی RLS در Supabase تعیین می‌شود.';
+
+$('roleNotice').textContent=
+'نقش شما «'+(admin.role||'نامشخص')+
+'» است. دسترسی واقعی به اطلاعات بر اساس سیاست‌های امنیتی RLS در Supabase تعیین می‌شود.';
+
 $('roleNotice').classList.remove('hidden');
+
 }else{
+
 $('roleNotice').classList.add('hidden');
+
 }
+
 
 $('loginView').classList.add('hidden');
 $('appView').classList.remove('hidden');
 
-status('globalStatus','ورود موفق بود. در حال دریافت اطلاعات پنل...');
 
+status(
+'globalStatus',
+'ورود موفق بود. در حال دریافت اطلاعات ضروری داشبورد...'
+);
+
+
+// فقط داشبورد و بخش اولیه هنرمندان بارگذاری می‌شوند.
 await loadAll();
+
 
 }catch(e2){
 
+
 if(authenticated){
-try{await db.auth.signOut();}catch(_){}
+
+try{
+await db.auth.signOut();
+}catch(_){}
+
 }
 
-status('loginStatus','ورود انجام نشد: '+errText(e2),'error');
+
+status(
+'loginStatus',
+'ورود انجام نشد: '+errText(e2),
+'error'
+);
+
 
 }finally{
 
@@ -374,111 +843,187 @@ busy=false;
 $('loginBtn').disabled=false;
 
 }
+
 }
+
+
 
 async function signOut(){
 
 try{
 
+
 await db.auth.signOut();
+
 
 $('appView').classList.add('hidden');
 $('loginView').classList.remove('hidden');
 
+
 $('password').value='';
 
-status('loginStatus','از حساب خارج شدید.','success');
+
+loadedTabs.clear();
+loadingTabs.clear();
+
+
+status(
+'loginStatus',
+'از حساب خارج شدید.',
+'success'
+);
+
 
 }catch(e){
 
-status('globalStatus','خروج ناموفق بود: '+errText(e),'error');
+status(
+'globalStatus',
+'خروج ناموفق بود: '+errText(e),
+'error'
+);
 
 }
+
 }
+
+
 
 function valueText(v){
 
 if(v===null||v===undefined||v==='')return '—';
 
-return typeof v==='object'?JSON.stringify(v):String(v);
+return typeof v==='object'
+?JSON.stringify(v)
+:String(v);
 
 }
+
+
 
 function tableHtml(rows){
 
-if(!rows?.length)return '<p>هنوز داده‌ای ثبت نشده است.</p>';
+if(!rows?.length)
+return '<p>هنوز داده‌ای ثبت نشده است.</p>';
 
-const cols=[...new Set(rows.flatMap(r=>Object.keys(r)))].slice(0,12);
+
+const cols=[
+...new Set(rows.flatMap(r=>Object.keys(r)))
+].slice(0,12);
+
 
 return '<div class="table-wrap"><table><thead><tr>'+
+
 cols.map(c=>'<th>'+esc(c)+'</th>').join('')+
+
 '</tr></thead><tbody>'+
 
-rows.map(r=>'<tr>'+
-cols.map(c=>'<td>'+esc(valueText(r[c]))+'</td>').join('')+
-'</tr>').join('')+
+rows.map(r=>
+'<tr>'+
+cols.map(c=>
+'<td>'+esc(valueText(r[c]))+'</td>'
+).join('')+
+'</tr>'
+).join('')+
 
-'</tbody></table></div><p class="small">حداکثر ۱۲ ستون برای خوانایی نمایش داده شده است.</p>';
+'</tbody></table></div>'+
+
+'<p class="small">حداکثر ۱۲ ستون برای خوانایی نمایش داده شده است.</p>';
 
 }
 
+
+
 async function fetchRows(table,limit=100){
 
-const ordered=await db.from(table)
+const ordered=await db
+.from(table)
 .select('*')
 .order('created_at',{ascending:false})
 .limit(limit);
 
-if(!ordered.error)return ordered.data||[];
 
-const plain=await db.from(table)
+if(!ordered.error)
+return ordered.data||[];
+
+
+const plain=await db
+.from(table)
 .select('*')
 .limit(limit);
 
-if(plain.error)throw plain.error;
+
+if(plain.error)
+throw plain.error;
+
 
 return plain.data||[];
 
 }
 
+
+
 async function loadGeneric(key){
 
 const box=$(CONTENT[key]);
 
+
 box.textContent='در حال بارگذاری...';
+
 
 try{
 
-box.innerHTML=tableHtml(
-await fetchRows(TABLES[key],100)
-);
+const rows=await fetchRows(TABLES[key],100);
+
+box.innerHTML=tableHtml(rows);
+
+return true;
+
 
 }catch(e){
 
-box.innerHTML='<div class="status error">بارگذاری '+esc(TABLES[key])+' ناموفق بود: '+esc(errText(e))+'</div>';
+box.innerHTML=
+'<div class="status error">بارگذاری '+
+esc(TABLES[key])+
+' ناموفق بود: '+
+esc(errText(e))+
+'</div>';
+
+return false;
 
 }
 
 }
+
+
 
 async function loadArtists(){
 
 const box=$('artistsContent');
 
+
 box.textContent='در حال بارگذاری...';
+
 
 try{
 
+
 const rows=await fetchRows('artist_requests',100);
 
+
 if(!rows.length){
+
 box.innerHTML='<p>درخواستی ثبت نشده است.</p>';
-return;
+
+return true;
+
 }
+
 
 box.innerHTML=rows.map(r=>{
 
+
 const details=[
+
 ['نام',r.full_name],
 ['نقش هنری',r.artist_role],
 ['ایمیل',r.email],
@@ -487,83 +1032,165 @@ const details=[
 ['پیام',r.message],
 ['نمونه‌کار',r.portfolio_url],
 ['تاریخ ثبت',r.created_at]
-].filter(x=>x[1]!==undefined&&x[1]!==null&&x[1]!=='');
+
+].filter(x=>
+x[1]!==undefined&&
+x[1]!==null&&
+x[1]!==''
+);
+
 
 const id=r.id;
 const statusVal=String(r.status||'new');
 
+
 return '<article class="row-card">'+
 
-'<div class="top"><h3>'+esc(r.full_name||'درخواست هنرمند')+'</h3><span class="badge">'+esc(statusVal)+'</span></div>'+
 
-details.map(x=>'<p><b>'+esc(x[0])+':</b> '+
-(x[0]==='نمونه‌کار'&&/^https?:\/\//i.test(String(x[1]))
+'<div class="top">'+
+'<h3>'+esc(r.full_name||'درخواست هنرمند')+'</h3>'+
+'<span class="badge">'+esc(statusVal)+'</span>'+
+'</div>'+
+
+
+details.map(x=>
+
+'<p><b>'+esc(x[0])+':</b> '+
+
+(
+x[0]==='نمونه‌کار'&&
+/^https?:\/\//i.test(String(x[1]))
+
 ?'<a href="'+esc(x[1])+'" target="_blank" rel="noopener noreferrer">مشاهده لینک</a>'
-:esc(x[1]))+'</p>').join('')+
+
+:esc(x[1])
+
+)+
+
+'</p>'
+
+).join('')+
+
 
 (id!==undefined?
 
-'<div class="field"><label>وضعیت</label><select data-status-for="'+esc(id)+'">'+
+
+'<div class="field">'+
+'<label>وضعیت</label>'+
+'<select data-status-for="'+esc(id)+'">'+
 
 ['new','reviewing','answered','approved','rejected','closed']
-.map(s=>'<option value="'+s+'" '+(s===statusVal?'selected':'')+'>'+s+'</option>')
-.join('')+
 
-'</select></div>'+
+.map(s=>
+'<option value="'+s+'" '+
+(s===statusVal?'selected':'')+
+'>'+s+'</option>'
+).join('')+
 
-'<div class="field"><label>یادداشت مدیر</label><textarea data-notes-for="'+esc(id)+'">'+esc(r.admin_notes||'')+'</textarea></div>'+
+'</select>'+
+'</div>'+
 
-'<button type="button" data-save-artist="'+esc(id)+'">ذخیره تغییرات</button>'
+
+'<div class="field">'+
+'<label>یادداشت مدیر</label>'+
+'<textarea data-notes-for="'+esc(id)+'">'+
+esc(r.admin_notes||'')+
+'</textarea>'+
+'</div>'+
+
+
+'<button type="button" data-save-artist="'+esc(id)+'">'+
+'ذخیره تغییرات'+
+'</button>'
+
 
 :''
 
 )+
 
+
 '</article>';
+
 
 }).join('');
 
+
+return true;
+
+
 }catch(e){
 
-box.innerHTML='<div class="status error">بارگذاری درخواست‌ها ناموفق بود: '+esc(errText(e))+'</div>';
+box.innerHTML=
+'<div class="status error">بارگذاری درخواست‌ها ناموفق بود: '+
+esc(errText(e))+
+'</div>';
+
+return false;
 
 }
 
 }
+
+
 
 async function saveArtist(id,button){
 
 button.disabled=true;
 
+
 try{
+
 
 const selector=window.CSS?.escape
 ?CSS.escape(String(id))
 :String(id).replace(/["\\]/g,'\\$&');
 
-const s=document.querySelector('[data-status-for="'+selector+'"]');
-const n=document.querySelector('[data-notes-for="'+selector+'"]');
+
+const s=document.querySelector(
+'[data-status-for="'+selector+'"]'
+);
+
+const n=document.querySelector(
+'[data-notes-for="'+selector+'"]'
+);
+
 
 const changes={};
 
+
 if(s)changes.status=s.value;
 if(n)changes.admin_notes=n.value;
+
 
 const {error}=await db
 .from('artist_requests')
 .update(changes)
 .eq('id',id);
 
+
 if(error)throw error;
 
-status('globalStatus','تغییرات درخواست هنرمند ذخیره شد.','success');
+
+status(
+'globalStatus',
+'تغییرات درخواست هنرمند ذخیره شد.',
+'success'
+);
+
 
 await loadArtists();
+
 await loadCounts();
+
 
 }catch(e){
 
-status('globalStatus','ذخیره تغییرات ناموفق بود: '+errText(e),'error');
+status(
+'globalStatus',
+'ذخیره تغییرات ناموفق بود: '+errText(e),
+'error'
+);
+
 
 }finally{
 
@@ -572,6 +1199,8 @@ button.disabled=false;
 }
 
 }
+
+
 
 function dayStart(daysAgo){
 
@@ -584,19 +1213,31 @@ return d.toISOString();
 
 }
 
+
+
 async function count(table,filter){
 
-let q=db.from(table).select('*',{count:'exact',head:true});
+let q=db
+.from(table)
+.select('*',{count:'exact',head:true});
 
-if(filter)q=filter(q);
+
+if(filter)
+q=filter(q);
+
 
 const {count,error}=await q;
 
-if(error)throw error;
+
+if(error)
+throw error;
+
 
 return count??0;
 
 }
+
+
 
 async function metric(id,fn){
 
@@ -614,40 +1255,86 @@ console.warn(id,errText(e));
 
 }
 
+
+
 async function loadCounts(){
 
 await Promise.all([
 
-metric('countArtists',()=>count('artist_requests')),
 
-metric('countAds',()=>count('ad_orders')),
+metric(
+'countArtists',
+()=>count('artist_requests')
+),
 
-metric('countMessages',()=>count('contact_messages')),
 
-metric('countViews',()=>count('page_views')),
+metric(
+'countAds',
+()=>count('ad_orders')
+),
 
-metric('countViewsToday',()=>count('page_views',q=>q.gte('created_at',dayStart(0)))),
 
-metric('countViewsWeek',()=>count('page_views',q=>q.gte('created_at',dayStart(6)))),
+metric(
+'countMessages',
+()=>count('contact_messages')
+),
 
-metric('countEvents',()=>count('analytics_events'))
+
+metric(
+'countViews',
+()=>count('page_views')
+),
+
+
+metric(
+'countViewsToday',
+()=>count(
+'page_views',
+q=>q.gte('created_at',dayStart(0))
+)
+),
+
+
+metric(
+'countViewsWeek',
+()=>count(
+'page_views',
+q=>q.gte('created_at',dayStart(6))
+)
+),
+
+
+metric(
+'countEvents',
+()=>count('analytics_events')
+)
+
 
 ]);
 
 }
 
+
+
 async function loadViews(){
 
 $('viewsContent').textContent='در حال بارگذاری...';
+
 $('popularPagesContent').textContent='در حال محاسبه...';
+
 
 try{
 
+
 const rows=await fetchRows('page_views',1000);
 
-$('viewsContent').innerHTML=tableHtml(rows.slice(0,100));
+
+$('viewsContent').innerHTML=
+tableHtml(rows.slice(0,100));
+
 
 const counts={};
+
 
 rows.forEach(r=>{
 
@@ -657,96 +1344,334 @@ counts[p]=(counts[p]||0)+1;
 
 });
 
+
 const popular=Object.entries(counts)
 .sort((a,b)=>b[1]-a[1])
 .slice(0,20);
 
+
 $('popularPagesContent').innerHTML=popular.length?
 
-'<div class="table-wrap"><table><thead><tr><th>مسیر صفحه</th><th>بازدید در ۱۰۰۰ رکورد اخیر</th></tr></thead><tbody>'+
 
-popular.map(([p,n])=>'<tr><td>'+esc(p)+'</td><td>'+n.toLocaleString('fa-IR')+'</td></tr>').join('')+
+'<div class="table-wrap"><table>'+
+'<thead><tr>'+
+'<th>مسیر صفحه</th>'+
+'<th>بازدید در ۱۰۰۰ رکورد اخیر</th>'+
+'</tr></thead><tbody>'+
+
+popular.map(([p,n])=>
+'<tr>'+
+'<td>'+esc(p)+'</td>'+
+'<td>'+n.toLocaleString('fa-IR')+'</td>'+
+'</tr>'
+).join('')+
 
 '</tbody></table></div>'
 
+
 :'<p>هنوز بازدیدی ثبت نشده است.</p>';
+
+
+return true;
+
 
 }catch(e){
 
-const m='<div class="status error">دریافت آمار بازدید ناموفق بود: '+esc(errText(e))+'</div>';
+
+const m=
+'<div class="status error">دریافت آمار بازدید ناموفق بود: '+
+esc(errText(e))+
+'</div>';
+
 
 $('viewsContent').innerHTML=m;
+
 $('popularPagesContent').innerHTML=m;
 
-}
+
+return false;
 
 }
 
+}
+
+
+
+// بارگذاری اولیه فقط بخش‌های ضروری
 async function loadAll(){
+
+loadedTabs.clear();
+
 
 await Promise.all([
 
 loadCounts(),
-loadArtists(),
-loadGeneric('ads'),
-loadGeneric('messages'),
-loadViews(),
-loadGeneric('events'),
-loadGeneric('activity')
+
+loadTab('artists',true)
 
 ]);
 
-status('globalStatus','بارگذاری پنل پایان یافت. اگر بخشی خطا دارد، متن همان بخش را بررسی کنید.','success');
+
+status(
+'globalStatus',
+'داشبورد و درخواست‌های هنرمندان بارگذاری شدند. برای مشاهده سایر اطلاعات، بخش موردنظر را انتخاب کنید.',
+'success'
+);
 
 }
 
-function switchTab(tab){
+
+
+// بارگذاری هوشمند هر بخش
+async function loadTab(tab,force=false){
+
+if(tab==='backup')
+return true;
+
+
+if(!CONTENT[tab])
+return false;
+
+
+// اگر قبلاً بارگذاری شده و درخواست جدیدی نشده است
+if(!force&&loadedTabs.has(tab))
+return true;
+
+
+// جلوگیری از ارسال درخواست هم‌زمان تکراری
+if(loadingTabs.has(tab))
+return false;
+
+
+loadingTabs.add(tab);
+
+
+let success=false;
+
+
+try{
+
+
+if(tab==='artists'){
+
+success=await loadArtists();
+
+}
+
+else if(tab==='ads'){
+
+success=await loadGeneric('ads');
+
+}
+
+else if(tab==='messages'){
+
+success=await loadGeneric('messages');
+
+}
+
+else if(tab==='views'){
+
+success=await loadViews();
+
+}
+
+else if(tab==='events'){
+
+success=await loadGeneric('events');
+
+}
+
+else if(tab==='activity'){
+
+success=await loadGeneric('activity');
+
+}
+
+
+if(success){
+
+loadedTabs.add(tab);
+
+}else{
+
+loadedTabs.delete(tab);
+
+}
+
+
+return success;
+
+
+}finally{
+
+loadingTabs.delete(tab);
+
+}
+
+}
+
+
+
+// به‌روزرسانی بخش‌هایی که قبلاً باز شده‌اند
+async function refreshAll(){
+
+status(
+'globalStatus',
+'در حال به‌روزرسانی اطلاعات...'
+);
+
+
+await Promise.all([
+
+loadCounts(),
+
+...Array.from(loadedTabs).map(
+tab=>loadTab(tab,true)
+)
+
+]);
+
+
+status(
+'globalStatus',
+'به‌روزرسانی اطلاعات پایان یافت.',
+'success'
+);
+
+}
+
+
+
+// تعویض تب و بارگذاری در صورت نیاز
+async function switchTab(tab){
+
 
 document.querySelectorAll('#tabs [data-tab]')
-.forEach(b=>b.classList.toggle('active',b.dataset.tab===tab));
+.forEach(b=>
+b.classList.toggle(
+'active',
+b.dataset.tab===tab
+)
+);
+
 
 document.querySelectorAll('.tabPanel')
-.forEach(p=>p.classList.toggle('hidden',p.id!=='panel-'+tab));
+.forEach(p=>
+p.classList.toggle(
+'hidden',
+p.id!=='panel-'+tab
+)
+);
+
+
+if(tab==='backup')
+return;
+
+
+if(!loadedTabs.has(tab)){
+
+status(
+'globalStatus',
+'در حال بارگذاری بخش انتخاب‌شده...'
+);
 
 }
 
-$('loginForm').addEventListener('submit',signIn);
 
-$('logoutBtn').addEventListener('click',signOut);
+const success=await loadTab(tab);
 
-$('refreshBtn').addEventListener('click',loadAll);
 
-$('tabs').addEventListener('click',e=>{
+if(success){
+
+status(
+'globalStatus',
+'بخش انتخاب‌شده آماده است.',
+'success'
+);
+
+}else{
+
+status(
+'globalStatus',
+'بارگذاری این بخش کامل نشد. می‌توانی دوباره تلاش کنی.',
+'error'
+);
+
+}
+
+}
+
+
+
+// رویدادهای صفحه
+$('loginForm').addEventListener(
+'submit',
+signIn
+);
+
+
+$('logoutBtn').addEventListener(
+'click',
+signOut
+);
+
+
+$('refreshBtn').addEventListener(
+'click',
+refreshAll
+);
+
+
+$('tabs').addEventListener('click',async e=>{
 
 const b=e.target.closest('[data-tab]');
 
-if(b)switchTab(b.dataset.tab);
+if(b){
 
-});
-
-document.addEventListener('click',e=>{
-
-const reload=e.target.closest('[data-reload]');
-
-if(reload){
-
-const k=reload.dataset.reload;
-
-if(k==='artists')loadArtists();
-else if(k==='views')loadViews();
-else if(CONTENT[k])loadGeneric(k);
+await switchTab(b.dataset.tab);
 
 }
 
+});
+
+
+document.addEventListener('click',e=>{
+
+
+const reload=e.target.closest('[data-reload]');
+
+
+if(reload){
+
+loadTab(
+reload.dataset.reload,
+true
+);
+
+}
+
+
 const save=e.target.closest('[data-save-artist]');
 
-if(save)saveArtist(save.dataset.saveArtist,save);
+
+if(save){
+
+saveArtist(
+save.dataset.saveArtist,
+save
+);
+
+}
 
 });
 
+
 init();
 
+
 })();
+
 </script>
 
 </body>
