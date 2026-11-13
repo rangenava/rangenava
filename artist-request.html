@@ -14,7 +14,6 @@
   --text:#202020;
   --muted:#666;
   --line:#dedede;
-  --bg:#fff;
   --success:#176b3a;
   --error:#a32626;
 }
@@ -112,9 +111,7 @@ label{
   font-size:.9rem;
 }
 
-label span{
-  color:#a32626;
-}
+label span{color:#a32626}
 
 input,textarea,select{
   width:100%;
@@ -143,6 +140,10 @@ textarea{
   color:var(--muted);
   font-size:.78rem;
   margin-top:5px;
+}
+
+#otherRoleField{
+  display:none;
 }
 
 .privacy{
@@ -261,7 +262,6 @@ footer{
           </label>
           <input
             id="full_name"
-            name="full_name"
             type="text"
             minlength="2"
             maxlength="120"
@@ -272,21 +272,42 @@ footer{
 
         <div class="field">
           <label for="artist_role">
-            زمینه فعالیت
+            زمینه فعالیت <span>*</span>
           </label>
+
+          <select id="artist_role" required>
+            <option value="">انتخاب کنید</option>
+            <option value="خواننده">خواننده</option>
+            <option value="نوازنده">نوازنده</option>
+            <option value="آهنگساز">آهنگساز</option>
+            <option value="تنظیم‌کننده موسیقی">تنظیم‌کننده موسیقی</option>
+            <option value="ترانه‌سرا">ترانه‌سرا</option>
+            <option value="مدرس موسیقی">مدرس موسیقی</option>
+            <option value="گروه موسیقی">گروه موسیقی</option>
+            <option value="تهیه‌کننده موسیقی">تهیه‌کننده موسیقی</option>
+            <option value="سایر">سایر</option>
+          </select>
+        </div>
+
+        <div
+          class="field full"
+          id="otherRoleField">
+
+          <label for="other_role">
+            زمینه فعالیت خود را بنویسید <span>*</span>
+          </label>
+
           <input
-            id="artist_role"
-            name="artist_role"
+            id="other_role"
             type="text"
             maxlength="120"
-            placeholder="مثلاً نوازنده، خواننده، آهنگساز">
+            placeholder="زمینه فعالیت شما چیست؟">
         </div>
 
         <div class="field">
           <label for="email">ایمیل</label>
           <input
             id="email"
-            name="email"
             type="email"
             maxlength="254"
             autocomplete="email"
@@ -297,7 +318,6 @@ footer{
           <label for="phone">شماره تماس</label>
           <input
             id="phone"
-            name="phone"
             type="tel"
             maxlength="30"
             autocomplete="tel"
@@ -308,7 +328,6 @@ footer{
           <label for="subject">موضوع درخواست</label>
           <input
             id="subject"
-            name="subject"
             type="text"
             maxlength="200"
             placeholder="موضوع همکاری">
@@ -320,10 +339,10 @@ footer{
           </label>
           <input
             id="portfolio_url"
-            name="portfolio_url"
             type="url"
             maxlength="1000"
             placeholder="https://example.com">
+
           <small class="help">
             در صورت داشتن وب‌سایت یا صفحه معرفی آثار، لینک آن را وارد کنید.
           </small>
@@ -333,13 +352,14 @@ footer{
           <label for="message">
             توضیحات و پیشنهاد همکاری <span>*</span>
           </label>
+
           <textarea
             id="message"
-            name="message"
             minlength="5"
             maxlength="5000"
             required
             placeholder="درباره فعالیت هنری و نوع همکاری موردنظرتان بنویسید..."></textarea>
+
           <small class="help">
             حداقل ۵ و حداکثر ۵۰۰۰ نویسه.
           </small>
@@ -351,7 +371,6 @@ footer{
         <label for="website">وب‌سایت</label>
         <input
           id="website"
-          name="website"
           type="text"
           tabindex="-1"
           autocomplete="off">
@@ -392,6 +411,10 @@ footer{
   const button = document.getElementById('submitButton');
   const messageBox = document.getElementById('formMessage');
 
+  const roleSelect = document.getElementById('artist_role');
+  const otherRoleField = document.getElementById('otherRoleField');
+  const otherRoleInput = document.getElementById('other_role');
+
   function showMessage(text,type){
     messageBox.textContent = text;
     messageBox.className = type;
@@ -402,7 +425,21 @@ footer{
     return String(value || '').trim();
   }
 
-  form.addEventListener('submit', async function(event){
+  // نمایش کادر توضیحات در صورت انتخاب «سایر»
+  roleSelect.addEventListener('change',function(){
+
+    const isOther = roleSelect.value === 'سایر';
+
+    otherRoleField.style.display = isOther ? 'block' : 'none';
+    otherRoleInput.required = isOther;
+
+    if(!isOther){
+      otherRoleInput.value = '';
+    }
+
+  });
+
+  form.addEventListener('submit',async function(event){
 
     event.preventDefault();
 
@@ -434,9 +471,9 @@ footer{
       document.getElementById('full_name').value
     );
 
-    const artistRole = clean(
-      document.getElementById('artist_role').value
-    );
+    const selectedRole = clean(roleSelect.value);
+
+    const otherRole = clean(otherRoleInput.value);
 
     const email = clean(
       document.getElementById('email').value
@@ -463,10 +500,25 @@ footer{
       return;
     }
 
+    if(!selectedRole){
+      showMessage('لطفاً زمینه فعالیت خود را انتخاب کنید.','error');
+      return;
+    }
+
+    if(selectedRole === 'سایر' && !otherRole){
+      showMessage('لطفاً زمینه فعالیت خود را بنویسید.','error');
+      return;
+    }
+
     if(text.length < 5 || text.length > 5000){
       showMessage('متن درخواست باید بین ۵ تا ۵۰۰۰ نویسه باشد.','error');
       return;
     }
+
+    // ذخیره انتخاب نهایی در همان ستون artist_role
+    const finalRole = selectedRole === 'سایر'
+      ? 'سایر: ' + otherRole
+      : selectedRole;
 
     button.disabled = true;
     button.textContent = 'در حال ارسال درخواست...';
@@ -480,7 +532,7 @@ footer{
 
       const payload = {
         full_name: fullName,
-        artist_role: artistRole || null,
+        artist_role: finalRole,
         email: email || null,
         phone: phone || null,
         subject: subject || null,
@@ -488,7 +540,7 @@ footer{
         portfolio_url: portfolio || null
       };
 
-      const { error } = await db
+      const {error} = await db
         .from('artist_requests')
         .insert(payload);
 
@@ -498,6 +550,9 @@ footer{
       }
 
       form.reset();
+
+      otherRoleField.style.display = 'none';
+      otherRoleInput.required = false;
 
       showMessage(
         'درخواست شما با موفقیت ثبت شد. پس از بررسی، در صورت امکان با شما ارتباط گرفته می‌شود.',
