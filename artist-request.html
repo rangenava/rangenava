@@ -1,0 +1,529 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#ffffff">
+
+<title>همکاری با هنرمندان | رنگ‌نوا</title>
+
+<style>
+:root{
+  --gold:#96702f;
+  --gold-light:#f5eddd;
+  --text:#202020;
+  --muted:#666;
+  --line:#dedede;
+  --bg:#fff;
+  --success:#176b3a;
+  --error:#a32626;
+}
+
+*{box-sizing:border-box}
+
+body{
+  margin:0;
+  background:#f7f7f7;
+  color:var(--text);
+  font-family:Tahoma,"Segoe UI",Arial,sans-serif;
+  line-height:1.9;
+}
+
+a{color:inherit;text-decoration:none}
+
+.container{
+  width:min(760px,92%);
+  margin:auto;
+}
+
+header{
+  background:#fff;
+  border-bottom:1px solid var(--line);
+  padding:15px 0;
+}
+
+.header-inner{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:12px;
+}
+
+.brand{
+  font-size:1.15rem;
+  font-weight:bold;
+}
+
+.brand span{
+  display:block;
+  color:var(--gold);
+  direction:ltr;
+  font-size:.68rem;
+  letter-spacing:2px;
+}
+
+.back{
+  color:var(--gold);
+  font-size:.9rem;
+}
+
+main{padding:35px 0 55px}
+
+.intro{
+  text-align:center;
+  margin-bottom:25px;
+}
+
+.intro .icon{font-size:2.8rem}
+
+.intro h1{
+  font-size:clamp(1.5rem,4vw,2rem);
+  margin:5px 0;
+}
+
+.intro p{
+  color:var(--muted);
+  margin:5px auto;
+  max-width:580px;
+}
+
+.form-card{
+  background:#fff;
+  border:1px solid var(--line);
+  border-radius:18px;
+  padding:clamp(18px,4vw,32px);
+  box-shadow:0 10px 30px rgba(0,0,0,.045);
+}
+
+.form-grid{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:17px;
+}
+
+.field{margin-bottom:17px}
+
+.field.full{grid-column:1/-1}
+
+label{
+  display:block;
+  font-weight:bold;
+  margin-bottom:7px;
+  font-size:.9rem;
+}
+
+label span{
+  color:#a32626;
+}
+
+input,textarea,select{
+  width:100%;
+  border:1px solid #ccc;
+  border-radius:10px;
+  padding:12px;
+  background:#fff;
+  color:#222;
+  font:inherit;
+  font-size:.92rem;
+  outline:none;
+}
+
+input:focus,textarea:focus,select:focus{
+  border-color:var(--gold);
+  box-shadow:0 0 0 3px #96702f18;
+}
+
+textarea{
+  min-height:145px;
+  resize:vertical;
+}
+
+.help{
+  display:block;
+  color:var(--muted);
+  font-size:.78rem;
+  margin-top:5px;
+}
+
+.privacy{
+  background:var(--gold-light);
+  border:1px solid #e6d6b5;
+  border-radius:11px;
+  padding:13px;
+  font-size:.83rem;
+  color:#51452f;
+  margin:8px 0 20px;
+}
+
+button{
+  width:100%;
+  border:0;
+  border-radius:11px;
+  padding:14px;
+  background:#202020;
+  color:#fff;
+  font:inherit;
+  font-weight:bold;
+  cursor:pointer;
+}
+
+button:hover{background:#42351f}
+
+button:disabled{
+  opacity:.6;
+  cursor:wait;
+}
+
+#formMessage{
+  display:none;
+  margin-top:18px;
+  border-radius:10px;
+  padding:13px;
+  text-align:center;
+  font-size:.9rem;
+}
+
+#formMessage.success{
+  display:block;
+  color:var(--success);
+  background:#eaf6ee;
+  border:1px solid #b9dfc5;
+}
+
+#formMessage.error{
+  display:block;
+  color:var(--error);
+  background:#fff0f0;
+  border:1px solid #edc2c2;
+}
+
+.honeypot{
+  position:absolute;
+  right:-10000px;
+  width:1px;
+  height:1px;
+  overflow:hidden;
+}
+
+footer{
+  text-align:center;
+  padding:20px;
+  color:var(--muted);
+  font-size:.8rem;
+  border-top:1px solid var(--line);
+  background:#fff;
+}
+
+@media(max-width:600px){
+  .form-grid{grid-template-columns:1fr}
+  .field.full{grid-column:auto}
+  .header-inner{flex-wrap:wrap}
+}
+</style>
+</head>
+
+<body>
+
+<header>
+  <div class="container header-inner">
+    <a class="brand" href="index.html">
+      رنگ‌نوا
+      <span>RANGENAVA</span>
+    </a>
+
+    <a class="back" href="index.html">
+      بازگشت به سایت ←
+    </a>
+  </div>
+</header>
+
+<main>
+<div class="container">
+
+  <div class="intro">
+    <div class="icon">🎙️</div>
+    <h1>همکاری با هنرمندان</h1>
+    <p>
+      اگر هنرمند، نوازنده، خواننده، آهنگساز یا فعال حوزه موسیقی هستید،
+      از طریق این فرم درخواست همکاری خود را برای رنگ‌نوا ارسال کنید.
+    </p>
+  </div>
+
+  <div class="form-card">
+
+    <form id="artistForm">
+
+      <div class="form-grid">
+
+        <div class="field">
+          <label for="full_name">
+            نام و نام خانوادگی <span>*</span>
+          </label>
+          <input
+            id="full_name"
+            name="full_name"
+            type="text"
+            minlength="2"
+            maxlength="120"
+            required
+            autocomplete="name"
+            placeholder="نام کامل">
+        </div>
+
+        <div class="field">
+          <label for="artist_role">
+            زمینه فعالیت
+          </label>
+          <input
+            id="artist_role"
+            name="artist_role"
+            type="text"
+            maxlength="120"
+            placeholder="مثلاً نوازنده، خواننده، آهنگساز">
+        </div>
+
+        <div class="field">
+          <label for="email">ایمیل</label>
+          <input
+            id="email"
+            name="email"
+            type="email"
+            maxlength="254"
+            autocomplete="email"
+            placeholder="example@email.com">
+        </div>
+
+        <div class="field">
+          <label for="phone">شماره تماس</label>
+          <input
+            id="phone"
+            name="phone"
+            type="tel"
+            maxlength="30"
+            autocomplete="tel"
+            placeholder="اختیاری">
+        </div>
+
+        <div class="field full">
+          <label for="subject">موضوع درخواست</label>
+          <input
+            id="subject"
+            name="subject"
+            type="text"
+            maxlength="200"
+            placeholder="موضوع همکاری">
+        </div>
+
+        <div class="field full">
+          <label for="portfolio_url">
+            لینک نمونه آثار یا صفحه هنری
+          </label>
+          <input
+            id="portfolio_url"
+            name="portfolio_url"
+            type="url"
+            maxlength="1000"
+            placeholder="https://example.com">
+          <small class="help">
+            در صورت داشتن وب‌سایت یا صفحه معرفی آثار، لینک آن را وارد کنید.
+          </small>
+        </div>
+
+        <div class="field full">
+          <label for="message">
+            توضیحات و پیشنهاد همکاری <span>*</span>
+          </label>
+          <textarea
+            id="message"
+            name="message"
+            minlength="5"
+            maxlength="5000"
+            required
+            placeholder="درباره فعالیت هنری و نوع همکاری موردنظرتان بنویسید..."></textarea>
+          <small class="help">
+            حداقل ۵ و حداکثر ۵۰۰۰ نویسه.
+          </small>
+        </div>
+
+      </div>
+
+      <div class="honeypot" aria-hidden="true">
+        <label for="website">وب‌سایت</label>
+        <input
+          id="website"
+          name="website"
+          type="text"
+          tabindex="-1"
+          autocomplete="off">
+      </div>
+
+      <div class="privacy">
+        اطلاعات این فرم برای بررسی درخواست همکاری در رنگ‌نوا ثبت می‌شود.
+        از ارسال رمز عبور، اطلاعات مالی یا اطلاعات شخصی غیرضروری خودداری کنید.
+        افراد زیر ۱۸ سال نباید اطلاعات تماس شخصی خود را در این فرم وارد کنند؛
+        ارسال درخواست باید با همراهی والد یا سرپرست انجام شود.
+      </div>
+
+      <button id="submitButton" type="submit">
+        ارسال درخواست همکاری
+      </button>
+
+      <div id="formMessage" role="status" aria-live="polite"></div>
+
+    </form>
+  </div>
+
+</div>
+</main>
+
+<footer>
+  رنگ‌نوا | Rangenava
+  <br>
+  خانه‌ای برای موسیقی و فرهنگ
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="rangenava-config.js"></script>
+
+<script>
+(function(){
+
+  const form = document.getElementById('artistForm');
+  const button = document.getElementById('submitButton');
+  const messageBox = document.getElementById('formMessage');
+
+  function showMessage(text,type){
+    messageBox.textContent = text;
+    messageBox.className = type;
+    messageBox.style.display = 'block';
+  }
+
+  function clean(value){
+    return String(value || '').trim();
+  }
+
+  form.addEventListener('submit', async function(event){
+
+    event.preventDefault();
+
+    messageBox.style.display = 'none';
+
+    if(!form.reportValidity()) return;
+
+    if(clean(document.getElementById('website').value)){
+      showMessage('درخواست قابل پردازش نیست.','error');
+      return;
+    }
+
+    const config = window.RANGENAVA_CONFIG;
+
+    if(
+      !config ||
+      !config.url ||
+      !config.anonKey ||
+      !window.supabase
+    ){
+      showMessage(
+        'اتصال سامانه در دسترس نیست. لطفاً بعداً دوباره تلاش کنید.',
+        'error'
+      );
+      return;
+    }
+
+    const fullName = clean(
+      document.getElementById('full_name').value
+    );
+
+    const artistRole = clean(
+      document.getElementById('artist_role').value
+    );
+
+    const email = clean(
+      document.getElementById('email').value
+    );
+
+    const phone = clean(
+      document.getElementById('phone').value
+    );
+
+    const subject = clean(
+      document.getElementById('subject').value
+    );
+
+    const portfolio = clean(
+      document.getElementById('portfolio_url').value
+    );
+
+    const text = clean(
+      document.getElementById('message').value
+    );
+
+    if(fullName.length < 2 || fullName.length > 120){
+      showMessage('نام واردشده معتبر نیست.','error');
+      return;
+    }
+
+    if(text.length < 5 || text.length > 5000){
+      showMessage('متن درخواست باید بین ۵ تا ۵۰۰۰ نویسه باشد.','error');
+      return;
+    }
+
+    button.disabled = true;
+    button.textContent = 'در حال ارسال درخواست...';
+
+    try{
+
+      const db = window.supabase.createClient(
+        config.url,
+        config.anonKey
+      );
+
+      const payload = {
+        full_name: fullName,
+        artist_role: artistRole || null,
+        email: email || null,
+        phone: phone || null,
+        subject: subject || null,
+        message: text,
+        portfolio_url: portfolio || null
+      };
+
+      const { error } = await db
+        .from('artist_requests')
+        .insert(payload);
+
+      if(error){
+        console.error('Artist request error:',error);
+        throw error;
+      }
+
+      form.reset();
+
+      showMessage(
+        'درخواست شما با موفقیت ثبت شد. پس از بررسی، در صورت امکان با شما ارتباط گرفته می‌شود.',
+        'success'
+      );
+
+    }catch(error){
+
+      console.error(error);
+
+      showMessage(
+        'ارسال درخواست انجام نشد. لطفاً اتصال اینترنت را بررسی کنید و دوباره تلاش کنید.',
+        'error'
+      );
+
+    }finally{
+
+      button.disabled = false;
+      button.textContent = 'ارسال درخواست همکاری';
+
+    }
+
+  });
+
+})();
+</script>
+
+</body>
+</html>
