@@ -101,7 +101,6 @@ main{padding:35px 0 55px}
 }
 
 .field{margin-bottom:17px}
-
 .field.full{grid-column:1/-1}
 
 label{
@@ -130,6 +129,11 @@ input:focus,textarea:focus,select:focus{
   box-shadow:0 0 0 3px #96702f18;
 }
 
+select{
+  min-height:49px;
+  cursor:pointer;
+}
+
 textarea{
   min-height:145px;
   resize:vertical;
@@ -142,9 +146,7 @@ textarea{
   margin-top:5px;
 }
 
-#otherRoleField{
-  display:none;
-}
+.conditional-field{display:none}
 
 .privacy{
   background:var(--gold-light);
@@ -227,6 +229,7 @@ footer{
 
 <header>
   <div class="container header-inner">
+
     <a class="brand" href="index.html">
       رنگ‌نوا
       <span>RANGENAVA</span>
@@ -235,6 +238,7 @@ footer{
     <a class="back" href="index.html">
       بازگشت به سایت ←
     </a>
+
   </div>
 </header>
 
@@ -260,6 +264,7 @@ footer{
           <label for="full_name">
             نام و نام خانوادگی <span>*</span>
           </label>
+
           <input
             id="full_name"
             type="text"
@@ -289,10 +294,7 @@ footer{
           </select>
         </div>
 
-        <div
-          class="field full"
-          id="otherRoleField">
-
+        <div class="field full conditional-field" id="otherRoleField">
           <label for="other_role">
             زمینه فعالیت خود را بنویسید <span>*</span>
           </label>
@@ -306,6 +308,7 @@ footer{
 
         <div class="field">
           <label for="email">ایمیل</label>
+
           <input
             id="email"
             type="email"
@@ -316,6 +319,7 @@ footer{
 
         <div class="field">
           <label for="phone">شماره تماس</label>
+
           <input
             id="phone"
             type="tel"
@@ -325,18 +329,40 @@ footer{
         </div>
 
         <div class="field full">
-          <label for="subject">موضوع درخواست</label>
+          <label for="subject">
+            موضوع درخواست <span>*</span>
+          </label>
+
+          <select id="subject" required>
+            <option value="">موضوع درخواست را انتخاب کنید</option>
+            <option value="درخواست معرفی هنرمند">درخواست معرفی هنرمند</option>
+            <option value="درخواست انتشار اثر موسیقی">درخواست انتشار اثر موسیقی</option>
+            <option value="همکاری در تولید و ضبط موسیقی">همکاری در تولید و ضبط موسیقی</option>
+            <option value="همکاری در اجرای موسیقی">همکاری در اجرای موسیقی</option>
+            <option value="همکاری آموزشی و تدریس">همکاری آموزشی و تدریس</option>
+            <option value="همکاری رسانه‌ای و تبلیغاتی">همکاری رسانه‌ای و تبلیغاتی</option>
+            <option value="پیشنهاد همکاری با رنگ‌نوا">پیشنهاد همکاری با رنگ‌نوا</option>
+            <option value="سایر موارد">سایر موارد</option>
+          </select>
+        </div>
+
+        <div class="field full conditional-field" id="otherSubjectField">
+          <label for="other_subject">
+            موضوع درخواست خود را توضیح دهید <span>*</span>
+          </label>
+
           <input
-            id="subject"
+            id="other_subject"
             type="text"
             maxlength="200"
-            placeholder="موضوع همکاری">
+            placeholder="موضوع موردنظر خود را بنویسید">
         </div>
 
         <div class="field full">
           <label for="portfolio_url">
             لینک نمونه آثار یا صفحه هنری
           </label>
+
           <input
             id="portfolio_url"
             type="url"
@@ -390,6 +416,7 @@ footer{
       <div id="formMessage" role="status" aria-live="polite"></div>
 
     </form>
+
   </div>
 
 </div>
@@ -415,6 +442,10 @@ footer{
   const otherRoleField = document.getElementById('otherRoleField');
   const otherRoleInput = document.getElementById('other_role');
 
+  const subjectSelect = document.getElementById('subject');
+  const otherSubjectField = document.getElementById('otherSubjectField');
+  const otherSubjectInput = document.getElementById('other_subject');
+
   function showMessage(text,type){
     messageBox.textContent = text;
     messageBox.className = type;
@@ -425,19 +456,38 @@ footer{
     return String(value || '').trim();
   }
 
-  // نمایش کادر توضیحات در صورت انتخاب «سایر»
-  roleSelect.addEventListener('change',function(){
+  function setupOtherField(select,field,input,otherValue){
 
-    const isOther = roleSelect.value === 'سایر';
+    function update(){
 
-    otherRoleField.style.display = isOther ? 'block' : 'none';
-    otherRoleInput.required = isOther;
+      const isOther = select.value === otherValue;
 
-    if(!isOther){
-      otherRoleInput.value = '';
+      field.style.display = isOther ? 'block' : 'none';
+      input.required = isOther;
+
+      if(!isOther){
+        input.value = '';
+      }
+
     }
 
-  });
+    select.addEventListener('change',update);
+    update();
+  }
+
+  setupOtherField(
+    roleSelect,
+    otherRoleField,
+    otherRoleInput,
+    'سایر'
+  );
+
+  setupOtherField(
+    subjectSelect,
+    otherSubjectField,
+    otherSubjectInput,
+    'سایر موارد'
+  );
 
   form.addEventListener('submit',async function(event){
 
@@ -472,7 +522,6 @@ footer{
     );
 
     const selectedRole = clean(roleSelect.value);
-
     const otherRole = clean(otherRoleInput.value);
 
     const email = clean(
@@ -483,9 +532,8 @@ footer{
       document.getElementById('phone').value
     );
 
-    const subject = clean(
-      document.getElementById('subject').value
-    );
+    const selectedSubject = clean(subjectSelect.value);
+    const otherSubject = clean(otherSubjectInput.value);
 
     const portfolio = clean(
       document.getElementById('portfolio_url').value
@@ -510,15 +558,28 @@ footer{
       return;
     }
 
+    if(!selectedSubject){
+      showMessage('لطفاً موضوع درخواست را انتخاب کنید.','error');
+      return;
+    }
+
+    if(selectedSubject === 'سایر موارد' && !otherSubject){
+      showMessage('لطفاً موضوع درخواست خود را توضیح دهید.','error');
+      return;
+    }
+
     if(text.length < 5 || text.length > 5000){
       showMessage('متن درخواست باید بین ۵ تا ۵۰۰۰ نویسه باشد.','error');
       return;
     }
 
-    // ذخیره انتخاب نهایی در همان ستون artist_role
     const finalRole = selectedRole === 'سایر'
       ? 'سایر: ' + otherRole
       : selectedRole;
+
+    const finalSubject = selectedSubject === 'سایر موارد'
+      ? 'سایر موارد: ' + otherSubject
+      : selectedSubject;
 
     button.disabled = true;
     button.textContent = 'در حال ارسال درخواست...';
@@ -535,7 +596,7 @@ footer{
         artist_role: finalRole,
         email: email || null,
         phone: phone || null,
-        subject: subject || null,
+        subject: finalSubject,
         message: text,
         portfolio_url: portfolio || null
       };
@@ -553,6 +614,9 @@ footer{
 
       otherRoleField.style.display = 'none';
       otherRoleInput.required = false;
+
+      otherSubjectField.style.display = 'none';
+      otherSubjectInput.required = false;
 
       showMessage(
         'درخواست شما با موفقیت ثبت شد. پس از بررسی، در صورت امکان با شما ارتباط گرفته می‌شود.',
