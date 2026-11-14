@@ -576,9 +576,13 @@ activity:'activityContent'
 };
 
 
-// نگهداری وضعیت بارگذاری بخش‌ها
+// وضعیت بارگذاری تب‌ها
 const loadedTabs=new Set();
-const loadingTabs=new Set();
+const loadingTabs=new Map();
+
+
+// جلوگیری از اجرای هم‌زمان عملیات کلی
+let refreshInProgress=null;
 
 
 const esc=v=>String(v??'').replace(/[&<>"']/g,c=>({
@@ -602,8 +606,11 @@ function status(id,msg,type=''){
 const el=$(id);
 
 if(el){
+
 el.textContent=msg;
+
 el.className='status'+(type?' '+type:'');
+
 }
 
 }
@@ -611,6 +618,8 @@ el.className='status'+(type?' '+type:'');
 
 let db=null;
 let busy=false;
+let activeTab='artists';
+
 
 
 function init(){
@@ -629,6 +638,7 @@ status(
 $('loginBtn').disabled=true;
 
 return;
+
 }
 
 
@@ -643,21 +653,35 @@ status(
 $('loginBtn').disabled=true;
 
 return;
+
 }
 
 
 try{
 
 const url=String(c.url).trim().replace(/\/+$/,'');
+
 const key=String(c.anonKey).trim();
 
 
-if(!/^https:\/\/[a-z0-9.-]+\.supabase\.co$/i.test(url))
+if(!/^https:\/\/[a-z0-9.-]+\.supabase\.co$/i.test(url)){
+
 throw Error('آدرس Supabase معتبر نیست.');
 
+}
 
-if(!(key.startsWith('sb_publishable_')||(key.startsWith('eyJ')&&key.length>80)))
-throw Error('کلید عمومی معتبر نیست. فقط anon یا publishable مجاز است؛ از service_role یا secret استفاده نکنید.');
+
+// فقط کلید عمومی anon یا publishable مجاز است.
+if(!(
+key.startsWith('sb_publishable_')||
+(key.startsWith('eyJ')&&key.length>80)
+)){
+
+throw Error(
+'کلید عمومی معتبر نیست. فقط anon یا publishable مجاز است؛ از service_role یا secret استفاده نکنید.'
+);
+
+}
 
 
 db=window.supabase.createClient(url,key);
@@ -689,6 +713,7 @@ $('loginBtn').disabled=true;
 
 
 
+// ورود مدیر
 async function signIn(e){
 
 e.preventDefault();
@@ -698,6 +723,7 @@ if(busy)return;
 
 
 const email=$('email').value.trim();
+
 const password=$('password').value;
 
 
@@ -710,6 +736,7 @@ status(
 );
 
 return;
+
 }
 
 
@@ -722,10 +749,12 @@ status(
 );
 
 return;
+
 }
 
 
 busy=true;
+
 $('loginBtn').disabled=true;
 
 
@@ -742,33 +771,46 @@ try{
 
 
 const {data,error}=await db.auth.signInWithPassword({
+
 email,
 password
+
 });
 
 
 if(error)throw error;
 
 
-if(!data.user)
+if(!data.user){
+
 throw Error('کاربر از Supabase دریافت نشد.');
+
+}
 
 
 authenticated=true;
 
 
 const {data:admin,error:adminError}=await db
+
 .from('admin_users')
+
 .select('user_id,role,is_active')
+
 .eq('user_id',data.user.id)
+
 .eq('is_active',true)
+
 .maybeSingle();
 
 
-if(adminError)
+if(adminError){
+
 throw Error(
 'ورود انجام شد، اما بررسی دسترسی مدیر ناموفق بود: '+errText(adminError)
 );
+
+}
 
 
 if(!admin){
@@ -776,6 +818,7 @@ if(!admin){
 await db.auth.signOut();
 
 authenticated=false;
+
 
 throw Error(
 'این حساب مدیر فعال نیست. user_id باید در جدول admin_users ثبت شده و is_active برابر true باشد.'
@@ -785,6 +828,7 @@ throw Error(
 
 
 $('adminIdentity').textContent=
+
 'حساب: '+(data.user.email||email)+
 ' | نقش: '+(admin.role||'نامشخص');
 
@@ -792,6 +836,7 @@ $('adminIdentity').textContent=
 if(admin.role!=='owner'){
 
 $('roleNotice').textContent=
+
 'نقش شما «'+(admin.role||'نامشخص')+
 '» است. دسترسی واقعی به اطلاعات بر اساس سیاست‌های امنیتی RLS در Supabase تعیین می‌شود.';
 
@@ -805,16 +850,16 @@ $('roleNotice').classList.add('hidden');
 
 
 $('loginView').classList.add('hidden');
+
 $('appView').classList.remove('hidden');
 
 
 status(
 'globalStatus',
-'ورود موفق بود. در حال دریافت اطلاعات ضروری داشبورد...'
+'ورود موفق بود. در حال دریافت اطلاعات داشبورد...'
 );
 
 
-// فقط داشبورد و بخش اولیه هنرمندان بارگذاری می‌شوند.
 await loadAll();
 
 
@@ -824,10 +869,17 @@ await loadAll();
 if(authenticated){
 
 try{
+
 await db.auth.signOut();
+
 }catch(_){}
 
 }
+
+
+$('appView').classList.add('hidden');
+
+$('loginView').classList.remove('hidden');
 
 
 status(
@@ -840,6 +892,7 @@ status(
 }finally{
 
 busy=false;
+
 $('loginBtn').disabled=false;
 
 }
@@ -848,6 +901,7 @@ $('loginBtn').disabled=false;
 
 
 
+// خروج مدیر
 async function signOut(){
 
 try{
@@ -857,6 +911,7 @@ await db.auth.signOut();
 
 
 $('appView').classList.add('hidden');
+
 $('loginView').classList.remove('hidden');
 
 
@@ -864,7 +919,12 @@ $('password').value='';
 
 
 loadedTabs.clear();
+
 loadingTabs.clear();
+
+refreshInProgress=null;
+
+activeTab='artists';
 
 
 status(
@@ -888,6 +948,7 @@ status(
 
 
 
+// تبدیل مقادیر برای نمایش
 function valueText(v){
 
 if(v===null||v===undefined||v==='')return '—';
@@ -900,14 +961,20 @@ return typeof v==='object'
 
 
 
+// ساخت جدول HTML
 function tableHtml(rows){
 
-if(!rows?.length)
+if(!rows?.length){
+
 return '<p>هنوز داده‌ای ثبت نشده است.</p>';
+
+}
 
 
 const cols=[
+
 ...new Set(rows.flatMap(r=>Object.keys(r)))
+
 ].slice(0,12);
 
 
@@ -918,11 +985,17 @@ cols.map(c=>'<th>'+esc(c)+'</th>').join('')+
 '</tr></thead><tbody>'+
 
 rows.map(r=>
+
 '<tr>'+
+
 cols.map(c=>
+
 '<td>'+esc(valueText(r[c]))+'</td>'
+
 ).join('')+
+
 '</tr>'
+
 ).join('')+
 
 '</tbody></table></div>'+
@@ -933,27 +1006,41 @@ cols.map(c=>
 
 
 
+// دریافت اطلاعات جدول
 async function fetchRows(table,limit=100){
 
 const ordered=await db
+
 .from(table)
+
 .select('*')
+
 .order('created_at',{ascending:false})
+
 .limit(limit);
 
 
-if(!ordered.error)
+if(!ordered.error){
+
 return ordered.data||[];
+
+}
 
 
 const plain=await db
+
 .from(table)
+
 .select('*')
+
 .limit(limit);
 
 
-if(plain.error)
+if(plain.error){
+
 throw plain.error;
+
+}
 
 
 return plain.data||[];
@@ -962,9 +1049,17 @@ return plain.data||[];
 
 
 
+// بارگذاری بخش‌های عمومی
 async function loadGeneric(key){
 
 const box=$(CONTENT[key]);
+
+
+if(!box){
+
+return false;
+
+}
 
 
 box.textContent='در حال بارگذاری...';
@@ -972,21 +1067,27 @@ box.textContent='در حال بارگذاری...';
 
 try{
 
+
 const rows=await fetchRows(TABLES[key],100);
 
+
 box.innerHTML=tableHtml(rows);
+
 
 return true;
 
 
 }catch(e){
 
+
 box.innerHTML=
+
 '<div class="status error">بارگذاری '+
 esc(TABLES[key])+
 ' ناموفق بود: '+
 esc(errText(e))+
 '</div>';
+
 
 return false;
 
@@ -996,6 +1097,7 @@ return false;
 
 
 
+// بارگذاری درخواست‌های هنرمندان
 async function loadArtists(){
 
 const box=$('artistsContent');
@@ -1025,22 +1127,32 @@ box.innerHTML=rows.map(r=>{
 const details=[
 
 ['نام',r.full_name],
+
 ['نقش هنری',r.artist_role],
+
 ['ایمیل',r.email],
+
 ['تلفن',r.phone],
+
 ['موضوع',r.subject],
+
 ['پیام',r.message],
+
 ['نمونه‌کار',r.portfolio_url],
+
 ['تاریخ ثبت',r.created_at]
 
 ].filter(x=>
+
 x[1]!==undefined&&
 x[1]!==null&&
 x[1]!==''
+
 );
 
 
 const id=r.id;
+
 const statusVal=String(r.status||'new');
 
 
@@ -1048,8 +1160,11 @@ return '<article class="row-card">'+
 
 
 '<div class="top">'+
+
 '<h3>'+esc(r.full_name||'درخواست هنرمند')+'</h3>'+
+
 '<span class="badge">'+esc(statusVal)+'</span>'+
+
 '</div>'+
 
 
@@ -1058,12 +1173,17 @@ details.map(x=>
 '<p><b>'+esc(x[0])+':</b> '+
 
 (
+
 x[0]==='نمونه‌کار'&&
 /^https?:\/\//i.test(String(x[1]))
 
-?'<a href="'+esc(x[1])+'" target="_blank" rel="noopener noreferrer">مشاهده لینک</a>'
+?
 
-:esc(x[1])
+'<a href="'+esc(x[1])+'" target="_blank" rel="noopener noreferrer">مشاهده لینک</a>'
+
+:
+
+esc(x[1])
 
 )+
 
@@ -1076,35 +1196,54 @@ x[0]==='نمونه‌کار'&&
 
 
 '<div class="field">'+
+
 '<label>وضعیت</label>'+
+
 '<select data-status-for="'+esc(id)+'">'+
+
 
 ['new','reviewing','answered','approved','rejected','closed']
 
+
 .map(s=>
+
 '<option value="'+s+'" '+
+
 (s===statusVal?'selected':'')+
+
 '>'+s+'</option>'
+
 ).join('')+
 
+
 '</select>'+
+
 '</div>'+
 
 
 '<div class="field">'+
+
 '<label>یادداشت مدیر</label>'+
+
 '<textarea data-notes-for="'+esc(id)+'">'+
+
 esc(r.admin_notes||'')+
+
 '</textarea>'+
+
 '</div>'+
 
 
 '<button type="button" data-save-artist="'+esc(id)+'">'+
+
 'ذخیره تغییرات'+
+
 '</button>'
 
 
-:''
+:
+
+''
 
 )+
 
@@ -1120,10 +1259,15 @@ return true;
 
 }catch(e){
 
+
 box.innerHTML=
+
 '<div class="status error">بارگذاری درخواست‌ها ناموفق بود: '+
+
 esc(errText(e))+
+
 '</div>';
+
 
 return false;
 
@@ -1133,7 +1277,11 @@ return false;
 
 
 
+// ذخیره تغییرات درخواست هنرمند
 async function saveArtist(id,button){
+
+if(button.disabled)return;
+
 
 button.disabled=true;
 
@@ -1142,16 +1290,23 @@ try{
 
 
 const selector=window.CSS?.escape
+
 ?CSS.escape(String(id))
+
 :String(id).replace(/["\\]/g,'\\$&');
 
 
 const s=document.querySelector(
+
 '[data-status-for="'+selector+'"]'
+
 );
 
+
 const n=document.querySelector(
+
 '[data-notes-for="'+selector+'"]'
+
 );
 
 
@@ -1159,12 +1314,23 @@ const changes={};
 
 
 if(s)changes.status=s.value;
+
 if(n)changes.admin_notes=n.value;
 
 
+if(!Object.keys(changes).length){
+
+throw Error('هیچ تغییری برای ذخیره وجود ندارد.');
+
+}
+
+
 const {error}=await db
+
 .from('artist_requests')
+
 .update(changes)
+
 .eq('id',id);
 
 
@@ -1178,12 +1344,16 @@ status(
 );
 
 
-await loadArtists();
+loadedTabs.delete('artists');
+
+
+await loadTab('artists',true);
 
 await loadCounts();
 
 
 }catch(e){
+
 
 status(
 'globalStatus',
@@ -1202,12 +1372,15 @@ button.disabled=false;
 
 
 
+// ابتدای روز بر اساس ساعت محلی مرورگر
 function dayStart(daysAgo){
 
 const d=new Date();
 
 d.setDate(d.getDate()-daysAgo);
+
 d.setHours(0,0,0,0);
+
 
 return d.toISOString();
 
@@ -1215,22 +1388,31 @@ return d.toISOString();
 
 
 
+// شمارش رکوردهای جدول
 async function count(table,filter){
 
 let q=db
+
 .from(table)
+
 .select('*',{count:'exact',head:true});
 
 
-if(filter)
+if(filter){
+
 q=filter(q);
+
+}
 
 
 const {count,error}=await q;
 
 
-if(error)
+if(error){
+
 throw error;
+
+}
 
 
 return count??0;
@@ -1239,27 +1421,39 @@ return count??0;
 
 
 
+// نمایش یک شاخص آماری
 async function metric(id,fn){
 
 try{
 
+
 $(id).textContent=String(await fn());
+
+
+return true;
+
 
 }catch(e){
 
+
 $(id).textContent='—';
+
 
 console.warn(id,errText(e));
 
-}
+
+return false;
 
 }
 
+}
 
 
+
+// دریافت تمام آمار داشبورد
 async function loadCounts(){
 
-await Promise.all([
+const results=await Promise.all([
 
 
 metric(
@@ -1312,10 +1506,14 @@ metric(
 
 ]);
 
+
+return results.every(Boolean);
+
 }
 
 
 
+// بارگذاری آمار بازدید صفحات
 async function loadViews(){
 
 $('viewsContent').textContent='در حال بارگذاری...';
@@ -1330,6 +1528,7 @@ const rows=await fetchRows('page_views',1000);
 
 
 $('viewsContent').innerHTML=
+
 tableHtml(rows.slice(0,100));
 
 
@@ -1346,7 +1545,9 @@ counts[p]=(counts[p]||0)+1;
 
 
 const popular=Object.entries(counts)
+
 .sort((a,b)=>b[1]-a[1])
+
 .slice(0,20);
 
 
@@ -1354,22 +1555,33 @@ $('popularPagesContent').innerHTML=popular.length?
 
 
 '<div class="table-wrap"><table>'+
+
 '<thead><tr>'+
+
 '<th>مسیر صفحه</th>'+
+
 '<th>بازدید در ۱۰۰۰ رکورد اخیر</th>'+
+
 '</tr></thead><tbody>'+
 
 popular.map(([p,n])=>
+
 '<tr>'+
+
 '<td>'+esc(p)+'</td>'+
+
 '<td>'+n.toLocaleString('fa-IR')+'</td>'+
+
 '</tr>'
+
 ).join('')+
 
 '</tbody></table></div>'
 
 
-:'<p>هنوز بازدیدی ثبت نشده است.</p>';
+:
+
+'<p>هنوز بازدیدی ثبت نشده است.</p>';
 
 
 return true;
@@ -1379,8 +1591,11 @@ return true;
 
 
 const m=
+
 '<div class="status error">دریافت آمار بازدید ناموفق بود: '+
+
 esc(errText(e))+
+
 '</div>';
 
 
@@ -1397,96 +1612,98 @@ return false;
 
 
 
-// بارگذاری اولیه فقط بخش‌های ضروری
-async function loadAll(){
+// بارگذاری بخش بر اساس نام تب
+async function runTabLoader(tab){
 
-loadedTabs.clear();
+if(tab==='artists'){
 
+return await loadArtists();
 
-await Promise.all([
-
-loadCounts(),
-
-loadTab('artists',true)
-
-]);
+}
 
 
-status(
-'globalStatus',
-'داشبورد و درخواست‌های هنرمندان بارگذاری شدند. برای مشاهده سایر اطلاعات، بخش موردنظر را انتخاب کنید.',
-'success'
-);
+if(tab==='ads'){
+
+return await loadGeneric('ads');
+
+}
+
+
+if(tab==='messages'){
+
+return await loadGeneric('messages');
+
+}
+
+
+if(tab==='views'){
+
+return await loadViews();
+
+}
+
+
+if(tab==='events'){
+
+return await loadGeneric('events');
+
+}
+
+
+if(tab==='activity'){
+
+return await loadGeneric('activity');
+
+}
+
+
+return false;
 
 }
 
 
 
-// بارگذاری هوشمند هر بخش
+// بارگذاری هوشمند هر تب
 async function loadTab(tab,force=false){
 
-if(tab==='backup')
+
+if(tab==='backup'){
+
 return true;
 
+}
 
-if(!CONTENT[tab])
+
+if(!CONTENT[tab]){
+
 return false;
 
+}
 
-// اگر قبلاً بارگذاری شده و درخواست جدیدی نشده است
-if(!force&&loadedTabs.has(tab))
+
+// اگر درخواست همین تب در حال اجراست، همان Promise برگردانده می‌شود.
+if(loadingTabs.has(tab)){
+
+return loadingTabs.get(tab);
+
+}
+
+
+// اگر قبلاً بارگذاری شده و درخواست جدیدی نشده است.
+if(!force&&loadedTabs.has(tab)){
+
 return true;
 
-
-// جلوگیری از ارسال درخواست هم‌زمان تکراری
-if(loadingTabs.has(tab))
-return false;
+}
 
 
-loadingTabs.add(tab);
-
-
-let success=false;
+const task=(async()=>{
 
 
 try{
 
 
-if(tab==='artists'){
-
-success=await loadArtists();
-
-}
-
-else if(tab==='ads'){
-
-success=await loadGeneric('ads');
-
-}
-
-else if(tab==='messages'){
-
-success=await loadGeneric('messages');
-
-}
-
-else if(tab==='views'){
-
-success=await loadViews();
-
-}
-
-else if(tab==='events'){
-
-success=await loadGeneric('events');
-
-}
-
-else if(tab==='activity'){
-
-success=await loadGeneric('activity');
-
-}
+const success=await runTabLoader(tab);
 
 
 if(success){
@@ -1503,18 +1720,134 @@ loadedTabs.delete(tab);
 return success;
 
 
+}catch(e){
+
+
+loadedTabs.delete(tab);
+
+
+console.error(
+'Tab loading error:',
+tab,
+e
+);
+
+
+return false;
+
+
 }finally{
+
 
 loadingTabs.delete(tab);
 
-}
 
 }
 
+})();
 
 
-// به‌روزرسانی بخش‌هایی که قبلاً باز شده‌اند
+loadingTabs.set(tab,task);
+
+
+return task;
+
+}
+
+
+
+// بارگذاری اولیه داشبورد
+async function loadAll(){
+
+
+loadedTabs.clear();
+
+
+status(
+'globalStatus',
+'در حال دریافت آمار و درخواست‌های هنرمندان...'
+);
+
+
+const results=await Promise.all([
+
+loadCounts(),
+
+loadTab('artists',true)
+
+]);
+
+
+const countsOK=results[0];
+
+const artistsOK=results[1];
+
+
+if(countsOK&&artistsOK){
+
+status(
+'globalStatus',
+'داشبورد و درخواست‌های هنرمندان با موفقیت بارگذاری شدند. برای مشاهده سایر اطلاعات، بخش موردنظر را انتخاب کنید.',
+'success'
+);
+
+
+}else if(!countsOK&&artistsOK){
+
+
+status(
+'globalStatus',
+'درخواست‌های هنرمندان بارگذاری شدند، اما دریافت بعضی آمارها ناموفق بود.',
+'error'
+);
+
+
+}else if(countsOK&&!artistsOK){
+
+
+status(
+'globalStatus',
+'آمار داشبورد دریافت شد، اما بارگذاری درخواست‌های هنرمندان ناموفق بود.',
+'error'
+);
+
+
+}else{
+
+
+status(
+'globalStatus',
+'بارگذاری بعضی اطلاعات ناموفق بود. دسترسی جداول و سیاست‌های RLS را بررسی کنید.',
+'error'
+);
+
+
+}
+
+
+return countsOK&&artistsOK;
+
+}
+
+
+
+// به‌روزرسانی همه بخش‌های بارگذاری‌شده
 async function refreshAll(){
+
+
+// جلوگیری از اجرای چند به‌روزرسانی هم‌زمان
+if(refreshInProgress){
+
+return refreshInProgress;
+
+}
+
+
+const button=$('refreshBtn');
+
+
+button.disabled=true;
+
 
 status(
 'globalStatus',
@@ -1522,22 +1855,89 @@ status(
 );
 
 
-await Promise.all([
+refreshInProgress=(async()=>{
+
+
+try{
+
+
+const tabsToRefresh=Array.from(loadedTabs);
+
+
+const results=await Promise.all([
+
 
 loadCounts(),
 
-...Array.from(loadedTabs).map(
-tab=>loadTab(tab,true)
+
+...tabsToRefresh.map(tab=>
+
+loadTab(tab,true)
+
 )
+
 
 ]);
 
 
+const countsOK=results[0];
+
+const tabsOK=results.slice(1).every(Boolean);
+
+
+if(countsOK&&tabsOK){
+
+
 status(
 'globalStatus',
-'به‌روزرسانی اطلاعات پایان یافت.',
+'تمام بخش‌های بارگذاری‌شده با موفقیت به‌روزرسانی شدند.',
 'success'
 );
+
+
+return true;
+
+
+}
+
+
+status(
+'globalStatus',
+'به‌روزرسانی انجام شد، اما دریافت اطلاعات بعضی بخش‌ها ناموفق بود. متن خطای همان بخش را بررسی کنید.',
+'error'
+);
+
+
+return false;
+
+
+}catch(e){
+
+
+status(
+'globalStatus',
+'خطا در به‌روزرسانی اطلاعات: '+errText(e),
+'error'
+);
+
+
+return false;
+
+
+}finally{
+
+
+button.disabled=false;
+
+refreshInProgress=null;
+
+
+}
+
+})();
+
+
+return refreshInProgress;
 
 }
 
@@ -1547,34 +1947,61 @@ status(
 async function switchTab(tab){
 
 
+if(!CONTENT[tab]&&tab!=='backup'){
+
+return;
+
+}
+
+
+activeTab=tab;
+
+
 document.querySelectorAll('#tabs [data-tab]')
-.forEach(b=>
+
+.forEach(b=>{
+
 b.classList.toggle(
 'active',
 b.dataset.tab===tab
-)
 );
+
+});
 
 
 document.querySelectorAll('.tabPanel')
-.forEach(p=>
+
+.forEach(p=>{
+
 p.classList.toggle(
 'hidden',
 p.id!=='panel-'+tab
-)
 );
 
+});
 
-if(tab==='backup')
+
+if(tab==='backup'){
+
 return;
+
+}
 
 
 if(!loadedTabs.has(tab)){
+
 
 status(
 'globalStatus',
 'در حال بارگذاری بخش انتخاب‌شده...'
 );
+
+
+}else{
+
+
+// اگر قبلاً بارگذاری شده، اطلاعات دوباره دریافت نمی‌شود.
+return;
 
 }
 
@@ -1584,58 +2011,69 @@ const success=await loadTab(tab);
 
 if(success){
 
+
 status(
 'globalStatus',
-'بخش انتخاب‌شده آماده است.',
+'بخش انتخاب‌شده با موفقیت بارگذاری شد.',
 'success'
 );
 
+
 }else{
+
 
 status(
 'globalStatus',
-'بارگذاری این بخش کامل نشد. می‌توانی دوباره تلاش کنی.',
+'بارگذاری این بخش کامل نشد. می‌توانی با دکمه بارگذاری مجدد دوباره تلاش کنی.',
 'error'
 );
 
-}
 
 }
 
+}
 
 
-// رویدادهای صفحه
+
+// رویداد ورود
 $('loginForm').addEventListener(
 'submit',
 signIn
 );
 
 
+// رویداد خروج
 $('logoutBtn').addEventListener(
 'click',
 signOut
 );
 
 
+// رویداد به‌روزرسانی همه
 $('refreshBtn').addEventListener(
 'click',
 refreshAll
 );
 
 
+// رویداد انتخاب تب
 $('tabs').addEventListener('click',async e=>{
+
 
 const b=e.target.closest('[data-tab]');
 
-if(b){
+
+if(!b)return;
+
 
 await switchTab(b.dataset.tab);
 
-}
 
 });
 
 
+
+// رویدادهای دکمه‌های داخل صفحه
 document.addEventListener('click',e=>{
 
 
@@ -1644,12 +2082,43 @@ const reload=e.target.closest('[data-reload]');
 
 if(reload){
 
-loadTab(
-reload.dataset.reload,
-true
+
+const tab=reload.dataset.reload;
+
+
+if(tab==='backup')return;
+
+
+loadTab(tab,true).then(success=>{
+
+
+if(success){
+
+status(
+'globalStatus',
+'اطلاعات بخش با موفقیت بارگذاری شد.',
+'success'
 );
 
+
+}else{
+
+
+status(
+'globalStatus',
+'بارگذاری مجدد ناموفق بود. متن خطای بخش را بررسی کنید.',
+'error'
+);
+
+
 }
+
+
+});
+
+
+}
+
 
 
 const save=e.target.closest('[data-save-artist]');
@@ -1657,16 +2126,21 @@ const save=e.target.closest('[data-save-artist]');
 
 if(save){
 
+
 saveArtist(
 save.dataset.saveArtist,
 save
 );
 
+
 }
+
 
 });
 
 
+
+// راه‌اندازی اولیه
 init();
 
 
