@@ -5,7 +5,6 @@
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="theme-color" content="#245b52">
 <title>پنل مدیریت | رنگ‌نوا</title>
-
 <style>
 :root{
 --bg:#f3f5f7;--card:#fff;--ink:#17212b;--muted:#64748b;
@@ -23,9 +22,7 @@ input{width:100%}
 .wrap{max-width:1200px;margin:auto;padding:22px}
 .card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:20px;box-shadow:var(--shadow);margin-bottom:18px}
 h1,h2,h3{margin:0 0 12px}
-h1{font-size:24px}
-h2{font-size:19px}
-h3{font-size:16px}
+h1{font-size:24px}h2{font-size:19px}h3{font-size:16px}
 p{margin:6px 0;color:var(--muted)}
 .login{max-width:440px;margin:7vh auto}
 .field{margin:14px 0}
@@ -47,8 +44,7 @@ table{border-collapse:collapse;width:100%;min-width:650px}
 th,td{padding:10px;border-bottom:1px solid var(--line);text-align:right;vertical-align:top;font-size:13px;max-width:360px;overflow-wrap:anywhere}
 th{background:#f8fafc}
 .actions{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
-.secondary{background:#64748b}
-.danger{background:#a83232}
+.secondary{background:#64748b}.danger{background:#a83232}
 .badge{display:inline-block;padding:3px 9px;border-radius:20px;background:#e7f1ef;color:#20584f;font-size:12px}
 .notice{border-right:4px solid #c58a25;background:#fff8e8;padding:12px;border-radius:8px;margin:12px 0}
 .row-card{border:1px solid var(--line);border-radius:10px;padding:14px;margin:12px 0;background:#fff}
@@ -58,39 +54,30 @@ th{background:#f8fafc}
 .form-grid .field{margin:8px 0}
 hr{border:0;border-top:1px solid var(--line);margin:20px 0}
 a{color:#176b9b;overflow-wrap:anywhere}
-@media(max-width:600px){
-.wrap{padding:12px}.card{padding:15px}h1{font-size:21px}
-.metric strong{font-size:23px}
-}
+@media(max-width:600px){.wrap{padding:12px}.card{padding:15px}h1{font-size:21px}.metric strong{font-size:23px}}
 </style>
 </head>
-
 <body>
 <div class="wrap">
 
 <section id="loginView" class="card login">
 <h1>ورود به پنل مدیریت رنگ‌نوا</h1>
-<p>ایمیل و رمز عبور حساب مدیر Supabase را وارد کنید.</p>
-
+<p>ایمیل و رمز عبور حساب مدیر را وارد کنید.</p>
 <form id="loginForm">
 <div class="field">
 <label for="email">ایمیل مدیر</label>
 <input id="email" type="email" autocomplete="username" required placeholder="ایمیل حساب مدیر">
 </div>
-
 <div class="field">
 <label for="password">رمز عبور</label>
 <input id="password" type="password" autocomplete="current-password" required placeholder="رمز عبور">
 </div>
-
 <button id="loginBtn" type="submit" style="width:100%">ورود</button>
 </form>
-
 <div id="loginStatus" class="status" role="status">در حال آماده‌سازی اتصال...</div>
 </section>
 
 <main id="appView" class="hidden">
-
 <header class="card top">
 <div>
 <h1>داشبورد مدیریت رنگ‌نوا</h1>
@@ -130,36 +117,24 @@ a{color:#176b9b;overflow-wrap:anywhere}
 </nav>
 
 <section id="panel-artists" class="card tabPanel">
-<div class="top">
-<h2>درخواست‌های هنرمندان</h2>
-<button data-reload="artists" class="secondary" type="button">بارگذاری مجدد</button>
-</div>
+<div class="top"><h2>درخواست‌های هنرمندان</h2><button data-reload="artists" class="secondary" type="button">بارگذاری مجدد</button></div>
 <div id="artistsContent">در حال بارگذاری...</div>
 </section>
 
 <section id="panel-ads" class="card tabPanel hidden">
-<div class="top">
-<h2>سفارش‌های تبلیغات</h2>
-<button data-reload="ads" class="secondary" type="button">بارگذاری مجدد</button>
-</div>
-<div class="notice">وضعیت سفارش‌ها و پرداخت‌ها مطابق محدودیت‌های دیتابیس تنظیم شده‌اند.</div>
+<div class="top"><h2>سفارش‌های تبلیغات</h2><button data-reload="ads" class="secondary" type="button">بارگذاری مجدد</button></div>
+<div class="notice">وضعیت سفارش‌ها و پرداخت‌ها مطابق محدودیت‌های پایگاه داده تنظیم شده‌اند.</div>
 <div id="adsContent">هنوز بارگذاری نشده است.</div>
 </section>
 
 <section id="panel-messages" class="card tabPanel hidden">
-<div class="top">
-<h2>پیام‌های تماس</h2>
-<button data-reload="messages" class="secondary" type="button">بارگذاری مجدد</button>
-</div>
+<div class="top"><h2>پیام‌های تماس</h2><button data-reload="messages" class="secondary" type="button">بارگذاری مجدد</button></div>
 <div id="messagesContent">هنوز بارگذاری نشده است.</div>
 </section>
 
 <section id="panel-views" class="card tabPanel hidden">
-<div class="top">
-<h2>آمار بازدید صفحات</h2>
-<button data-reload="views" class="secondary" type="button">بارگذاری مجدد</button>
-</div>
-<div class="notice">تعداد بازدیدها از جدول page_views خوانده می‌شود.</div>
+<div class="top"><h2>آمار بازدید صفحات</h2><button data-reload="views" class="secondary" type="button">بارگذاری مجدد</button></div>
+<div class="notice">تعداد بازدیدها از جدول بازدید صفحات خوانده می‌شود.</div>
 <h3>صفحات پربازدید</h3>
 <div id="popularPagesContent">هنوز بارگذاری نشده است.</div>
 <hr>
@@ -168,45 +143,27 @@ a{color:#176b9b;overflow-wrap:anywhere}
 </section>
 
 <section id="panel-events" class="card tabPanel hidden">
-<div class="top">
-<h2>رویدادهای آماری</h2>
-<button data-reload="events" class="secondary" type="button">بارگذاری مجدد</button>
-</div>
+<div class="top"><h2>رویدادهای آماری</h2><button data-reload="events" class="secondary" type="button">بارگذاری مجدد</button></div>
 <div id="eventsContent">هنوز بارگذاری نشده است.</div>
 </section>
 
 <section id="panel-activity" class="card tabPanel hidden">
-<div class="top">
-<h2>فعالیت مدیران</h2>
-<button data-reload="activity" class="secondary" type="button">بارگذاری مجدد</button>
-</div>
+<div class="top"><h2>فعالیت مدیران</h2><button data-reload="activity" class="secondary" type="button">بارگذاری مجدد</button></div>
 <div id="activityContent">هنوز بارگذاری نشده است.</div>
 </section>
 
 <section id="panel-security" class="card tabPanel hidden">
 <h2>امنیت و تغییر رمز مدیر</h2>
 <div class="notice">این قسمت فقط رمز حساب مدیری را تغییر می‌دهد که اکنون وارد پنل شده است.</div>
-
 <form id="passwordChangeForm">
 <div class="form-grid">
-<div class="field">
-<label for="currentPassword">رمز فعلی</label>
-<input id="currentPassword" type="password" autocomplete="current-password" required>
-</div>
-<div class="field">
-<label for="newPassword">رمز جدید (حداقل ۱۰ نویسه)</label>
-<input id="newPassword" type="password" autocomplete="new-password" minlength="10" required>
-</div>
-<div class="field">
-<label for="confirmPassword">تکرار رمز جدید</label>
-<input id="confirmPassword" type="password" autocomplete="new-password" minlength="10" required>
-</div>
+<div class="field"><label for="currentPassword">رمز فعلی</label><input id="currentPassword" type="password" autocomplete="current-password" required></div>
+<div class="field"><label for="newPassword">رمز جدید (حداقل ۱۰ نویسه)</label><input id="newPassword" type="password" autocomplete="new-password" minlength="10" required></div>
+<div class="field"><label for="confirmPassword">تکرار رمز جدید</label><input id="confirmPassword" type="password" autocomplete="new-password" minlength="10" required></div>
 </div>
 <button id="changePasswordBtn" type="submit">تغییر رمز عبور من</button>
 </form>
-
 <div id="passwordStatus" class="status">برای تغییر رمز، هر سه کادر را تکمیل کنید.</div>
-
 <hr>
 <h3>مدیریت رمز سایر کاربران</h3>
 <p>مدیریت رمز سایر کاربران در این نسخه فعال نیست و باید از طریق سرویس امن سمت سرور پیاده‌سازی شود.</p>
@@ -214,7 +171,7 @@ a{color:#176b9b;overflow-wrap:anywhere}
 
 <section id="panel-backup" class="card tabPanel hidden">
 <h2>پشتیبان‌گیری و بازیابی</h2>
-<div class="notice">این قسمت فعلاً نقشه راه است و هنوز عملیات پشتیبان‌گیری یا بازیابی انجام نمی‌دهد.</div>
+<div class="notice">این قسمت فعلاً در نقشه راه قرار دارد و هنوز عملیات پشتیبان‌گیری یا بازیابی انجام نمی‌دهد.</div>
 <p>برای بکاپ واقعی باید پایگاه داده و فایل‌های رسانه‌ای با ابزار امن سمت سرور پشتیبان‌گیری شوند. کلید محرمانه نباید در کد مرورگر یا مخزن عمومی قرار بگیرد.</p>
 </section>
 
@@ -249,6 +206,98 @@ events:'eventsContent',
 activity:'activityContent'
 };
 
+const FIELD_LABELS={
+id:'شناسه',
+user_id:'شناسه کاربر',
+admin_user_id:'شناسه مدیر',
+action:'نوع عملیات',
+target_type:'نوع هدف',
+target_id:'شناسه هدف',
+details:'جزئیات',
+created_at:'تاریخ ثبت',
+updated_at:'آخرین به‌روزرسانی',
+event_type:'نوع رویداد',
+entity_type:'نوع موجودیت',
+entity_id:'شناسه موجودیت',
+path:'مسیر صفحه',
+session_id:'شناسه نشست',
+full_name:'نام و نام خانوادگی',
+artist_role:'نقش هنری',
+email:'ایمیل',
+phone:'تلفن',
+subject:'موضوع',
+message:'پیام',
+portfolio_url:'پیوند نمونه‌کار',
+status:'وضعیت',
+admin_notes:'یادداشت مدیر',
+customer_name:'نام مشتری',
+business_name:'نام کسب‌وکار',
+ad_type:'نوع تبلیغ',
+placement:'محل نمایش',
+title:'عنوان',
+description:'توضیحات',
+target_url:'پیوند مقصد',
+start_date:'تاریخ شروع',
+end_date:'تاریخ پایان',
+budget:'بودجه',
+payment_status:'وضعیت پرداخت',
+order_status:'وضعیت سفارش',
+category:'دسته‌بندی',
+changed_fields:'فیلدهای تغییرکرده',
+result:'نتیجه',
+display_name:'نام نمایشی',
+role:'نقش مدیریتی',
+is_active:'وضعیت حساب'
+};
+
+const VALUE_LABELS={
+update_artist_request:'به‌روزرسانی درخواست هنرمند',
+update_ad_order:'به‌روزرسانی سفارش تبلیغات',
+update_contact_message:'به‌روزرسانی پیام تماس',
+change_own_password:'تغییر رمز مدیر',
+artist_request:'درخواست هنرمند',
+ad_order:'سفارش تبلیغات',
+contact_message:'پیام تماس',
+admin_user:'حساب مدیر',
+download:'دانلود',
+ad_click:'کلیک تبلیغ',
+play:'پخش',
+ad_impression:'نمایش تبلیغ',
+success:'موفق',
+failed:'ناموفق',
+new:'جدید',
+reviewing:'در حال بررسی',
+answered:'پاسخ داده‌شده',
+approved:'تأییدشده',
+rejected:'ردشده',
+closed:'بسته‌شده',
+in_progress:'در حال پیگیری',
+running:'در حال اجرا',
+completed:'تکمیل‌شده',
+cancelled:'لغوشده',
+unpaid:'پرداخت‌نشده',
+pending:'در انتظار پرداخت',
+paid:'پرداخت‌شده',
+refunded:'مستردشده',
+owner:'مدیر کل',
+music:'مدیریت موسیقی',
+artists:'مدیریت هنرمندان',
+ads:'مدیریت تبلیغات',
+support:'پشتیبانی',
+content:'مدیریت محتوا',
+news:'مدیریت اخبار'
+};
+
+const ROLE_LABELS={
+owner:'مدیر کل',
+music:'مدیریت موسیقی',
+artists:'مدیریت هنرمندان',
+ads:'مدیریت تبلیغات',
+support:'پشتیبانی',
+content:'مدیریت محتوا',
+news:'مدیریت اخبار'
+};
+
 const loadedTabs=new Set();
 const loadingTabs=new Map();
 
@@ -259,14 +308,61 @@ let currentAdmin=null;
 let refreshInProgress=null;
 
 const esc=v=>String(v??'').replace(/[&<>"']/g,c=>({
-'&':'&amp;',
-'<':'&lt;',
-'>':'&gt;',
-'"':'&quot;',
-"'":'&#39;'
+'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'
 }[c]));
 
 const errText=e=>e?.message||e?.details||e?.hint||String(e||'خطای نامشخص');
+
+function displayDate(value){
+if(!value)return '—';
+const d=new Date(value);
+if(Number.isNaN(d.getTime()))return String(value);
+return new Intl.DateTimeFormat('fa-IR',{
+dateStyle:'short',
+timeStyle:value.length>10?'short':undefined,
+hour12:false
+}).format(d);
+}
+
+function displayFieldValue(key,value){
+if(value===null||value===undefined||value==='')return '—';
+
+if(['created_at','updated_at'].includes(key))return displayDate(value);
+
+if(['start_date','end_date'].includes(key)){
+const raw=String(value);
+const match=raw.match(/^(\d{4})-(\d{2})-(\d{2})$/);
+if(match){
+const d=new Date(Number(match[1]),Number(match[2])-1,Number(match[3]));
+return new Intl.DateTimeFormat('fa-IR').format(d);
+}
+return displayDate(value);
+}
+
+if(key==='changed_fields'&&Array.isArray(value)){
+return value.map(x=>FIELD_LABELS[x]||x).join('، ');
+}
+
+if(key==='details'&&typeof value==='object'&&!Array.isArray(value)){
+return Object.entries(value).map(([k,v])=>{
+const label=FIELD_LABELS[k]||k;
+let text;
+if(k==='changed_fields'&&Array.isArray(v)){
+text=v.map(x=>FIELD_LABELS[x]||x).join('، ');
+}else if(Array.isArray(v)){
+text=v.map(x=>VALUE_LABELS[x]||FIELD_LABELS[x]||x).join('، ');
+}else if(v&&typeof v==='object'){
+text=JSON.stringify(v);
+}else{
+text=VALUE_LABELS[String(v)]||String(v??'—');
+}
+return label+': '+text;
+}).join(' | ');
+}
+
+if(typeof value==='object')return JSON.stringify(value);
+return VALUE_LABELS[String(value)]||String(value);
+}
 
 function status(id,msg,type=''){
 const el=$(id);
@@ -298,7 +394,6 @@ const key=String(c.anonKey).trim();
 if(!/^https:\/\/[a-z0-9.-]+\.supabase\.co$/i.test(url)){
 throw Error('آدرس Supabase معتبر نیست.');
 }
-
 if(!(key.startsWith('sb_publishable_')||(key.startsWith('eyJ')&&key.length>80))){
 throw Error('کلید عمومی معتبر نیست. از service_role یا secret در مرورگر استفاده نکنید.');
 }
@@ -353,11 +448,10 @@ const {data:admin,error:adminError}=await db
 if(adminError){
 throw Error('ورود انجام شد، اما بررسی دسترسی مدیر ناموفق بود: '+errText(adminError));
 }
-
 if(!admin){
 await db.auth.signOut();
 authenticated=false;
-throw Error('این حساب مدیر فعال نیست یا در جدول admin_users ثبت نشده است.');
+throw Error('این حساب مدیر فعال نیست یا در جدول مدیران ثبت نشده است.');
 }
 
 currentAdmin={
@@ -366,10 +460,14 @@ email:data.user.email||email,
 role:admin.role||'support'
 };
 
-$('adminIdentity').textContent='حساب: '+currentAdmin.email+' | نقش: '+currentAdmin.role;
+$('adminIdentity').textContent=
+'حساب مدیر: '+currentAdmin.email+
+' | سطح دسترسی: '+(ROLE_LABELS[currentAdmin.role]||'نامشخص');
 
 if(admin.role!=='owner'){
-$('roleNotice').textContent='نقش شما «'+(admin.role||'نامشخص')+'» است. دسترسی واقعی به اطلاعات بر اساس سیاست‌های RLS در Supabase تعیین می‌شود.';
+$('roleNotice').textContent=
+'سطح دسترسی شما: '+(ROLE_LABELS[admin.role]||'نامشخص')+
+'. دسترسی واقعی به اطلاعات بر اساس قوانین امنیتی پایگاه داده تعیین می‌شود.';
 $('roleNotice').classList.remove('hidden');
 }else{
 $('roleNotice').classList.add('hidden');
@@ -387,7 +485,6 @@ try{await db.auth.signOut();}catch(_){}
 $('appView').classList.add('hidden');
 $('loginView').classList.remove('hidden');
 status('loginStatus','ورود انجام نشد: '+errText(e2),'error');
-
 }finally{
 busy=false;
 $('loginBtn').disabled=false;
@@ -410,30 +507,24 @@ status('globalStatus','خروج ناموفق بود: '+errText(e),'error');
 }
 }
 
-function valueText(v){
-if(v===null||v===undefined||v==='')return '—';
-return typeof v==='object'?JSON.stringify(v):String(v);
-}
-
 function tableHtml(rows){
 if(!rows?.length)return '<p>هنوز داده‌ای ثبت نشده است.</p>';
 
 const cols=[...new Set(rows.flatMap(r=>Object.keys(r)))].slice(0,12);
 
 return '<div class="table-wrap"><table><thead><tr>'+
-cols.map(c=>'<th>'+esc(c)+'</th>').join('')+
+cols.map(c=>'<th>'+esc(FIELD_LABELS[c]||c)+'</th>').join('')+
 '</tr></thead><tbody>'+
-rows.map(r=>'<tr>'+cols.map(c=>'<td>'+esc(valueText(r[c]))+'</td>').join('')+'</tr>').join('')+
+rows.map(r=>'<tr>'+cols.map(c=>
+'<td>'+esc(displayFieldValue(c,r[c]))+'</td>'
+).join('')+'</tr>').join('')+
 '</tbody></table></div>'+
 '<p class="small">حداکثر ۱۲ ستون برای خوانایی نمایش داده شده است.</p>';
 }
 
 async function fetchRows(table,limit=100){
-const ordered=await db
-.from(table)
-.select('*')
-.order('created_at',{ascending:false})
-.limit(limit);
+const ordered=await db.from(table).select('*')
+.order('created_at',{ascending:false}).limit(limit);
 
 if(!ordered.error)return ordered.data||[];
 
@@ -470,15 +561,12 @@ target_id:targetId||null,
 details:details
 };
 
-const {error}=await db
-.from('admin_activity')
-.insert(record);
+const {error}=await db.from('admin_activity').insert(record);
 
 if(error){
 console.warn('ثبت فعالیت مدیر ناموفق بود:',error);
 return false;
 }
-
 return true;
 }
 
@@ -521,25 +609,21 @@ const details=[
 return '<article class="row-card">'+
 '<div class="top"><h3>'+esc(r.full_name||'درخواست هنرمند')+'</h3>'+
 '<span class="badge">'+esc(labels[current]||current)+'</span></div>'+
-
 details.filter(x=>x[1]!==undefined&&x[1]!==null&&x[1]!=='').map(x=>
 '<p><b>'+esc(x[0])+':</b> '+
 (x[0]==='نمونه‌کار'&&/^https?:\/\//i.test(String(x[1]))
-?'<a href="'+esc(x[1])+'" target="_blank" rel="noopener noreferrer">مشاهده لینک</a>'
-:esc(x[1]))+
+?'<a href="'+esc(x[1])+'" target="_blank" rel="noopener noreferrer">مشاهده پیوند</a>'
+:esc(x[0]==='تاریخ ثبت'?displayDate(x[1]):x[1]))+
 '</p>'
 ).join('')+
-
 '<div class="field"><label>وضعیت</label>'+
 '<select data-status-for="'+esc(id)+'">'+
 ['new','reviewing','answered','approved','rejected','closed'].map(s=>
 '<option value="'+s+'" '+(s===current?'selected':'')+'>'+labels[s]+'</option>'
 ).join('')+
 '</select></div>'+
-
 '<div class="field"><label>یادداشت مدیر</label>'+
 '<textarea data-notes-for="'+esc(id)+'">'+esc(r.admin_notes||'')+'</textarea></div>'+
-
 '<button type="button" data-save-artist="'+esc(id)+'">ذخیره تغییرات</button>'+
 '</article>';
 }).join('');
@@ -552,52 +636,34 @@ return false;
 }
 }
 
-/* ذخیره درخواست هنرمند همراه با ثبت فعالیت مدیر */
 async function saveArtist(id,button){
 if(button.disabled)return;
 button.disabled=true;
 
 try{
-const selector=window.CSS?.escape
-?CSS.escape(String(id))
-:String(id).replace(/["\\]/g,'\\$&');
-
+const selector=window.CSS?.escape?CSS.escape(String(id)):String(id).replace(/["\\]/g,'\\$&');
 const s=document.querySelector('[data-status-for="'+selector+'"]');
 const n=document.querySelector('[data-notes-for="'+selector+'"]');
 
 const changes={};
-
 if(s)changes.status=s.value;
 if(n)changes.admin_notes=n.value;
 
-if(!Object.keys(changes).length){
-throw Error('هیچ تغییری برای ذخیره وجود ندارد.');
-}
+if(!Object.keys(changes).length)throw Error('هیچ تغییری برای ذخیره وجود ندارد.');
 
-const {data,error}=await db
-.from('artist_requests')
-.update(changes)
-.eq('id',id)
-.select('id');
+const {data,error}=await db.from('artist_requests')
+.update(changes).eq('id',id).select('id');
 
 if(error)throw error;
-
-if(!data||data.length===0){
-throw Error('هیچ رکوردی به‌روزرسانی نشد. مجوزهای RLS را بررسی کنید.');
-}
+if(!data||data.length===0)throw Error('هیچ رکوردی به‌روزرسانی نشد. مجوزهای پایگاه داده را بررسی کنید.');
 
 const audit=await writeActivity(
-'update_artist_request',
-'artist_request',
-id,
+'update_artist_request','artist_request',id,
 {changed_fields:Object.keys(changes)}
 );
 
-status(
-'globalStatus',
-audit
-?'تغییرات هنرمند ذخیره و در فعالیت مدیران ثبت شد.'
-:'تغییرات ذخیره شد، اما ثبت فعالیت مدیر ناموفق بود.',
+status('globalStatus',
+audit?'تغییرات هنرمند ذخیره و در فعالیت مدیران ثبت شد.':'تغییرات ذخیره شد، اما ثبت فعالیت مدیر ناموفق بود.',
 audit?'success':''
 );
 
@@ -665,15 +731,13 @@ const fields=[
 return '<article class="row-card">'+
 '<div class="top"><h3>'+esc(r.title||r.business_name||'سفارش تبلیغاتی')+'</h3>'+
 '<span class="badge">'+esc(orderOptions[orderStatus]||orderStatus)+'</span></div>'+
-
 fields.filter(x=>x[1]!==undefined&&x[1]!==null&&x[1]!=='').map(x=>
 '<p><b>'+esc(x[0])+':</b> '+
 (x[0]==='لینک مقصد'&&/^https?:\/\//i.test(String(x[1]))
-?'<a href="'+esc(x[1])+'" target="_blank" rel="noopener noreferrer">مشاهده لینک</a>'
-:esc(x[1]))+
+?'<a href="'+esc(x[1])+'" target="_blank" rel="noopener noreferrer">مشاهده پیوند</a>'
+:esc(['تاریخ شروع','تاریخ پایان','تاریخ ثبت'].includes(x[0])?displayDate(x[1]):x[1]))+
 '</p>'
 ).join('')+
-
 '<div class="field"><label>وضعیت سفارش</label>'+
 '<select data-ad-order="'+esc(id)+'">'+
 Object.keys(orderOptions).map(s=>
@@ -681,7 +745,6 @@ Object.keys(orderOptions).map(s=>
 ).join('')+
 (!orderOptions[orderStatus]?'<option selected value="'+esc(orderStatus)+'">'+esc(orderStatus)+'</option>':'')+
 '</select></div>'+
-
 '<div class="field"><label>وضعیت پرداخت</label>'+
 '<select data-ad-payment="'+esc(id)+'">'+
 Object.keys(paymentOptions).map(s=>
@@ -689,10 +752,8 @@ Object.keys(paymentOptions).map(s=>
 ).join('')+
 (!paymentOptions[paymentStatus]?'<option selected value="'+esc(paymentStatus)+'">'+esc(paymentStatus)+'</option>':'')+
 '</select></div>'+
-
 '<div class="field"><label>یادداشت داخلی مدیر</label>'+
 '<textarea data-ad-notes="'+esc(id)+'">'+esc(r.admin_notes||'')+'</textarea></div>'+
-
 '<button type="button" data-save-ad="'+esc(id)+'">ذخیره سفارش</button>'+
 '</article>';
 }).join('');
@@ -741,11 +802,10 @@ const fields=[
 return '<article class="row-card">'+
 '<div class="top"><h3>'+esc(r.subject||'پیام تماس')+'</h3>'+
 '<span class="badge">'+esc(options[current]||current)+'</span></div>'+
-
 fields.filter(x=>x[1]!==undefined&&x[1]!==null&&x[1]!=='').map(x=>
-'<p><b>'+esc(x[0])+':</b> '+esc(x[1])+'</p>'
+'<p><b>'+esc(x[0])+':</b> '+
+esc(x[0]==='تاریخ ثبت'?displayDate(x[1]):x[1])+'</p>'
 ).join('')+
-
 '<div class="field"><label>وضعیت پیام</label>'+
 '<select data-message-status="'+esc(id)+'">'+
 Object.keys(options).map(s=>
@@ -753,10 +813,8 @@ Object.keys(options).map(s=>
 ).join('')+
 (!options[current]?'<option selected value="'+esc(current)+'">'+esc(current)+'</option>':'')+
 '</select></div>'+
-
 '<div class="field"><label>یادداشت داخلی مدیر</label>'+
 '<textarea data-message-notes="'+esc(id)+'">'+esc(r.admin_notes||'')+'</textarea></div>'+
-
 '<button type="button" data-save-message="'+esc(id)+'">ذخیره پیام</button>'+
 '</article>';
 }).join('');
@@ -770,26 +828,16 @@ return false;
 }
 
 async function updateManagedRecord(table,id,changes,action,targetType){
-const {data,error}=await db
-.from(table)
-.update(changes)
-.eq('id',id)
-.select('id');
+const {data,error}=await db.from(table)
+.update(changes).eq('id',id).select('id');
 
 if(error)throw error;
+if(!data||data.length===0)throw Error('رکوردی به‌روزرسانی نشد. مجوزهای پایگاه داده را بررسی کنید.');
 
-if(!data||data.length===0){
-throw Error('رکوردی به‌روزرسانی نشد. مجوزهای RLS را بررسی کنید.');
-}
-
-const audit=await writeActivity(
-action,
-targetType,
-id,
+return await writeActivity(
+action,targetType,id,
 {changed_fields:Object.keys(changes)}
 );
-
-return audit;
 }
 
 async function saveAd(id,button){
@@ -797,10 +845,7 @@ if(button.disabled)return;
 button.disabled=true;
 
 try{
-const selector=window.CSS?.escape
-?CSS.escape(String(id))
-:String(id).replace(/["\\]/g,'\\$&');
-
+const selector=window.CSS?.escape?CSS.escape(String(id)):String(id).replace(/["\\]/g,'\\$&');
 const order=document.querySelector('[data-ad-order="'+selector+'"]');
 const payment=document.querySelector('[data-ad-payment="'+selector+'"]');
 const notes=document.querySelector('[data-ad-notes="'+selector+'"]');
@@ -814,8 +859,7 @@ const audit=await updateManagedRecord(
 'ad_orders',id,changes,'update_ad_order','ad_order'
 );
 
-status(
-'globalStatus',
+status('globalStatus',
 audit?'سفارش ذخیره شد و فعالیت ثبت گردید.':'سفارش ذخیره شد، اما ثبت فعالیت مدیر ناموفق بود.',
 audit?'success':''
 );
@@ -836,10 +880,7 @@ if(button.disabled)return;
 button.disabled=true;
 
 try{
-const selector=window.CSS?.escape
-?CSS.escape(String(id))
-:String(id).replace(/["\\]/g,'\\$&');
-
+const selector=window.CSS?.escape?CSS.escape(String(id)):String(id).replace(/["\\]/g,'\\$&');
 const s=document.querySelector('[data-message-status="'+selector+'"]');
 const n=document.querySelector('[data-message-notes="'+selector+'"]');
 
@@ -851,8 +892,7 @@ const audit=await updateManagedRecord(
 'contact_messages',id,changes,'update_contact_message','contact_message'
 );
 
-status(
-'globalStatus',
+status('globalStatus',
 audit?'پیام ذخیره شد و فعالیت ثبت گردید.':'پیام ذخیره شد، اما ثبت فعالیت مدیر ناموفق بود.',
 audit?'success':''
 );
@@ -877,11 +917,9 @@ popular.textContent='در حال محاسبه...';
 
 try{
 const rows=await fetchRows('page_views',1000);
-
 box.innerHTML=tableHtml(rows);
 
 const counts={};
-
 rows.forEach(r=>{
 const path=String(r.path||'نامشخص');
 counts[path]=(counts[path]||0)+1;
@@ -919,8 +957,7 @@ const tables=[
 ];
 
 for(const [element,table] of tables){
-const {count,error}=await db
-.from(table)
+const {count,error}=await db.from(table)
 .select('id',{count:'exact',head:true});
 
 if(error){
@@ -931,9 +968,7 @@ $(element).textContent=String(count??0);
 }
 
 const {data:views,error:viewsError}=await db
-.from('page_views')
-.select('created_at')
-.limit(5000);
+.from('page_views').select('created_at').limit(5000);
 
 if(viewsError)throw viewsError;
 
@@ -964,10 +999,7 @@ console.warn('خطا در دریافت آمار:',e);
 async function loadTab(key,force=false){
 if(!CONTENT[key])return false;
 
-if(loadingTabs.has(key)){
-return loadingTabs.get(key);
-}
-
+if(loadingTabs.has(key))return loadingTabs.get(key);
 if(loadedTabs.has(key)&&!force)return true;
 
 const task=(async()=>{
@@ -1041,17 +1073,14 @@ if(!current||!next||!confirm){
 status('passwordStatus','هر سه کادر باید تکمیل شوند.','error');
 return;
 }
-
 if(next.length<10){
 status('passwordStatus','رمز جدید باید حداقل ۱۰ نویسه داشته باشد.','error');
 return;
 }
-
 if(next!==confirm){
 status('passwordStatus','رمز جدید و تکرار آن یکسان نیستند.','error');
 return;
 }
-
 if(next===current){
 status('passwordStatus','رمز جدید باید با رمز فعلی متفاوت باشد.','error');
 return;
@@ -1065,13 +1094,9 @@ const {error:reauthError}=await db.auth.signInWithPassword({
 email:currentAdmin.email,
 password:current
 });
-
 if(reauthError)throw Error('رمز فعلی تأیید نشد.');
 
-const {error:updateError}=await db.auth.updateUser({
-password:next
-});
-
+const {error:updateError}=await db.auth.updateUser({password:next});
 if(updateError)throw updateError;
 
 const audit=await writeActivity(
@@ -1083,8 +1108,7 @@ currentAdmin.id,
 
 $('passwordChangeForm').reset();
 
-status(
-'passwordStatus',
+status('passwordStatus',
 audit?'رمز عبور با موفقیت تغییر کرد.':'رمز تغییر کرد، اما ثبت گزارش فعالیت ناموفق بود.',
 audit?'success':''
 );
