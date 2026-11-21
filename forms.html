@@ -1,51 +1,51 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="fa" dir="rtl">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<meta name="theme-color" content="#ffffff">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#f5f5f3">
 <title>ارتباط و همکاری | رنگ‌نوا</title>
+
 <style>
-:root{
+:root {
   --bg:#f5f5f3;
   --card:#fff;
   --ink:#202020;
   --muted:#666;
   --line:#dedede;
   --gold:#98732f;
-  --gold-light:#f8f3e8;
   --green:#245b52;
   --danger:#b42318;
 }
-*{box-sizing:border-box}
-body{
+* { box-sizing:border-box; }
+body {
   margin:0;
   background:var(--bg);
   color:var(--ink);
   font-family:Tahoma,Arial,sans-serif;
   line-height:1.9;
 }
-.wrap{width:min(900px,92%);margin:auto}
-header{
+.wrap { width:min(900px,92%); margin:auto; }
+header {
   background:#fff;
   border-bottom:1px solid var(--line);
   padding:18px 0;
 }
-.header-inner{
+.header-inner {
   display:flex;
   justify-content:space-between;
   align-items:center;
   gap:15px;
   flex-wrap:wrap;
 }
-.brand{font-size:22px;font-weight:bold;color:var(--green)}
-header a{color:var(--green);text-decoration:none}
-main{padding:35px 0 60px}
-h1{font-size:25px;margin:0 0 8px}
-h2{font-size:19px;margin:0 0 12px}
-p{color:var(--muted);margin:5px 0}
-.intro{margin-bottom:22px}
-.card{
+.brand { font-size:22px; font-weight:bold; color:var(--green); }
+header a { color:var(--green); text-decoration:none; }
+main { padding:35px 0 60px; }
+h1 { font-size:25px; margin:0 0 8px; }
+h2 { font-size:19px; margin:0 0 12px; }
+p { color:var(--muted); margin:5px 0; }
+.intro { margin-bottom:22px; }
+.card {
   background:var(--card);
   border:1px solid var(--line);
   border-radius:16px;
@@ -53,8 +53,8 @@ p{color:var(--muted);margin:5px 0}
   margin:18px 0;
   box-shadow:0 8px 25px #00000008;
 }
-.tabs{display:flex;gap:8px;flex-wrap:wrap;margin:20px 0}
-.tabs button{
+.tabs { display:flex; gap:8px; flex-wrap:wrap; margin:20px 0; }
+.tabs button {
   border:1px solid var(--line);
   background:#fff;
   color:var(--ink);
@@ -63,22 +63,22 @@ p{color:var(--muted);margin:5px 0}
   font:inherit;
   cursor:pointer;
 }
-.tabs button.active{
+.tabs button.active {
   background:var(--green);
   border-color:var(--green);
   color:#fff;
 }
-.panel{display:none}
-.panel.active{display:block}
-.grid{
+.panel { display:none; }
+.panel.active { display:block; }
+.grid {
   display:grid;
   grid-template-columns:repeat(2,minmax(0,1fr));
   gap:12px;
 }
-.field{margin:12px 0}
-.field.full{grid-column:1/-1}
-label{display:block;font-weight:bold;margin-bottom:5px}
-input,select,textarea{
+.field { margin:12px 0; }
+.field.full { grid-column:1/-1; }
+label { display:block; font-weight:bold; margin-bottom:5px; }
+input,select,textarea {
   width:100%;
   padding:12px;
   border:1px solid #ccc;
@@ -87,12 +87,12 @@ input,select,textarea{
   color:#222;
   font:inherit;
 }
-textarea{min-height:115px;resize:vertical}
-input:focus,select:focus,textarea:focus{
+textarea { min-height:115px; resize:vertical; }
+input:focus,select:focus,textarea:focus {
   outline:2px solid #98732f55;
   border-color:var(--gold);
 }
-button.submit{
+button.submit {
   width:100%;
   margin-top:12px;
   padding:13px;
@@ -104,50 +104,52 @@ button.submit{
   font-weight:bold;
   cursor:pointer;
 }
-button:disabled{opacity:.55;cursor:not-allowed}
-.message{
+button:disabled { opacity:.55; cursor:not-allowed; }
+.message {
   display:none;
   margin-top:15px;
   padding:12px;
   border-radius:9px;
   white-space:pre-wrap;
   overflow-wrap:anywhere;
+  direction:rtl;
 }
-.message.show{display:block}
-.message.success{background:#eaf7ef;color:#18794e}
-.message.error{background:#fff0ef;color:var(--danger)}
-.note{
+.message.show { display:block; }
+.message.success { background:#eaf7ef; color:#18794e; }
+.message.error { background:#fff0ef; color:var(--danger); }
+.note {
   padding:13px;
-  background:var(--gold-light);
+  background:#f8f3e8;
   border-right:4px solid var(--gold);
   border-radius:8px;
   margin:15px 0;
   color:#51452e;
   font-size:13px;
 }
-.required{color:var(--danger)}
-.hp{
+.required { color:var(--danger); }
+.hp {
   position:absolute!important;
   right:-10000px!important;
   width:1px!important;
   height:1px!important;
   overflow:hidden!important;
 }
-footer{
+footer {
   border-top:1px solid var(--line);
   padding:22px 0;
   color:var(--muted);
   text-align:center;
   font-size:13px;
 }
-@media(max-width:600px){
-  .grid{grid-template-columns:1fr}
-  .card{padding:16px}
-  h1{font-size:21px}
-  .tabs button{flex:1}
+@media(max-width:600px) {
+  .grid { grid-template-columns:1fr; }
+  .card { padding:16px; }
+  h1 { font-size:21px; }
+  .tabs button { flex:1; }
 }
 </style>
 </head>
+
 <body>
 
 <header>
@@ -158,6 +160,7 @@ footer{
 </header>
 
 <main class="wrap">
+
   <div class="intro">
     <h1>ارتباط، همکاری و ثبت درخواست</h1>
     <p>از طریق فرم‌های زیر می‌توانید با مجموعه رنگ‌نوا در ارتباط باشید.</p>
@@ -169,20 +172,21 @@ footer{
     <button type="button" data-panel="contactPanel">تماس با ما</button>
   </div>
 
-  <!-- درخواست هنرمندان -->
+  <!-- ARTIST FORM -->
   <section id="artistPanel" class="card panel active">
     <h2>درخواست همکاری هنرمندان</h2>
     <p>هنرمندان می‌توانند درخواست معرفی، همکاری یا ارائه آثار خود را ارسال کنند.</p>
 
     <form id="artistForm">
       <div class="grid">
+
         <div class="field">
-          <label>نام و نام خانوادگی <span class="required">*</span></label>
+          <label>نام و نام خانوادگی *</label>
           <input name="full_name" required maxlength="150">
         </div>
 
         <div class="field">
-          <label>حوزه فعالیت هنری <span class="required">*</span></label>
+          <label>حوزه فعالیت هنری *</label>
           <select name="artist_role" required>
             <option value="">انتخاب کنید</option>
             <option value="خواننده">خواننده</option>
@@ -190,14 +194,13 @@ footer{
             <option value="آهنگساز">آهنگساز</option>
             <option value="ترانه‌سرا">ترانه‌سرا</option>
             <option value="شاعر">شاعر</option>
-            <option value="تنظیم‌کننده">تنظیم‌کننده</option>
             <option value="مدرس موسیقی">مدرس موسیقی</option>
             <option value="سایر">سایر</option>
           </select>
         </div>
 
         <div class="field">
-          <label>ایمیل <span class="required">*</span></label>
+          <label>ایمیل *</label>
           <input name="email" type="email" required maxlength="254">
         </div>
 
@@ -207,20 +210,21 @@ footer{
         </div>
 
         <div class="field full">
-          <label>موضوع درخواست <span class="required">*</span></label>
+          <label>موضوع درخواست *</label>
           <input name="subject" required maxlength="200">
         </div>
 
         <div class="field full">
-          <label>توضیحات و معرفی <span class="required">*</span></label>
+          <label>توضیحات و معرفی *</label>
           <textarea name="message" required maxlength="5000"></textarea>
         </div>
 
         <div class="field full">
-          <label>پیوند نمونه‌کار یا صفحه هنری</label>
+          <label>پیوند نمونه‌کار یا صفحه هنری (اختیاری)</label>
           <input name="portfolio_url" type="url" maxlength="500"
-                 placeholder="https://">
+                 placeholder="مثلاً https://example.com">
         </div>
+
       </div>
 
       <div class="hp">
@@ -233,21 +237,22 @@ footer{
     </form>
   </section>
 
-  <!-- سفارش تبلیغات -->
+  <!-- AD FORM -->
   <section id="adPanel" class="card panel">
     <h2>ثبت سفارش تبلیغات</h2>
     <p>اطلاعات اولیه سفارش تبلیغاتی خود را ارسال کنید تا بررسی شود.</p>
 
     <div class="note">
-      ارسال این فرم به معنی تأیید سفارش یا انجام پرداخت نیست.
+      ثبت این فرم به معنی تأیید سفارش یا انجام پرداخت نیست.
       جزئیات نهایی پس از بررسی و هماهنگی اعلام خواهد شد.
     </div>
 
     <form id="adForm">
       <div class="grid">
+
         <div class="field">
-          <label>نام و نام خانوادگی <span class="required">*</span></label>
-          <input name="customer_name" required maxlength="150">
+          <label>نام و نام خانوادگی *</label>
+          <input name="customer_name" required maxlength="120">
         </div>
 
         <div class="field">
@@ -256,17 +261,17 @@ footer{
         </div>
 
         <div class="field">
-          <label>ایمیل <span class="required">*</span></label>
+          <label>ایمیل *</label>
           <input name="email" type="email" required maxlength="254">
         </div>
 
         <div class="field">
-          <label>شماره تماس <span class="required">*</span></label>
+          <label>شماره تماس *</label>
           <input name="phone" type="tel" required maxlength="30">
         </div>
 
         <div class="field">
-          <label>نوع تبلیغ <span class="required">*</span></label>
+          <label>نوع تبلیغ *</label>
           <select name="ad_type" required>
             <option value="">انتخاب کنید</option>
             <option value="بنر تبلیغاتی">بنر تبلیغاتی</option>
@@ -290,19 +295,21 @@ footer{
         </div>
 
         <div class="field full">
-          <label>عنوان تبلیغ <span class="required">*</span></label>
+          <label>عنوان تبلیغ *</label>
           <input name="title" required maxlength="200">
         </div>
 
         <div class="field full">
-          <label>شرح سفارش <span class="required">*</span></label>
-          <textarea name="description" required maxlength="5000"></textarea>
+          <label>شرح سفارش و توضیح تبلیغ *</label>
+          <textarea name="description" required maxlength="5000"
+            placeholder="توضیح دهید چه محصول، خدمت یا مجموعه‌ای را می‌خواهید معرفی کنید."></textarea>
         </div>
 
         <div class="field full">
-          <label>پیوند مقصد تبلیغ</label>
+          <label>آدرس سایت یا صفحه مقصد تبلیغ (اختیاری)</label>
           <input name="target_url" type="url" maxlength="500"
-                 placeholder="https://">
+            placeholder="اگر سایت یا صفحه‌ای برای معرفی دارید، آدرس کامل آن را وارد کنید؛ مانند https://example.com">
+          <small>اگر سایت یا صفحه‌ای ندارید، این قسمت را خالی بگذارید.</small>
         </div>
 
         <div class="field">
@@ -316,10 +323,12 @@ footer{
         </div>
 
         <div class="field full">
-          <label>بودجه پیشنهادی</label>
-          <input name="budget" maxlength="100"
-                 placeholder="مثلاً توافقی یا مبلغ پیشنهادی">
+          <label>بودجه پیشنهادی به تومان (اختیاری)</label>
+          <input name="budget" type="number" min="0" step="1"
+                 placeholder="مثلاً 5000000">
+          <small>اگر هنوز بودجه مشخصی ندارید، این قسمت را خالی بگذارید.</small>
         </div>
+
       </div>
 
       <div class="hp">
@@ -332,20 +341,21 @@ footer{
     </form>
   </section>
 
-  <!-- تماس با ما -->
+  <!-- CONTACT FORM -->
   <section id="contactPanel" class="card panel">
-    <h2>پیام به رنگ‌نوا</h2>
+    <h2>تماس با رنگ‌نوا</h2>
     <p>برای پرسش، پیشنهاد، انتقاد یا پیگیری با ما پیام بفرستید.</p>
 
     <form id="contactForm">
       <div class="grid">
+
         <div class="field">
-          <label>نام و نام خانوادگی <span class="required">*</span></label>
+          <label>نام و نام خانوادگی *</label>
           <input name="full_name" required maxlength="150">
         </div>
 
         <div class="field">
-          <label>ایمیل <span class="required">*</span></label>
+          <label>ایمیل *</label>
           <input name="email" type="email" required maxlength="254">
         </div>
 
@@ -368,14 +378,15 @@ footer{
         </div>
 
         <div class="field full">
-          <label>موضوع <span class="required">*</span></label>
+          <label>موضوع *</label>
           <input name="subject" required maxlength="200">
         </div>
 
         <div class="field full">
-          <label>متن پیام <span class="required">*</span></label>
+          <label>متن پیام *</label>
           <textarea name="message" required maxlength="5000"></textarea>
         </div>
+
       </div>
 
       <div class="hp">
@@ -387,6 +398,7 @@ footer{
       <div id="contactResult" class="message" role="status"></div>
     </form>
   </section>
+
 </main>
 
 <footer>
@@ -397,275 +409,311 @@ footer{
 <script src="rangenava-config.js"></script>
 
 <script>
-(function(){
-'use strict';
+(function () {
+  'use strict';
 
-const config=window.RANGENAVA_CONFIG;
+  const config = window.RANGENAVA_CONFIG;
+  let db = null;
 
-let db=null;
+  const $ = id => document.getElementById(id);
 
-const $=id=>document.getElementById(id);
-
-function showResult(id,message,type){
-  const box=$(id);
-  box.textContent=message;
-  box.className='message show '+type;
-}
-
-function clean(value){
-  return String(value||'').trim();
-}
-
-function getValue(form,name){
-  return clean(new FormData(form).get(name));
-}
-
-function validUrl(value){
-  if(!value)return true;
-  try{
-    const u=new URL(value);
-    return u.protocol==='https:'||u.protocol==='http:';
-  }catch(_){
-    return false;
-  }
-}
-
-function getFormData(form){
-  return new FormData(form);
-}
-
-function checkCommon(form,resultId){
-  const data=getFormData(form);
-
-  if(clean(data.get('website'))){
-    showResult(resultId,'درخواست قابل ثبت نیست.','error');
-    return false;
+  function showResult(id, message, type) {
+    const box = $(id);
+    box.textContent = message;
+    box.className = 'message show ' + type;
   }
 
-  const email=clean(data.get('email'));
-
-  if(email.length>254||!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)){
-    showResult(resultId,'نشانی ایمیل را بررسی کنید.','error');
-    return false;
+  function clean(value) {
+    return String(value || '').trim();
   }
 
-  return true;
-}
-
-function setBusy(form,busy){
-  const button=form.querySelector('button[type="submit"]');
-  button.disabled=busy;
-  button.textContent=busy?'در حال ارسال...':button.dataset.originalText;
-}
-
-async function submitRecord(form,table,payload,resultId,successText){
-  if(!db){
-    showResult(resultId,'اتصال پایگاه داده برقرار نیست. صفحه را تازه‌سازی کنید.','error');
-    return;
+  function getValue(form, name) {
+    return clean(new FormData(form).get(name));
   }
 
-  const button=form.querySelector('button[type="submit"]');
+  function validUrl(value) {
+    if (!value) return true;
 
-  if(button.disabled)return;
+    try {
+      const url = new URL(value);
+      return url.protocol === 'https:' || url.protocol === 'http:';
+    } catch (_) {
+      return false;
+    }
+  }
 
-  if(!checkCommon(form,resultId))return;
+  function checkCommon(form, resultId) {
+    const data = new FormData(form);
 
-  button.dataset.originalText=button.dataset.originalText||button.textContent;
-  setBusy(form,true);
-
-  try{
-    const {error}=await db.from(table).insert(payload);
-
-    if(error)throw error;
-
-    form.reset();
-
-    showResult(
-      resultId,
-      successText,
-      'success'
-    );
-
-  }catch(error){
-    console.error('Form submission error:',error);
-
-    let message='ارسال انجام نشد. لطفاً دوباره تلاش کنید.';
-
-    if(error?.code==='42501'){
-      message='مجوز ثبت اطلاعات در پایگاه داده وجود ندارد. تنظیمات دسترسی باید بررسی شود.';
-    }else if(error?.code==='23514'){
-      message='یکی از اطلاعات واردشده با محدودیت‌های ثبت سازگار نیست.';
-    }else if(error?.code==='23502'){
-      message='یکی از فیلدهای ضروری ارسال نشده است.';
+    if (clean(data.get('website'))) {
+      showResult(resultId, 'درخواست قابل ثبت نیست.', 'error');
+      return false;
     }
 
-    showResult(resultId,message,'error');
+    const email = clean(data.get('email'));
 
-  }finally{
-    setBusy(form,false);
+    if (email.length > 254 ||
+        !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+      showResult(resultId, 'لطفاً نشانی ایمیل را بررسی کنید.', 'error');
+      return false;
+    }
+
+    return true;
   }
-}
 
-function initTabs(){
-  document.querySelectorAll('.tabs button').forEach(button=>{
-    button.addEventListener('click',()=>{
-      document.querySelectorAll('.tabs button').forEach(b=>{
-        b.classList.toggle('active',b===button);
+  function setBusy(form, busy) {
+    const button = form.querySelector('button[type="submit"]');
+    button.disabled = busy;
+    button.textContent = busy
+      ? 'در حال ارسال...'
+      : button.dataset.originalText;
+  }
+
+  function explainError(error) {
+    console.error('Supabase form error:', error);
+
+    const code = error?.code || '';
+    const details = error?.details || '';
+    const message = error?.message || 'خطای نامشخص';
+
+    if (code === '42501') {
+      return 'مجوز ثبت اطلاعات وجود ندارد. سیاست دسترسی دیتابیس باید بررسی شود.\n' + message;
+    }
+
+    if (code === '23514') {
+      return 'یکی از اطلاعات با محدودیت‌های جدول سازگار نیست.\n' + message;
+    }
+
+    if (code === '23502') {
+      return 'یکی از فیلدهای ضروری ارسال نشده است.\n' + message;
+    }
+
+    if (code === '22P02' || code === '22003') {
+      return 'نوع یا مقدار یکی از فیلدها اشتباه است.\n' + message;
+    }
+
+    if (code === '23503') {
+      return 'اطلاعات ارسالی با اطلاعات مرتبط در دیتابیس سازگار نیست.\n' + message;
+    }
+
+    return 'ثبت اطلاعات انجام نشد.\nکد خطا: ' + (code || 'نامشخص') +
+      '\nشرح: ' + message +
+      (details ? '\nجزئیات: ' + details : '');
+  }
+
+  async function submitRecord(form, table, payload, resultId, successText) {
+    if (!db) {
+      showResult(resultId, 'اتصال پایگاه داده برقرار نیست. صفحه را تازه‌سازی کنید.', 'error');
+      return;
+    }
+
+    const button = form.querySelector('button[type="submit"]');
+
+    if (button.disabled) return;
+    if (!checkCommon(form, resultId)) return;
+
+    setBusy(form, true);
+
+    try {
+      const { data, error } = await db
+        .from(table)
+        .insert(payload)
+        .select('id')
+        .single();
+
+      if (error) throw error;
+
+      form.reset();
+      showResult(resultId, successText, 'success');
+
+      console.log('ثبت موفق:', table, data);
+
+    } catch (error) {
+      showResult(resultId, explainError(error), 'error');
+    } finally {
+      setBusy(form, false);
+    }
+  }
+
+  function initTabs() {
+    document.querySelectorAll('.tabs button').forEach(button => {
+      button.addEventListener('click', () => {
+        document.querySelectorAll('.tabs button').forEach(item => {
+          item.classList.toggle('active', item === button);
+        });
+
+        document.querySelectorAll('.panel').forEach(panel => {
+          panel.classList.toggle(
+            'active',
+            panel.id === button.dataset.panel
+          );
+        });
       });
+    });
+  }
 
-      document.querySelectorAll('.panel').forEach(panel=>{
-        panel.classList.toggle(
-          'active',
-          panel.id===button.dataset.panel
+  function initArtistForm() {
+    const form = $('artistForm');
+
+    form.addEventListener('submit', async event => {
+      event.preventDefault();
+
+      const portfolioUrl = getValue(form, 'portfolio_url');
+
+      if (!validUrl(portfolioUrl)) {
+        showResult('artistResult', 'پیوند نمونه‌کار معتبر نیست.', 'error');
+        return;
+      }
+
+      const payload = {
+        full_name: getValue(form, 'full_name'),
+        artist_role: getValue(form, 'artist_role'),
+        email: getValue(form, 'email'),
+        phone: getValue(form, 'phone') || null,
+        subject: getValue(form, 'subject'),
+        message: getValue(form, 'message'),
+        portfolio_url: portfolioUrl || null
+      };
+
+      await submitRecord(
+        form,
+        'artist_requests',
+        payload,
+        'artistResult',
+        'درخواست همکاری شما با موفقیت ثبت شد. پس از بررسی با شما تماس گرفته خواهد شد.'
+      );
+    });
+  }
+
+  function initAdForm() {
+    const form = $('adForm');
+
+    form.addEventListener('submit', async event => {
+      event.preventDefault();
+
+      const targetUrl = getValue(form, 'target_url');
+      const startDate = getValue(form, 'start_date');
+      const endDate = getValue(form, 'end_date');
+      const budgetValue = getValue(form, 'budget');
+
+      if (!validUrl(targetUrl)) {
+        showResult(
+          'adResult',
+          'آدرس سایت یا صفحه مقصد معتبر نیست. آن را با https:// وارد کنید یا خالی بگذارید.',
+          'error'
         );
+        return;
+      }
+
+      if (startDate && endDate && endDate < startDate) {
+        showResult(
+          'adResult',
+          'تاریخ پایان نباید قبل از تاریخ شروع باشد.',
+          'error'
+        );
+        return;
+      }
+
+      const budget = budgetValue === '' ? null : Number(budgetValue);
+
+      if (budget !== null && (!Number.isFinite(budget) || budget < 0)) {
+        showResult('adResult', 'مبلغ بودجه معتبر نیست.', 'error');
+        return;
+      }
+
+      const payload = {
+        customer_name: getValue(form, 'customer_name'),
+        business_name: getValue(form, 'business_name') || null,
+        email: getValue(form, 'email'),
+        phone: getValue(form, 'phone'),
+        ad_type: getValue(form, 'ad_type'),
+        placement: getValue(form, 'placement') || null,
+        title: getValue(form, 'title'),
+        description: getValue(form, 'description'),
+        target_url: targetUrl || null,
+        start_date: startDate || null,
+        end_date: endDate || null,
+        budget: budget
+      };
+
+      await submitRecord(
+        form,
+        'ad_orders',
+        payload,
+        'adResult',
+        'سفارش تبلیغاتی شما با موفقیت ثبت شد. پس از بررسی با شما هماهنگ خواهیم کرد.'
+      );
+    });
+  }
+
+  function initContactForm() {
+    const form = $('contactForm');
+
+    form.addEventListener('submit', async event => {
+      event.preventDefault();
+
+      const payload = {
+        full_name: getValue(form, 'full_name'),
+        email: getValue(form, 'email'),
+        phone: getValue(form, 'phone') || null,
+        category: getValue(form, 'category'),
+        subject: getValue(form, 'subject'),
+        message: getValue(form, 'message')
+      };
+
+      await submitRecord(
+        form,
+        'contact_messages',
+        payload,
+        'contactResult',
+        'پیام شما با موفقیت ثبت شد. از اینکه با رنگ‌نوا در ارتباط هستید سپاسگزاریم.'
+      );
+    });
+  }
+
+  function init() {
+    initTabs();
+
+    document.querySelectorAll('form').forEach(form => {
+      const button = form.querySelector('button[type="submit"]');
+      if (button) {
+        button.dataset.originalText = button.textContent;
+      }
+    });
+
+    if (!window.supabase) {
+      ['artistResult', 'adResult', 'contactResult'].forEach(id => {
+        showResult(id, 'کتابخانه اتصال بارگذاری نشده است.', 'error');
       });
-    });
-  });
-}
-
-function initArtistForm(){
-  const form=$('artistForm');
-
-  form.addEventListener('submit',async event=>{
-    event.preventDefault();
-
-    const full_name=getValue(form,'full_name');
-    const artist_role=getValue(form,'artist_role');
-    const email=getValue(form,'email');
-    const phone=getValue(form,'phone');
-    const subject=getValue(form,'subject');
-    const message=getValue(form,'message');
-    const portfolio_url=getValue(form,'portfolio_url');
-
-    if(!validUrl(portfolio_url)){
-      showResult('artistResult','پیوند نمونه‌کار معتبر نیست.','error');
       return;
     }
 
-    await submitRecord(
-      form,
-      'artist_requests',
-      {
-        full_name,
-        artist_role,
-        email,
-        phone:phone||null,
-        subject,
-        message,
-        portfolio_url:portfolio_url||null
-      },
-      'artistResult',
-      'درخواست شما با موفقیت ثبت شد. پس از بررسی، با شما تماس گرفته خواهد شد.'
-    );
-  });
-}
-
-function initAdForm(){
-  const form=$('adForm');
-
-  form.addEventListener('submit',async event=>{
-    event.preventDefault();
-
-    const target_url=getValue(form,'target_url');
-    const start_date=getValue(form,'start_date');
-    const end_date=getValue(form,'end_date');
-
-    if(!validUrl(target_url)){
-      showResult('adResult','پیوند مقصد معتبر نیست.','error');
+    if (!config?.url || !config?.anonKey) {
+      ['artistResult', 'adResult', 'contactResult'].forEach(id => {
+        showResult(id, 'تنظیمات اتصال پیدا نشد. فایل rangenava-config.js را بررسی کنید.', 'error');
+      });
       return;
     }
 
-    if(start_date&&end_date&&end_date<start_date){
-      showResult('adResult','تاریخ پایان نباید قبل از تاریخ شروع باشد.','error');
-      return;
+    try {
+      db = window.supabase.createClient(
+        String(config.url).trim(),
+        String(config.anonKey).trim()
+      );
+    } catch (error) {
+      console.error(error);
+      db = null;
     }
 
-    await submitRecord(
-      form,
-      'ad_orders',
-      {
-        customer_name:getValue(form,'customer_name'),
-        business_name:getValue(form,'business_name')||null,
-        email:getValue(form,'email'),
-        phone:getValue(form,'phone'),
-        ad_type:getValue(form,'ad_type'),
-        placement:getValue(form,'placement')||null,
-        title:getValue(form,'title'),
-        description:getValue(form,'description'),
-        target_url:target_url||null,
-        start_date:start_date||null,
-        end_date:end_date||null,
-        budget:getValue(form,'budget')||null
-      },
-      'adResult',
-      'درخواست تبلیغاتی شما ثبت شد. سفارش پس از بررسی با شما هماهنگ خواهد شد.'
-    );
-  });
-}
-
-function initContactForm(){
-  const form=$('contactForm');
-
-  form.addEventListener('submit',async event=>{
-    event.preventDefault();
-
-    await submitRecord(
-      form,
-      'contact_messages',
-      {
-        full_name:getValue(form,'full_name'),
-        email:getValue(form,'email'),
-        phone:getValue(form,'phone')||null,
-        category:getValue(form,'category'),
-        subject:getValue(form,'subject'),
-        message:getValue(form,'message')
-      },
-      'contactResult',
-      'پیام شما با موفقیت ثبت شد. از اینکه با رنگ‌نوا در ارتباط هستید سپاسگزاریم.'
-    );
-  });
-}
-
-function init(){
-  initTabs();
-
-  document.querySelectorAll('form').forEach(form=>{
-    const button=form.querySelector('button[type="submit"]');
-    if(button)button.dataset.originalText=button.textContent;
-  });
-
-  if(!window.supabase){
-    ['artistResult','adResult','contactResult'].forEach(id=>{
-      showResult(id,'کتابخانه اتصال بارگذاری نشده است.','error');
-    });
-    return;
+    initArtistForm();
+    initAdForm();
+    initContactForm();
   }
 
-  if(!config?.url||!config?.anonKey){
-    ['artistResult','adResult','contactResult'].forEach(id=>{
-      showResult(id,'تنظیمات اتصال پیدا نشد.','error');
-    });
-    return;
-  }
-
-  try{
-    db=window.supabase.createClient(
-      String(config.url).trim(),
-      String(config.anonKey).trim()
-    );
-  }catch(error){
-    console.error(error);
-    db=null;
-  }
-
-  initArtistForm();
-  initAdForm();
-  initContactForm();
-}
-
-init();
+  init();
 
 })();
 </script>
+
 </body>
 </html>
