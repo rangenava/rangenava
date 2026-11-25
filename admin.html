@@ -186,4 +186,652 @@ autocomplete="current-password" required placeholder="رمز عبور">
 <div id="artistsContent">در حال بارگذاری...</div>
 </section>
 
-<section id="panel-ads" class="card tab
+<section id="panel-ads" class="card tabPanel hidden">
+<div class="top">
+<h2>سفارش‌های تبلیغات</h2>
+<button data-reload="ads" class="secondary" type="button">بارگذاری مجدد</button>
+</div>
+<div id="adsContent">در حال بارگذاری...</div>
+</section>
+
+<section id="panel-messages" class="card tabPanel hidden">
+<div class="top">
+<h2>پیام‌های تماس</h2>
+<button data-reload="messages" class="secondary" type="button">بارگذاری مجدد</button>
+</div>
+<div id="messagesContent">در حال بارگذاری...</div>
+</section>
+
+<section id="panel-views" class="card tabPanel hidden">
+<div class="top">
+<h2>بازدید صفحات</h2>
+<button data-reload="views" class="secondary" type="button">بارگذاری مجدد</button>
+</div>
+<div id="viewsContent">در حال بارگذاری...</div>
+</section>
+
+<section id="panel-events" class="card tabPanel hidden">
+<div class="top">
+<h2>رویدادهای آماری</h2>
+<button data-reload="events" class="secondary" type="button">بارگذاری مجدد</button>
+</div>
+<div id="eventsContent">در حال بارگذاری...</div>
+</section>
+
+<section id="panel-activity" class="card tabPanel hidden">
+<div class="top">
+<h2>فعالیت مدیران</h2>
+<button data-reload="activity" class="secondary" type="button">بارگذاری مجدد</button>
+</div>
+<div id="activityContent">در حال بارگذاری...</div>
+</section>
+
+<section id="panel-media" class="card tabPanel hidden">
+<h2>مدیریت رسانه‌ها</h2>
+<p>فایل‌ها در مخزن خصوصی rangenava-media ذخیره می‌شوند.</p>
+
+<div class="notice">
+فقط مدیران مجاز می‌توانند رسانه بارگذاری کنند.
+فایل‌های خصوصی برای نمایش عمومی به URL امضاشده یا سازوکار دسترسی مناسب نیاز دارند.
+</div>
+
+<div class="field">
+<label for="mediaFile">انتخاب فایل صوتی یا تصویری</label>
+<input id="mediaFile" type="file"
+accept="audio/mpeg,audio/mp3,audio/wav,audio/x-wav,audio/flac,audio/x-flac,audio/mp4,audio/aac,audio/ogg,audio/webm,image/jpeg,image/png,image/webp">
+</div>
+
+<div class="field">
+<label for="mediaFolder">پوشه ذخیره‌سازی</label>
+<select id="mediaFolder">
+<option value="audio">audio</option>
+<option value="images">images</option>
+<option value="covers">covers</option>
+</select>
+</div>
+
+<button id="uploadMediaBtn" type="button">بارگذاری فایل</button>
+<div id="mediaStatus" class="status">آماده بارگذاری.</div>
+<div id="mediaPreview"></div>
+</section>
+
+<section id="panel-backup" class="card tabPanel hidden">
+<h2>پشتیبان‌گیری رنگ‌نوا</h2>
+<div class="notice">
+این بخش فعلاً برای یادآوری و مدیریت برنامه پشتیبان‌گیری است.
+هنوز عملیات واقعی تهیه یا بازیابی نسخه پشتیبان در آن فعال نشده است.
+</div>
+<h3>مواردی که باید پشتیبان‌گیری شوند</h3>
+<ul>
+<li>فایل‌های مخزن GitHub</li>
+<li>ساختار و داده‌های Supabase</li>
+<li>فایل‌های ذخیره‌شده در Storage</li>
+<li>تنظیمات و سیاست‌های دسترسی</li>
+</ul>
+<p>پشتیبان کد و پشتیبان دیتابیس باید جداگانه تهیه شوند.</p>
+</section>
+
+</main>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="rangenava-config.js"></script>
+
+<script>
+(function(){
+'use strict';
+
+const $ = id => document.getElementById(id);
+
+let supabaseClient = null;
+let currentAdmin = null;
+let currentRole = null;
+
+const loadedTabs = new Set();
+const loadingTabs = new Set();
+
+const tableMap = {
+artists:'artist_requests',
+ads:'ad_orders',
+messages:'contact_messages',
+views:'page_views',
+events:'analytics_events',
+activity:'admin_activity'
+};
+
+const statusLabels = {
+new:'جدید',
+reviewing:'در حال بررسی',
+answered:'پاسخ داده شده',
+approved:'تأیید شده',
+rejected:'رد شده',
+closed:'بسته شده'
+};
+
+const allowedRoles = {
+artists:['owner','artists'],
+ads:['owner','ads'],
+messages:['owner','support'],
+views:['owner'],
+events:['owner'],
+activity:['owner'],
+media:['owner','music','artists','content'],
+backup:['owner']
+};
+
+function setStatus(id,message,type){
+const el=$(id);
+if(!el)return;
+el.textContent=message;
+el.className='status'+(type?' '+type:'');
+}
+
+function escapeHTML(value){
+return String(value??'').replace(/[&<>"']/g,ch=>({
+'&':'&amp;','<':'&lt;','>':'&gt;',
+'"':'&quot;',"'":'&#39;'
+})[ch]);
+}
+
+function formatDate(value){
+if(!value)return '—';
+const d=new Date(value);
+if(Number.isNaN(d.getTime()))return escapeHTML(value);
+return d.toLocaleString('fa-IR');
+}
+
+function readableError(error){
+if(!error)return 'خطای نامشخص';
+return error.message||String(error);
+}
+
+function getConfig(){
+const config=window.RANGENAVA_CONFIG;
+if(!config)return null;
+const url=config.url;
+const key=config.anonKey||config.publishableKey||config.publishable_key;
+if(!url||!key)return null;
+return {url,key};
+}
+
+function showLogin(){
+$('loginView').classList.remove('hidden');
+$('appView').classList.add('hidden');
+}
+
+function showApp(){
+$('loginView').classList.add('hidden');
+$('appView').classList.remove('hidden');
+}
+
+function checkRole(tab){
+const allowed=allowedRoles[tab]||['owner'];
+return allowed.includes(currentRole);
+}
+
+function applyRoleVisibility(){
+document.querySelectorAll('[data-tab]').forEach(button=>{
+const tab=button.dataset.tab;
+button.classList.toggle('hidden',!checkRole(tab));
+});
+}
+
+async function init(){
+try{
+const config=getConfig();
+
+if(!window.supabase||!window.supabase.createClient){
+setStatus('loginStatus','کتابخانه Supabase بارگذاری نشده است. اتصال اینترنت را بررسی کنید.','error');
+$('loginBtn').disabled=true;
+return;
+}
+
+if(!config){
+setStatus('loginStatus','تنظیمات rangenava-config.js پیدا نشد یا ناقص است.','error');
+$('loginBtn').disabled=true;
+return;
+}
+
+supabaseClient=window.supabase.createClient(config.url,config.key);
+
+setStatus('loginStatus','اتصال اولیه آماده است. ایمیل و رمز عبور را وارد کنید.','success');
+
+const {data,error}=await supabaseClient.auth.getSession();
+
+if(error)throw error;
+
+if(data.session){
+const result=await verifyAdmin(data.session.user);
+if(result){
+await enterDashboard();
+}
+}
+
+}catch(error){
+setStatus('loginStatus','خطا در آماده‌سازی اتصال: '+readableError(error),'error');
+}
+}
+
+async function verifyAdmin(user){
+const {data,error}=await supabaseClient
+.from('admin_users')
+.select('user_id,role,is_active,display_name')
+.eq('user_id',user.id)
+.eq('is_active',true)
+.maybeSingle();
+
+if(error){
+setStatus('loginStatus','ورود انجام شد اما بررسی مدیر با خطا روبه‌رو شد: '+readableError(error),'error');
+await supabaseClient.auth.signOut();
+return false;
+}
+
+if(!data){
+setStatus('loginStatus','این حساب در جدول admin_users مدیر فعال نیست. شناسه حساب و وضعیت فعال بودن را بررسی کنید.','error');
+await supabaseClient.auth.signOut();
+return false;
+}
+
+currentAdmin=data;
+currentRole=data.role;
+return true;
+}
+
+async function signIn(event){
+event.preventDefault();
+
+if(!supabaseClient){
+setStatus('loginStatus','اتصال هنوز آماده نشده است. صفحه را دوباره بارگذاری کنید.','error');
+return;
+}
+
+const email=$('email').value.trim();
+const password=$('password').value;
+
+if(!email||!password){
+setStatus('loginStatus','ایمیل و رمز عبور را وارد کنید.','error');
+return;
+}
+
+const button=$('loginBtn');
+button.disabled=true;
+button.textContent='در حال ورود...';
+setStatus('loginStatus','در حال بررسی اطلاعات ورود...');
+
+try{
+const {data,error}=await supabaseClient.auth.signInWithPassword({
+email,password
+});
+
+if(error)throw error;
+
+const verified=await verifyAdmin(data.user);
+
+if(!verified)return;
+
+$('password').value='';
+await enterDashboard();
+
+}catch(error){
+setStatus('loginStatus','ورود ناموفق بود: '+readableError(error),'error');
+}finally{
+button.disabled=false;
+button.textContent='ورود';
+}
+}
+
+async function enterDashboard(){
+showApp();
+
+const name=currentAdmin.display_name||currentAdmin.role||'مدیر';
+$('adminIdentity').textContent=name+' | نقش: '+currentRole;
+
+if(currentRole!=='owner'){
+$('roleNotice').classList.remove('hidden');
+$('roleNotice').textContent='دسترسی این حساب بر اساس نقش مدیریتی محدود شده است.';
+}else{
+$('roleNotice').classList.add('hidden');
+}
+
+applyRoleVisibility();
+setStatus('globalStatus','ورود موفق بود. در حال بارگذاری اطلاعات...','success');
+
+loadedTabs.clear();
+loadingTabs.clear();
+
+await loadCounts();
+await selectTab('artists');
+}
+
+async function countRows(table){
+const {count,error}=await supabaseClient
+.from(table)
+.select('*',{count:'exact',head:true});
+
+if(error)throw error;
+return count??0;
+}
+
+async function loadCounts(){
+const ids={
+artists:'countArtists',
+ads:'countAds',
+messages:'countMessages',
+views:'countViews',
+events:'countEvents'
+};
+
+for(const [key,id] of Object.entries(ids)){
+try{
+$(id).textContent=await countRows(tableMap[key]);
+}catch(error){
+$(id).textContent='—';
+console.error('Count error:',key,error);
+}
+}
+
+try{
+const now=new Date();
+const startToday=new Date(now.getFullYear(),now.getMonth(),now.getDate()).toISOString();
+const startWeek=new Date(Date.now()-7*24*60*60*1000).toISOString();
+
+const [today,week]=await Promise.all([
+supabaseClient.from('page_views').select('*',{count:'exact',head:true}).gte('created_at',startToday),
+supabaseClient.from('page_views').select('*',{count:'exact',head:true}).gte('created_at',startWeek)
+]);
+
+$('countViewsToday').textContent=today.error?'—':today.count??0;
+$('countViewsWeek').textContent=week.error?'—':week.count??0;
+}catch(error){
+$('countViewsToday').textContent='—';
+$('countViewsWeek').textContent='—';
+}
+}
+
+async function fetchRows(table,limit=100){
+const {data,error}=await supabaseClient
+.from(table)
+.select('*')
+.order('created_at',{ascending:false})
+.limit(limit);
+
+if(error)throw error;
+return data||[];
+}
+
+function renderTable(rows){
+if(!rows.length)return '<p>موردی برای نمایش وجود ندارد.</p>';
+
+const keys=Object.keys(rows[0]);
+const columns=keys.slice(0,12);
+
+let html='<div class="table-wrap"><table><thead><tr>';
+columns.forEach(key=>html+='<th>'+escapeHTML(key)+'</th>');
+html+='</tr></thead><tbody>';
+
+rows.forEach(row=>{
+html+='<tr>';
+columns.forEach(key=>{
+let value=row[key];
+if(value===null||value===undefined)value='—';
+else if(key.includes('created_at')||key.includes('updated_at'))value=formatDate(value);
+else if(typeof value==='object')value=JSON.stringify(value);
+html+='<td>'+escapeHTML(value)+'</td>';
+});
+html+='</tr>';
+});
+
+html+='</tbody></table></div>';
+return html;
+}
+
+async function loadGeneric(tab){
+const table=tableMap[tab];
+const target=$(tab+'Content');
+
+try{
+target.innerHTML='<p>در حال دریافت اطلاعات...</p>';
+const rows=await fetchRows(table);
+target.innerHTML=renderTable(rows);
+}catch(error){
+target.innerHTML='<div class="status error">خطا در دریافت اطلاعات: '+escapeHTML(readableError(error))+'</div>';
+}
+}
+
+async function loadArtists(){
+const target=$('artistsContent');
+
+try{
+target.innerHTML='<p>در حال دریافت درخواست‌ها...</p>';
+
+const rows=await fetchRows('artist_requests');
+
+if(!rows.length){
+target.innerHTML='<p>درخواستی ثبت نشده است.</p>';
+return;
+}
+
+target.innerHTML=rows.map(row=>{
+const id=escapeHTML(row.id);
+const status=row.status||'new';
+const options=Object.entries(statusLabels).map(([value,label])=>
+'<option value="'+value+'" '+(status===value?'selected':'')+'>'+label+'</option>'
+).join('');
+
+return `
+<div class="row-card">
+<h3>${escapeHTML(row.full_name||'بدون نام')}</h3>
+<p>نقش هنری: ${escapeHTML(row.artist_role||'—')}</p>
+<p>ایمیل: ${escapeHTML(row.email||'—')}</p>
+<p>تلفن: ${escapeHTML(row.phone||'—')}</p>
+<p>موضوع: ${escapeHTML(row.subject||'—')}</p>
+<p>پیام: ${escapeHTML(row.message||'—')}</p>
+<p>تاریخ ثبت: ${formatDate(row.created_at)}</p>
+<p>نمونه آثار:
+${row.portfolio_url?
+'<a href="'+escapeHTML(row.portfolio_url)+'" target="_blank" rel="noopener">مشاهده پیوند</a>':'—'}
+</p>
+<hr>
+<div class="field">
+<label>وضعیت درخواست</label>
+<select data-status-for="${id}">${options}</select>
+</div>
+<div class="field">
+<label>یادداشت مدیر</label>
+<textarea data-notes-for="${id}">${escapeHTML(row.admin_notes||'')}</textarea>
+</div>
+<button type="button" data-save-artist="${id}">ذخیره تغییرات</button>
+</div>`;
+}).join('');
+
+}catch(error){
+target.innerHTML='<div class="status error">خطا در دریافت درخواست‌ها: '+escapeHTML(readableError(error))+'</div>';
+}
+}
+
+async function saveArtist(id){
+const statusElement=document.querySelector('[data-status-for="'+CSS.escape(id)+'"]');
+const notesElement=document.querySelector('[data-notes-for="'+CSS.escape(id)+'"]');
+
+if(!statusElement||!notesElement)return;
+
+const {error}=await supabaseClient
+.from('artist_requests')
+.update({
+status:statusElement.value,
+admin_notes:notesElement.value
+})
+.eq('id',id);
+
+if(error){
+setStatus('globalStatus','ذخیره تغییرات ناموفق بود: '+readableError(error),'error');
+return;
+}
+
+setStatus('globalStatus','تغییرات درخواست هنرمند ذخیره شد.','success');
+await loadArtists();
+await loadCounts();
+}
+
+async function selectTab(tab){
+if(!checkRole(tab)){
+setStatus('globalStatus','این نقش اجازه دسترسی به این بخش را ندارد.','error');
+return;
+}
+
+document.querySelectorAll('[data-tab]').forEach(button=>{
+button.classList.toggle('active',button.dataset.tab===tab);
+});
+
+document.querySelectorAll('.tabPanel').forEach(panel=>{
+panel.classList.toggle('hidden',panel.id!=='panel-'+tab);
+});
+
+if(loadedTabs.has(tab)||loadingTabs.has(tab))return;
+
+loadingTabs.add(tab);
+
+try{
+if(tab==='artists')await loadArtists();
+else if(tab==='media'||tab==='backup'){}
+else await loadGeneric(tab);
+
+loadedTabs.add(tab);
+}catch(error){
+setStatus('globalStatus','خطا در بارگذاری بخش: '+readableError(error),'error');
+}finally{
+loadingTabs.delete(tab);
+}
+}
+
+async function refreshAll(){
+loadedTabs.clear();
+loadingTabs.clear();
+await loadCounts();
+
+const active=document.querySelector('[data-tab].active');
+await selectTab(active?active.dataset.tab:'artists');
+
+setStatus('globalStatus','اطلاعات به‌روزرسانی شد.','success');
+}
+
+async function uploadMedia(){
+if(!checkRole('media')){
+setStatus('mediaStatus','اجازه بارگذاری رسانه ندارید.','error');
+return;
+}
+
+const file=$('mediaFile').files[0];
+
+if(!file){
+setStatus('mediaStatus','ابتدا یک فایل انتخاب کنید.','error');
+return;
+}
+
+const allowedTypes=[
+'audio/mpeg','audio/mp3','audio/wav','audio/x-wav',
+'audio/flac','audio/x-flac','audio/mp4','audio/aac',
+'audio/ogg','audio/webm','image/jpeg','image/png','image/webp'
+];
+
+if(!allowedTypes.includes(file.type)){
+setStatus('mediaStatus','نوع فایل انتخاب‌شده مجاز نیست.','error');
+return;
+}
+
+if(file.size>100*1024*1024){
+setStatus('mediaStatus','حجم فایل نباید بیشتر از ۱۰۰ مگابایت باشد.','error');
+return;
+}
+
+const folder=$('mediaFolder').value;
+const safeName=file.name.replace(/[^a-zA-Z0-9._-]/g,'_');
+const path=folder+'/'+Date.now()+'-'+safeName;
+
+const button=$('uploadMediaBtn');
+button.disabled=true;
+button.textContent='در حال بارگذاری...';
+
+try{
+const {data,error}=await supabaseClient.storage
+.from('rangenava-media')
+.upload(path,file,{cacheControl:'3600',upsert:false});
+
+if(error)throw error;
+
+setStatus('mediaStatus','فایل با موفقیت بارگذاری شد. مسیر ذخیره‌سازی: '+data.path,'success');
+
+const preview=$('mediaPreview');
+const isImage=file.type.startsWith('image/');
+const isAudio=file.type.startsWith('audio/');
+
+if(isImage){
+const objectUrl=URL.createObjectURL(file);
+preview.innerHTML='<img class="media-preview" src="'+objectUrl+'" alt="پیش‌نمایش فایل">';
+}else if(isAudio){
+const objectUrl=URL.createObjectURL(file);
+preview.innerHTML='<audio class="media-audio" controls src="'+objectUrl+'"></audio>';
+}else{
+preview.innerHTML='';
+}
+
+$('mediaFile').value='';
+
+}catch(error){
+setStatus('mediaStatus','بارگذاری انجام نشد: '+readableError(error),'error');
+}finally{
+button.disabled=false;
+button.textContent='بارگذاری فایل';
+}
+}
+
+async function logout(){
+try{
+await supabaseClient.auth.signOut();
+}catch(error){
+console.error(error);
+}
+
+currentAdmin=null;
+currentRole=null;
+loadedTabs.clear();
+loadingTabs.clear();
+
+$('email').value='';
+$('password').value='';
+
+showLogin();
+setStatus('loginStatus','از حساب مدیریت خارج شدید.','success');
+}
+
+$('loginForm').addEventListener('submit',signIn);
+
+$('tabs').addEventListener('click',event=>{
+const button=event.target.closest('[data-tab]');
+if(button)selectTab(button.dataset.tab);
+});
+
+document.addEventListener('click',event=>{
+const saveButton=event.target.closest('[data-save-artist]');
+if(saveButton)saveArtist(saveButton.dataset.saveArtist);
+
+const reloadButton=event.target.closest('[data-reload]');
+if(reloadButton){
+const tab=reloadButton.dataset.reload;
+loadedTabs.delete(tab);
+loadingTabs.delete(tab);
+if(tab==='artists')loadArtists();
+else loadGeneric(tab);
+}
+});
+
+$('refreshBtn').addEventListener('click',refreshAll);
+$('logoutBtn').addEventListener('click',logout);
+$('uploadMediaBtn').addEventListener('click',uploadMedia);
+
+init();
+
+})();
+</script>
+</body>
+</html>
