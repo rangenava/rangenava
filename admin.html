@@ -274,9 +274,36 @@ accept="audio/mpeg,audio/mp3,audio/wav,audio/x-wav,audio/flac,audio/x-flac,audio
 </main>
 </div>
 
+<!-- کتابخانه Supabase -->
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-<script src="rangenava-config.js"></script>
 
+<!-- تنظیمات پروژه -->
+<script src="./rangenava-config.js"></script>
+
+<!-- تشخیص خطاهای جاوااسکریپت -->
+<script>
+window.addEventListener('error', function(event) {
+  const box = document.getElementById('loginStatus');
+  if (box) {
+    box.textContent = 'خطای جاوااسکریپت: ' +
+      (event.message || 'خطای ناشناخته') +
+      ' | خط ' + (event.lineno || 'نامشخص');
+    box.className = 'status error';
+  }
+});
+
+window.addEventListener('unhandledrejection', function(event) {
+  const box = document.getElementById('loginStatus');
+  if (box) {
+    const reason = event.reason;
+    box.textContent = 'خطای اتصال یا اجرای برنامه: ' +
+      (reason && reason.message ? reason.message : String(reason));
+    box.className = 'status error';
+  }
+});
+</script>
+
+<!-- برنامه اصلی پنل -->
 <script>
 (function(){
 'use strict';
@@ -378,16 +405,18 @@ button.classList.toggle('hidden',!checkRole(tab));
 
 async function init(){
 try{
+setStatus('loginStatus','در حال بررسی فایل‌های اتصال...');
+
 const config=getConfig();
 
 if(!window.supabase||!window.supabase.createClient){
-setStatus('loginStatus','کتابخانه Supabase بارگذاری نشده است. اتصال اینترنت را بررسی کنید.','error');
+setStatus('loginStatus','کتابخانه Supabase بارگذاری نشده است. اتصال اینترنت یا دسترسی به CDN را بررسی کنید.','error');
 $('loginBtn').disabled=true;
 return;
 }
 
 if(!config){
-setStatus('loginStatus','تنظیمات rangenava-config.js پیدا نشد یا ناقص است.','error');
+setStatus('loginStatus','فایل rangenava-config.js پیدا نشد یا تنظیمات آن ناقص است.','error');
 $('loginBtn').disabled=true;
 return;
 }
@@ -494,13 +523,18 @@ $('roleNotice').classList.add('hidden');
 }
 
 applyRoleVisibility();
+
 setStatus('globalStatus','ورود موفق بود. در حال بارگذاری اطلاعات...','success');
 
 loadedTabs.clear();
 loadingTabs.clear();
 
 await loadCounts();
-await selectTab('artists');
+
+const firstAllowedTab=Object.keys(allowedRoles).find(tab=>checkRole(tab));
+if(firstAllowedTab){
+await selectTab(firstAllowedTab);
+}
 }
 
 async function countRows(table){
@@ -614,6 +648,7 @@ return;
 target.innerHTML=rows.map(row=>{
 const id=escapeHTML(row.id);
 const status=row.status||'new';
+
 const options=Object.entries(statusLabels).map(([value,label])=>
 '<option value="'+value+'" '+(status===value?'selected':'')+'>'+label+'</option>'
 ).join('');
@@ -710,7 +745,11 @@ loadingTabs.clear();
 await loadCounts();
 
 const active=document.querySelector('[data-tab].active');
-await selectTab(active?active.dataset.tab:'artists');
+const tab=active?active.dataset.tab:Object.keys(allowedRoles).find(t=>checkRole(t));
+
+if(tab&&checkRole(tab)){
+await selectTab(tab);
+}
 
 setStatus('globalStatus','اطلاعات به‌روزرسانی شد.','success');
 }
@@ -808,7 +847,9 @@ $('loginForm').addEventListener('submit',signIn);
 
 $('tabs').addEventListener('click',event=>{
 const button=event.target.closest('[data-tab]');
-if(button)selectTab(button.dataset.tab);
+if(button&&!button.classList.contains('hidden')){
+selectTab(button.dataset.tab);
+}
 });
 
 document.addEventListener('click',event=>{
@@ -820,6 +861,7 @@ if(reloadButton){
 const tab=reloadButton.dataset.reload;
 loadedTabs.delete(tab);
 loadingTabs.delete(tab);
+
 if(tab==='artists')loadArtists();
 else loadGeneric(tab);
 }
