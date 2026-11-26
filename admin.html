@@ -5,874 +5,281 @@
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="theme-color" content="#245b52">
 <title>پنل مدیریت | رنگ‌نوا</title>
-
 <style>
-:root{
---bg:#f3f5f7;--card:#fff;--ink:#17212b;--muted:#64748b;
---line:#e2e8f0;--brand:#245b52;--brand2:#347c70;
---danger:#b42318;--ok:#18794e;--shadow:0 8px 28px #17212b12
-}
-*{box-sizing:border-box}
-body{
-margin:0;background:var(--bg);color:var(--ink);
-font-family:Tahoma,Arial,sans-serif;line-height:1.7
-}
-button,input,select,textarea{font:inherit}
-button{
-cursor:pointer;border:0;border-radius:9px;padding:10px 16px;
-background:var(--brand);color:#fff
-}
-button:hover{background:var(--brand2)}
-button:disabled{opacity:.55;cursor:not-allowed}
-input,select,textarea{
-max-width:100%;padding:11px;border:1px solid var(--line);
-border-radius:9px;background:#fff;color:var(--ink)
-}
-input{width:100%}
-.wrap{max-width:1200px;margin:auto;padding:22px}
-.card{
-background:var(--card);border:1px solid var(--line);
-border-radius:14px;padding:20px;box-shadow:var(--shadow);
-margin-bottom:18px
-}
-h1,h2,h3{margin:0 0 12px}
-h1{font-size:24px}
-h2{font-size:19px}
-h3{font-size:16px}
-p{margin:6px 0;color:var(--muted)}
-.login{max-width:440px;margin:7vh auto}
-.field{margin:14px 0}
-.field label{display:block;margin-bottom:6px;font-weight:bold}
-.status{
-padding:10px 13px;border-radius:9px;background:#eef2f6;
-color:#334155;margin:12px 0;white-space:pre-wrap;
-overflow-wrap:anywhere
-}
-.status.error{background:#fff0ef;color:var(--danger)}
-.status.success{background:#eaf7ef;color:var(--ok)}
-.hidden{display:none!important}
-.top{
-display:flex;justify-content:space-between;align-items:center;
-gap:12px;flex-wrap:wrap
-}
-.muted,.small{color:var(--muted);font-size:13px}
-.grid{
-display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));
-gap:14px
-}
-.metric{
-background:#f8fafc;border:1px solid var(--line);
-border-radius:12px;padding:16px
-}
-.metric strong{
-display:block;font-size:27px;color:var(--brand)
-}
-nav{display:flex;gap:8px;flex-wrap:wrap;margin:16px 0}
-nav button{background:#e4ecea;color:#17483f}
-nav button.active{background:var(--brand);color:#fff}
-.table-wrap{overflow:auto;border:1px solid var(--line);border-radius:10px}
-table{border-collapse:collapse;width:100%;min-width:650px}
-th,td{
-padding:10px;border-bottom:1px solid var(--line);
-text-align:right;vertical-align:top;font-size:13px;
-max-width:360px;overflow-wrap:anywhere
-}
-th{background:#f8fafc}
-.actions{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
-.secondary{background:#64748b}
-.danger{background:#a83232}
-.badge{
-display:inline-block;padding:3px 9px;border-radius:20px;
-background:#e7f1ef;color:#20584f;font-size:12px
-}
-.notice{
-border-right:4px solid #c58a25;background:#fff8e8;
-padding:12px;border-radius:8px;margin:12px 0
-}
-.row-card{
-border:1px solid var(--line);border-radius:10px;
-padding:14px;margin:12px 0;background:#fff
-}
-.row-card textarea{
-width:100%;min-height:75px;padding:10px;
-border:1px solid var(--line);border-radius:8px;font:inherit
-}
-.media-preview{
-max-width:100%;max-height:260px;display:block;
-margin:12px 0;border-radius:10px
-}
-.media-audio{width:100%;margin:12px 0}
-hr{border:0;border-top:1px solid var(--line);margin:20px 0}
-@media(max-width:600px){
-.wrap{padding:12px}.card{padding:15px}
-h1{font-size:21px}.metric strong{font-size:23px}
-}
+:root{--bg:#f3f5f7;--card:#fff;--ink:#17212b;--muted:#64748b;--line:#e2e8f0;--brand:#245b52;--brand2:#347c70;--danger:#b42318;--ok:#18794e;--shadow:0 8px 28px #17212b12}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font-family:Tahoma,Arial,sans-serif;line-height:1.7}
+button,input,select,textarea{font:inherit}button{cursor:pointer;border:0;border-radius:9px;padding:10px 16px;background:var(--brand);color:#fff}button:hover{background:var(--brand2)}button:disabled{opacity:.55;cursor:not-allowed}
+input,select,textarea{max-width:100%;padding:11px;border:1px solid var(--line);border-radius:9px;background:#fff;color:var(--ink)}input{width:100%}
+.wrap{max-width:1200px;margin:auto;padding:22px}.card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:20px;box-shadow:var(--shadow);margin-bottom:18px}
+h1,h2,h3{margin:0 0 12px}h1{font-size:24px}h2{font-size:19px}h3{font-size:16px}p{margin:6px 0;color:var(--muted)}
+.login{max-width:440px;margin:7vh auto}.field{margin:14px 0}.field label{display:block;margin-bottom:6px;font-weight:bold}
+.status{padding:10px 13px;border-radius:9px;background:#eef2f6;color:#334155;margin:12px 0;white-space:pre-wrap;overflow-wrap:anywhere}
+.status.error{background:#fff0ef;color:var(--danger)}.status.success{background:#eaf7ef;color:var(--ok)}.hidden{display:none!important}
+.top{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap}.muted,.small{color:var(--muted);font-size:13px}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:14px}.metric{background:#f8fafc;border:1px solid var(--line);border-radius:12px;padding:16px}
+.metric strong{display:block;font-size:27px;color:var(--brand)}nav{display:flex;gap:8px;flex-wrap:wrap;margin:16px 0}
+nav button{background:#e4ecea;color:#17483f}nav button.active{background:var(--brand);color:#fff}
+.table-wrap{overflow:auto;border:1px solid var(--line);border-radius:10px}table{border-collapse:collapse;width:100%;min-width:650px}
+th,td{padding:10px;border-bottom:1px solid var(--line);text-align:right;vertical-align:top;font-size:13px;max-width:360px;overflow-wrap:anywhere}th{background:#f8fafc}
+.actions{display:flex;gap:8px;align-items:center;flex-wrap:wrap}.secondary{background:#64748b}.danger{background:#a83232}
+.badge{display:inline-block;padding:3px 9px;border-radius:20px;background:#e7f1ef;color:#20584f;font-size:12px}
+.notice{border-right:4px solid #c58a25;background:#fff8e8;padding:12px;border-radius:8px;margin:12px 0}
+.row-card{border:1px solid var(--line);border-radius:10px;padding:14px;margin:12px 0;background:#fff}
+.row-card textarea{width:100%;min-height:75px;padding:10px;border:1px solid var(--line);border-radius:8px;font:inherit}
+.media-preview{max-width:100%;max-height:260px;display:block;margin:12px 0;border-radius:10px}.media-audio{width:100%;margin:12px 0}
+.media-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:14px;margin-top:14px}
+.media-item{border:1px solid var(--line);border-radius:12px;padding:14px;background:#fff;min-width:0}
+.media-item img{max-width:100%;max-height:190px;object-fit:contain;display:block;margin:10px auto;border-radius:8px}
+.media-item audio{width:100%;margin:10px 0}.media-path{direction:ltr;text-align:left;overflow-wrap:anywhere;font-size:12px;background:#f8fafc;padding:8px;border-radius:7px}
+@media(max-width:600px){.wrap{padding:12px}.card{padding:15px}h1{font-size:21px}.metric strong{font-size:23px}}
 </style>
 </head>
-
 <body>
 <div class="wrap">
-
 <section id="loginView" class="card login">
-<h1>ورود به پنل مدیریت رنگ‌نوا</h1>
-<p>ایمیل و رمز عبور حساب مدیر Supabase را وارد کنید.</p>
-
+<h1>ورود به پنل مدیریت رنگ‌نوا</h1><p>ایمیل و رمز عبور حساب مدیر Supabase را وارد کنید.</p>
 <form id="loginForm">
-<div class="field">
-<label for="email">ایمیل مدیر</label>
-<input id="email" type="email" autocomplete="username"
-required placeholder="ایمیل حساب مدیر">
-</div>
-
-<div class="field">
-<label for="password">رمز عبور</label>
-<input id="password" type="password"
-autocomplete="current-password" required placeholder="رمز عبور">
-</div>
-
+<div class="field"><label for="email">ایمیل مدیر</label><input id="email" type="email" autocomplete="username" required placeholder="ایمیل حساب مدیر"></div>
+<div class="field"><label for="password">رمز عبور</label><input id="password" type="password" autocomplete="current-password" required placeholder="رمز عبور"></div>
 <button id="loginBtn" type="submit" style="width:100%">ورود</button>
 </form>
-
-<div id="loginStatus" class="status" role="status">
-در حال آماده‌سازی اتصال...
-</div>
+<div id="loginStatus" class="status" role="status">در حال آماده‌سازی اتصال...</div>
 </section>
 
 <main id="appView" class="hidden">
-
-<header class="card top">
-<div>
-<h1>داشبورد مدیریت رنگ‌نوا</h1>
-<div id="adminIdentity" class="muted">—</div>
-</div>
-<div class="actions">
-<button id="refreshBtn" class="secondary" type="button">به‌روزرسانی همه</button>
-<button id="logoutBtn" class="danger" type="button">خروج</button>
-</div>
-</header>
-
-<div id="globalStatus" class="status">پنل آماده است.</div>
-<div id="roleNotice" class="notice hidden"></div>
-
-<section class="card">
-<h2>خلاصه آمار</h2>
-<div class="grid">
-<div class="metric">درخواست‌های هنرمندان<strong id="countArtists">—</strong></div>
-<div class="metric">سفارش‌های تبلیغات<strong id="countAds">—</strong></div>
-<div class="metric">پیام‌های تماس<strong id="countMessages">—</strong></div>
-<div class="metric">کل بازدید صفحات<strong id="countViews">—</strong></div>
-<div class="metric">بازدیدهای امروز<strong id="countViewsToday">—</strong></div>
-<div class="metric">بازدیدهای ۷ روز اخیر<strong id="countViewsWeek">—</strong></div>
-<div class="metric">رویدادهای آماری<strong id="countEvents">—</strong></div>
-</div>
-</section>
-
+<header class="card top"><div><h1>داشبورد مدیریت رنگ‌نوا</h1><div id="adminIdentity" class="muted">—</div></div>
+<div class="actions"><button id="refreshBtn" class="secondary" type="button">به‌روزرسانی همه</button><button id="logoutBtn" class="danger" type="button">خروج</button></div></header>
+<div id="globalStatus" class="status">پنل آماده است.</div><div id="roleNotice" class="notice hidden"></div>
+<section class="card"><h2>خلاصه آمار</h2><div class="grid">
+<div class="metric">درخواست‌های هنرمندان<strong id="countArtists">—</strong></div><div class="metric">سفارش‌های تبلیغات<strong id="countAds">—</strong></div>
+<div class="metric">پیام‌های تماس<strong id="countMessages">—</strong></div><div class="metric">کل بازدید صفحات<strong id="countViews">—</strong></div>
+<div class="metric">بازدیدهای امروز<strong id="countViewsToday">—</strong></div><div class="metric">بازدیدهای ۷ روز اخیر<strong id="countViewsWeek">—</strong></div><div class="metric">رویدادهای آماری<strong id="countEvents">—</strong></div>
+</div></section>
 <nav id="tabs" aria-label="بخش‌های پنل">
-<button class="active" data-tab="artists" type="button">درخواست هنرمندان</button>
-<button data-tab="ads" type="button">سفارش تبلیغات</button>
-<button data-tab="messages" type="button">پیام‌های تماس</button>
-<button data-tab="views" type="button">بازدید صفحات</button>
-<button data-tab="events" type="button">رویدادهای آماری</button>
-<button data-tab="activity" type="button">فعالیت مدیران</button>
-<button data-tab="media" type="button">مدیریت رسانه‌ها</button>
-<button data-tab="backup" type="button">پشتیبان‌گیری</button>
+<button class="active" data-tab="artists" type="button">درخواست هنرمندان</button><button data-tab="ads" type="button">سفارش تبلیغات</button>
+<button data-tab="messages" type="button">پیام‌های تماس</button><button data-tab="views" type="button">بازدید صفحات</button>
+<button data-tab="events" type="button">رویدادهای آماری</button><button data-tab="activity" type="button">فعالیت مدیران</button>
+<button data-tab="media" type="button">مدیریت رسانه‌ها</button><button data-tab="backup" type="button">پشتیبان‌گیری</button>
 </nav>
-
-<section id="panel-artists" class="card tabPanel">
-<div class="top">
-<h2>درخواست‌های هنرمندان</h2>
-<button data-reload="artists" class="secondary" type="button">بارگذاری مجدد</button>
-</div>
-<div id="artistsContent">در حال بارگذاری...</div>
-</section>
-
-<section id="panel-ads" class="card tabPanel hidden">
-<div class="top">
-<h2>سفارش‌های تبلیغات</h2>
-<button data-reload="ads" class="secondary" type="button">بارگذاری مجدد</button>
-</div>
-<div id="adsContent">در حال بارگذاری...</div>
-</section>
-
-<section id="panel-messages" class="card tabPanel hidden">
-<div class="top">
-<h2>پیام‌های تماس</h2>
-<button data-reload="messages" class="secondary" type="button">بارگذاری مجدد</button>
-</div>
-<div id="messagesContent">در حال بارگذاری...</div>
-</section>
-
-<section id="panel-views" class="card tabPanel hidden">
-<div class="top">
-<h2>بازدید صفحات</h2>
-<button data-reload="views" class="secondary" type="button">بارگذاری مجدد</button>
-</div>
-<div id="viewsContent">در حال بارگذاری...</div>
-</section>
-
-<section id="panel-events" class="card tabPanel hidden">
-<div class="top">
-<h2>رویدادهای آماری</h2>
-<button data-reload="events" class="secondary" type="button">بارگذاری مجدد</button>
-</div>
-<div id="eventsContent">در حال بارگذاری...</div>
-</section>
-
-<section id="panel-activity" class="card tabPanel hidden">
-<div class="top">
-<h2>فعالیت مدیران</h2>
-<button data-reload="activity" class="secondary" type="button">بارگذاری مجدد</button>
-</div>
-<div id="activityContent">در حال بارگذاری...</div>
-</section>
+<section id="panel-artists" class="card tabPanel"><div class="top"><h2>درخواست‌های هنرمندان</h2><button data-reload="artists" class="secondary" type="button">بارگذاری مجدد</button></div><div id="artistsContent">در حال بارگذاری...</div></section>
+<section id="panel-ads" class="card tabPanel hidden"><div class="top"><h2>سفارش‌های تبلیغات</h2><button data-reload="ads" class="secondary" type="button">بارگذاری مجدد</button></div><div id="adsContent">در حال بارگذاری...</div></section>
+<section id="panel-messages" class="card tabPanel hidden"><div class="top"><h2>پیام‌های تماس</h2><button data-reload="messages" class="secondary" type="button">بارگذاری مجدد</button></div><div id="messagesContent">در حال بارگذاری...</div></section>
+<section id="panel-views" class="card tabPanel hidden"><div class="top"><h2>بازدید صفحات</h2><button data-reload="views" class="secondary" type="button">بارگذاری مجدد</button></div><div id="viewsContent">در حال بارگذاری...</div></section>
+<section id="panel-events" class="card tabPanel hidden"><div class="top"><h2>رویدادهای آماری</h2><button data-reload="events" class="secondary" type="button">بارگذاری مجدد</button></div><div id="eventsContent">در حال بارگذاری...</div></section>
+<section id="panel-activity" class="card tabPanel hidden"><div class="top"><h2>فعالیت مدیران</h2><button data-reload="activity" class="secondary" type="button">بارگذاری مجدد</button></div><div id="activityContent">در حال بارگذاری...</div></section>
 
 <section id="panel-media" class="card tabPanel hidden">
-<h2>مدیریت رسانه‌ها</h2>
-<p>فایل‌ها در مخزن خصوصی rangenava-media ذخیره می‌شوند.</p>
-
-<div class="notice">
-فقط مدیران مجاز می‌توانند رسانه بارگذاری کنند.
-فایل‌های خصوصی برای نمایش عمومی به URL امضاشده یا سازوکار دسترسی مناسب نیاز دارند.
-</div>
-
-<div class="field">
-<label for="mediaFile">انتخاب فایل صوتی یا تصویری</label>
-<input id="mediaFile" type="file"
-accept="audio/mpeg,audio/mp3,audio/wav,audio/x-wav,audio/flac,audio/x-flac,audio/mp4,audio/aac,audio/ogg,audio/webm,image/jpeg,image/png,image/webp">
-</div>
-
-<div class="field">
-<label for="mediaFolder">پوشه ذخیره‌سازی</label>
-<select id="mediaFolder">
-<option value="audio">audio</option>
-<option value="images">images</option>
-<option value="covers">covers</option>
-</select>
-</div>
-
-<button id="uploadMediaBtn" type="button">بارگذاری فایل</button>
-<div id="mediaStatus" class="status">آماده بارگذاری.</div>
-<div id="mediaPreview"></div>
+<h2>مدیریت رسانه‌ها</h2><p>فایل‌ها در مخزن خصوصی rangenava-media ذخیره می‌شوند.</p>
+<div class="notice">فهرست‌کردن، ساخت لینک موقت و حذف فایل‌ها فقط با مجوز Storage حساب مدیر انجام می‌شود. لینک‌های ساخته‌شده موقت‌اند و پس از یک ساعت منقضی می‌شوند. جایگزینی، فایل جدیدی با نام تازه بارگذاری می‌کند تا فایل قبلی ناخواسته از بین نرود.</div>
+<div class="field"><label for="mediaFile">انتخاب فایل صوتی یا تصویری</label><input id="mediaFile" type="file" accept="audio/mpeg,audio/mp3,audio/wav,audio/x-wav,audio/flac,audio/x-flac,audio/mp4,audio/aac,audio/ogg,audio/webm,image/jpeg,image/png,image/webp"></div>
+<div class="field"><label for="mediaFolder">پوشه ذخیره‌سازی</label><select id="mediaFolder"><option value="audio">audio</option><option value="images">images</option><option value="covers">covers</option></select></div>
+<div class="actions"><button id="uploadMediaBtn" type="button">بارگذاری فایل</button><button id="refreshMediaBtn" class="secondary" type="button">به‌روزرسانی فهرست رسانه‌ها</button></div>
+<div id="mediaStatus" class="status">آماده بارگذاری.</div><div id="mediaPreview"></div>
+<hr><div class="top"><h3>فایل‌های ذخیره‌شده</h3><span class="small">برای دیدن فایل‌های هر پوشه، فهرست را به‌روزرسانی کنید.</span></div>
+<div id="mediaList"><p>هنوز فهرست رسانه‌ها بارگذاری نشده است.</p></div>
 </section>
 
-<section id="panel-backup" class="card tabPanel hidden">
-<h2>پشتیبان‌گیری رنگ‌نوا</h2>
-<div class="notice">
-این بخش فعلاً برای یادآوری و مدیریت برنامه پشتیبان‌گیری است.
-هنوز عملیات واقعی تهیه یا بازیابی نسخه پشتیبان در آن فعال نشده است.
-</div>
-<h3>مواردی که باید پشتیبان‌گیری شوند</h3>
-<ul>
-<li>فایل‌های مخزن GitHub</li>
-<li>ساختار و داده‌های Supabase</li>
-<li>فایل‌های ذخیره‌شده در Storage</li>
-<li>تنظیمات و سیاست‌های دسترسی</li>
-</ul>
-<p>پشتیبان کد و پشتیبان دیتابیس باید جداگانه تهیه شوند.</p>
+<section id="panel-backup" class="card tabPanel hidden"><h2>پشتیبان‌گیری رنگ‌نوا</h2>
+<div class="notice">این بخش فعلاً برای یادآوری و مدیریت برنامه پشتیبان‌گیری است. هنوز عملیات واقعی تهیه یا بازیابی نسخه پشتیبان در آن فعال نشده است.</div>
+<h3>مواردی که باید پشتیبان‌گیری شوند</h3><ul><li>فایل‌های مخزن GitHub</li><li>ساختار و داده‌های Supabase</li><li>فایل‌های ذخیره‌شده در Storage</li><li>تنظیمات و سیاست‌های دسترسی</li></ul><p>پشتیبان کد و پشتیبان دیتابیس باید جداگانه تهیه شوند.</p>
 </section>
+</main></div>
 
-</main>
-</div>
-
-<!-- کتابخانه Supabase -->
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-
-<!-- تنظیمات پروژه -->
 <script src="./rangenava-config.js"></script>
-
-<!-- تشخیص خطاهای جاوااسکریپت -->
 <script>
-window.addEventListener('error', function(event) {
-  const box = document.getElementById('loginStatus');
-  if (box) {
-    box.textContent = 'خطای جاوااسکریپت: ' +
-      (event.message || 'خطای ناشناخته') +
-      ' | خط ' + (event.lineno || 'نامشخص');
-    box.className = 'status error';
-  }
-});
-
-window.addEventListener('unhandledrejection', function(event) {
-  const box = document.getElementById('loginStatus');
-  if (box) {
-    const reason = event.reason;
-    box.textContent = 'خطای اتصال یا اجرای برنامه: ' +
-      (reason && reason.message ? reason.message : String(reason));
-    box.className = 'status error';
-  }
-});
+window.addEventListener('error',function(event){const box=document.getElementById('loginStatus');if(box){box.textContent='خطای جاوااسکریپت: '+(event.message||'خطای ناشناخته')+' | خط '+(event.lineno||'نامشخص');box.className='status error';}});
+window.addEventListener('unhandledrejection',function(event){const box=document.getElementById('loginStatus');if(box){const reason=event.reason;box.textContent='خطای اتصال یا اجرای برنامه: '+(reason&&reason.message?reason.message:String(reason));box.className='status error';}});
 </script>
-
-<!-- برنامه اصلی پنل -->
 <script>
 (function(){
 'use strict';
+const $=id=>document.getElementById(id);
+let supabaseClient=null,currentAdmin=null,currentRole=null;
+const loadedTabs=new Set(),loadingTabs=new Set();
+const mediaObjectUrls=new Set();
+const tableMap={artists:'artist_requests',ads:'ad_orders',messages:'contact_messages',views:'page_views',events:'analytics_events',activity:'admin_activity'};
+const statusLabels={new:'جدید',reviewing:'در حال بررسی',answered:'پاسخ داده شده',approved:'تأیید شده',rejected:'رد شده',closed:'بسته شده'};
+const allowedRoles={artists:['owner','artists'],ads:['owner','ads'],messages:['owner','support'],views:['owner'],events:['owner'],activity:['owner'],media:['owner','music','artists','content'],backup:['owner']};
+const mediaFolders=['audio','images','covers'];
+const allowedTypes=['audio/mpeg','audio/mp3','audio/wav','audio/x-wav','audio/flac','audio/x-flac','audio/mp4','audio/aac','audio/ogg','audio/webm','image/jpeg','image/png','image/webp'];
 
-const $ = id => document.getElementById(id);
-
-let supabaseClient = null;
-let currentAdmin = null;
-let currentRole = null;
-
-const loadedTabs = new Set();
-const loadingTabs = new Set();
-
-const tableMap = {
-artists:'artist_requests',
-ads:'ad_orders',
-messages:'contact_messages',
-views:'page_views',
-events:'analytics_events',
-activity:'admin_activity'
-};
-
-const statusLabels = {
-new:'جدید',
-reviewing:'در حال بررسی',
-answered:'پاسخ داده شده',
-approved:'تأیید شده',
-rejected:'رد شده',
-closed:'بسته شده'
-};
-
-const allowedRoles = {
-artists:['owner','artists'],
-ads:['owner','ads'],
-messages:['owner','support'],
-views:['owner'],
-events:['owner'],
-activity:['owner'],
-media:['owner','music','artists','content'],
-backup:['owner']
-};
-
-function setStatus(id,message,type){
-const el=$(id);
-if(!el)return;
-el.textContent=message;
-el.className='status'+(type?' '+type:'');
-}
-
-function escapeHTML(value){
-return String(value??'').replace(/[&<>"']/g,ch=>({
-'&':'&amp;','<':'&lt;','>':'&gt;',
-'"':'&quot;',"'":'&#39;'
-})[ch]);
-}
-
-function formatDate(value){
-if(!value)return '—';
-const d=new Date(value);
-if(Number.isNaN(d.getTime()))return escapeHTML(value);
-return d.toLocaleString('fa-IR');
-}
-
-function readableError(error){
-if(!error)return 'خطای نامشخص';
-return error.message||String(error);
-}
-
-function getConfig(){
-const config=window.RANGENAVA_CONFIG;
-if(!config)return null;
-const url=config.url;
-const key=config.anonKey||config.publishableKey||config.publishable_key;
-if(!url||!key)return null;
-return {url,key};
-}
-
-function showLogin(){
-$('loginView').classList.remove('hidden');
-$('appView').classList.add('hidden');
-}
-
-function showApp(){
-$('loginView').classList.add('hidden');
-$('appView').classList.remove('hidden');
-}
-
-function checkRole(tab){
-const allowed=allowedRoles[tab]||['owner'];
-return allowed.includes(currentRole);
-}
-
-function applyRoleVisibility(){
-document.querySelectorAll('[data-tab]').forEach(button=>{
-const tab=button.dataset.tab;
-button.classList.toggle('hidden',!checkRole(tab));
-});
-}
+function setStatus(id,message,type){const el=$(id);if(!el)return;el.textContent=message;el.className='status'+(type?' '+type:'');}
+function escapeHTML(value){return String(value??'').replace(/[&<>"']/g,ch=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[ch]));}
+function formatDate(value){if(!value)return '—';const d=new Date(value);if(Number.isNaN(d.getTime()))return escapeHTML(value);return d.toLocaleString('fa-IR');}
+function readableError(error){return error?(error.message||String(error)):'خطای نامشخص';}
+function getConfig(){const config=window.RANGENAVA_CONFIG;if(!config)return null;const url=config.url,key=config.anonKey||config.publishableKey||config.publishable_key;return url&&key?{url,key}:null;}
+function showLogin(){$('loginView').classList.remove('hidden');$('appView').classList.add('hidden');}
+function showApp(){$('loginView').classList.add('hidden');$('appView').classList.remove('hidden');}
+function checkRole(tab){return (allowedRoles[tab]||['owner']).includes(currentRole);}
+function applyRoleVisibility(){document.querySelectorAll('[data-tab]').forEach(button=>button.classList.toggle('hidden',!checkRole(button.dataset.tab)));}
 
 async function init(){
-try{
-setStatus('loginStatus','در حال بررسی فایل‌های اتصال...');
-
-const config=getConfig();
-
-if(!window.supabase||!window.supabase.createClient){
-setStatus('loginStatus','کتابخانه Supabase بارگذاری نشده است. اتصال اینترنت یا دسترسی به CDN را بررسی کنید.','error');
-$('loginBtn').disabled=true;
-return;
+ try{
+  setStatus('loginStatus','در حال بررسی فایل‌های اتصال...');
+  const config=getConfig();
+  if(!window.supabase||!window.supabase.createClient){setStatus('loginStatus','کتابخانه Supabase بارگذاری نشده است. اتصال اینترنت یا دسترسی به CDN را بررسی کنید.','error');$('loginBtn').disabled=true;return;}
+  if(!config){setStatus('loginStatus','فایل rangenava-config.js پیدا نشد یا تنظیمات آن ناقص است.','error');$('loginBtn').disabled=true;return;}
+  supabaseClient=window.supabase.createClient(config.url,config.key);
+  setStatus('loginStatus','اتصال اولیه آماده است. ایمیل و رمز عبور را وارد کنید.','success');
+  const {data,error}=await supabaseClient.auth.getSession();if(error)throw error;
+  if(data.session){const result=await verifyAdmin(data.session.user);if(result)await enterDashboard();}
+ }catch(error){setStatus('loginStatus','خطا در آماده‌سازی اتصال: '+readableError(error),'error');}
 }
-
-if(!config){
-setStatus('loginStatus','فایل rangenava-config.js پیدا نشد یا تنظیمات آن ناقص است.','error');
-$('loginBtn').disabled=true;
-return;
-}
-
-supabaseClient=window.supabase.createClient(config.url,config.key);
-
-setStatus('loginStatus','اتصال اولیه آماده است. ایمیل و رمز عبور را وارد کنید.','success');
-
-const {data,error}=await supabaseClient.auth.getSession();
-
-if(error)throw error;
-
-if(data.session){
-const result=await verifyAdmin(data.session.user);
-if(result){
-await enterDashboard();
-}
-}
-
-}catch(error){
-setStatus('loginStatus','خطا در آماده‌سازی اتصال: '+readableError(error),'error');
-}
-}
-
 async function verifyAdmin(user){
-const {data,error}=await supabaseClient
-.from('admin_users')
-.select('user_id,role,is_active,display_name')
-.eq('user_id',user.id)
-.eq('is_active',true)
-.maybeSingle();
-
-if(error){
-setStatus('loginStatus','ورود انجام شد اما بررسی مدیر با خطا روبه‌رو شد: '+readableError(error),'error');
-await supabaseClient.auth.signOut();
-return false;
+ const {data,error}=await supabaseClient.from('admin_users').select('user_id,role,is_active,display_name').eq('user_id',user.id).eq('is_active',true).maybeSingle();
+ if(error){setStatus('loginStatus','ورود انجام شد اما بررسی مدیر با خطا روبه‌رو شد: '+readableError(error),'error');await supabaseClient.auth.signOut();return false;}
+ if(!data){setStatus('loginStatus','این حساب در جدول admin_users مدیر فعال نیست. شناسه حساب و وضعیت فعال بودن را بررسی کنید.','error');await supabaseClient.auth.signOut();return false;}
+ currentAdmin=data;currentRole=data.role;return true;
 }
-
-if(!data){
-setStatus('loginStatus','این حساب در جدول admin_users مدیر فعال نیست. شناسه حساب و وضعیت فعال بودن را بررسی کنید.','error');
-await supabaseClient.auth.signOut();
-return false;
-}
-
-currentAdmin=data;
-currentRole=data.role;
-return true;
-}
-
 async function signIn(event){
-event.preventDefault();
-
-if(!supabaseClient){
-setStatus('loginStatus','اتصال هنوز آماده نشده است. صفحه را دوباره بارگذاری کنید.','error');
-return;
+ event.preventDefault();if(!supabaseClient){setStatus('loginStatus','اتصال هنوز آماده نشده است. صفحه را دوباره بارگذاری کنید.','error');return;}
+ const email=$('email').value.trim(),password=$('password').value;if(!email||!password){setStatus('loginStatus','ایمیل و رمز عبور را وارد کنید.','error');return;}
+ const button=$('loginBtn');button.disabled=true;button.textContent='در حال ورود...';setStatus('loginStatus','در حال بررسی اطلاعات ورود...');
+ try{const {data,error}=await supabaseClient.auth.signInWithPassword({email,password});if(error)throw error;const verified=await verifyAdmin(data.user);if(!verified)return;$('password').value='';await enterDashboard();}
+ catch(error){setStatus('loginStatus','ورود ناموفق بود: '+readableError(error),'error');}
+ finally{button.disabled=false;button.textContent='ورود';}
 }
-
-const email=$('email').value.trim();
-const password=$('password').value;
-
-if(!email||!password){
-setStatus('loginStatus','ایمیل و رمز عبور را وارد کنید.','error');
-return;
-}
-
-const button=$('loginBtn');
-button.disabled=true;
-button.textContent='در حال ورود...';
-setStatus('loginStatus','در حال بررسی اطلاعات ورود...');
-
-try{
-const {data,error}=await supabaseClient.auth.signInWithPassword({
-email,password
-});
-
-if(error)throw error;
-
-const verified=await verifyAdmin(data.user);
-
-if(!verified)return;
-
-$('password').value='';
-await enterDashboard();
-
-}catch(error){
-setStatus('loginStatus','ورود ناموفق بود: '+readableError(error),'error');
-}finally{
-button.disabled=false;
-button.textContent='ورود';
-}
-}
-
 async function enterDashboard(){
-showApp();
-
-const name=currentAdmin.display_name||currentAdmin.role||'مدیر';
-$('adminIdentity').textContent=name+' | نقش: '+currentRole;
-
-if(currentRole!=='owner'){
-$('roleNotice').classList.remove('hidden');
-$('roleNotice').textContent='دسترسی این حساب بر اساس نقش مدیریتی محدود شده است.';
-}else{
-$('roleNotice').classList.add('hidden');
+ showApp();$('adminIdentity').textContent=(currentAdmin.display_name||currentAdmin.role||'مدیر')+' | نقش: '+currentRole;
+ if(currentRole!=='owner'){$('roleNotice').classList.remove('hidden');$('roleNotice').textContent='دسترسی این حساب بر اساس نقش مدیریتی محدود شده است.';}else $('roleNotice').classList.add('hidden');
+ applyRoleVisibility();setStatus('globalStatus','ورود موفق بود. در حال بارگذاری اطلاعات...','success');loadedTabs.clear();loadingTabs.clear();await loadCounts();
+ const firstAllowedTab=Object.keys(allowedRoles).find(tab=>checkRole(tab));if(firstAllowedTab)await selectTab(firstAllowedTab);
 }
-
-applyRoleVisibility();
-
-setStatus('globalStatus','ورود موفق بود. در حال بارگذاری اطلاعات...','success');
-
-loadedTabs.clear();
-loadingTabs.clear();
-
-await loadCounts();
-
-const firstAllowedTab=Object.keys(allowedRoles).find(tab=>checkRole(tab));
-if(firstAllowedTab){
-await selectTab(firstAllowedTab);
-}
-}
-
-async function countRows(table){
-const {count,error}=await supabaseClient
-.from(table)
-.select('*',{count:'exact',head:true});
-
-if(error)throw error;
-return count??0;
-}
-
+async function countRows(table){const {count,error}=await supabaseClient.from(table).select('*',{count:'exact',head:true});if(error)throw error;return count??0;}
 async function loadCounts(){
-const ids={
-artists:'countArtists',
-ads:'countAds',
-messages:'countMessages',
-views:'countViews',
-events:'countEvents'
-};
-
-for(const [key,id] of Object.entries(ids)){
-try{
-$(id).textContent=await countRows(tableMap[key]);
-}catch(error){
-$(id).textContent='—';
-console.error('Count error:',key,error);
+ const ids={artists:'countArtists',ads:'countAds',messages:'countMessages',views:'countViews',events:'countEvents'};
+ for(const [key,id] of Object.entries(ids)){try{$(id).textContent=await countRows(tableMap[key]);}catch(error){$(id).textContent='—';console.error('Count error:',key,error);}}
+ try{const now=new Date(),startToday=new Date(now.getFullYear(),now.getMonth(),now.getDate()).toISOString(),startWeek=new Date(Date.now()-7*24*60*60*1000).toISOString();
+  const [today,week]=await Promise.all([supabaseClient.from('page_views').select('*',{count:'exact',head:true}).gte('created_at',startToday),supabaseClient.from('page_views').select('*',{count:'exact',head:true}).gte('created_at',startWeek)]);
+  $('countViewsToday').textContent=today.error?'—':today.count??0;$('countViewsWeek').textContent=week.error?'—':week.count??0;
+ }catch(error){$('countViewsToday').textContent='—';$('countViewsWeek').textContent='—';}
 }
-}
-
-try{
-const now=new Date();
-const startToday=new Date(now.getFullYear(),now.getMonth(),now.getDate()).toISOString();
-const startWeek=new Date(Date.now()-7*24*60*60*1000).toISOString();
-
-const [today,week]=await Promise.all([
-supabaseClient.from('page_views').select('*',{count:'exact',head:true}).gte('created_at',startToday),
-supabaseClient.from('page_views').select('*',{count:'exact',head:true}).gte('created_at',startWeek)
-]);
-
-$('countViewsToday').textContent=today.error?'—':today.count??0;
-$('countViewsWeek').textContent=week.error?'—':week.count??0;
-}catch(error){
-$('countViewsToday').textContent='—';
-$('countViewsWeek').textContent='—';
-}
-}
-
-async function fetchRows(table,limit=100){
-const {data,error}=await supabaseClient
-.from(table)
-.select('*')
-.order('created_at',{ascending:false})
-.limit(limit);
-
-if(error)throw error;
-return data||[];
-}
-
+async function fetchRows(table,limit=100){const {data,error}=await supabaseClient.from(table).select('*').order('created_at',{ascending:false}).limit(limit);if(error)throw error;return data||[];}
 function renderTable(rows){
-if(!rows.length)return '<p>موردی برای نمایش وجود ندارد.</p>';
-
-const keys=Object.keys(rows[0]);
-const columns=keys.slice(0,12);
-
-let html='<div class="table-wrap"><table><thead><tr>';
-columns.forEach(key=>html+='<th>'+escapeHTML(key)+'</th>');
-html+='</tr></thead><tbody>';
-
-rows.forEach(row=>{
-html+='<tr>';
-columns.forEach(key=>{
-let value=row[key];
-if(value===null||value===undefined)value='—';
-else if(key.includes('created_at')||key.includes('updated_at'))value=formatDate(value);
-else if(typeof value==='object')value=JSON.stringify(value);
-html+='<td>'+escapeHTML(value)+'</td>';
-});
-html+='</tr>';
-});
-
-html+='</tbody></table></div>';
-return html;
+ if(!rows.length)return '<p>موردی برای نمایش وجود ندارد.</p>';const columns=Object.keys(rows[0]).slice(0,12);let html='<div class="table-wrap"><table><thead><tr>';
+ columns.forEach(key=>html+='<th>'+escapeHTML(key)+'</th>');html+='</tr></thead><tbody>';
+ rows.forEach(row=>{html+='<tr>';columns.forEach(key=>{let value=row[key];if(value===null||value===undefined)value='—';else if(key.includes('created_at')||key.includes('updated_at'))value=formatDate(value);else if(typeof value==='object')value=JSON.stringify(value);html+='<td>'+escapeHTML(value)+'</td>';});html+='</tr>';});
+ return html+'</tbody></table></div>';
 }
-
-async function loadGeneric(tab){
-const table=tableMap[tab];
-const target=$(tab+'Content');
-
-try{
-target.innerHTML='<p>در حال دریافت اطلاعات...</p>';
-const rows=await fetchRows(table);
-target.innerHTML=renderTable(rows);
-}catch(error){
-target.innerHTML='<div class="status error">خطا در دریافت اطلاعات: '+escapeHTML(readableError(error))+'</div>';
-}
-}
-
+async function loadGeneric(tab){const target=$(tab+'Content');try{target.innerHTML='<p>در حال دریافت اطلاعات...</p>';target.innerHTML=renderTable(await fetchRows(tableMap[tab]));}catch(error){target.innerHTML='<div class="status error">خطا در دریافت اطلاعات: '+escapeHTML(readableError(error))+'</div>';}}
 async function loadArtists(){
-const target=$('artistsContent');
-
-try{
-target.innerHTML='<p>در حال دریافت درخواست‌ها...</p>';
-
-const rows=await fetchRows('artist_requests');
-
-if(!rows.length){
-target.innerHTML='<p>درخواستی ثبت نشده است.</p>';
-return;
+ const target=$('artistsContent');try{target.innerHTML='<p>در حال دریافت درخواست‌ها...</p>';const rows=await fetchRows('artist_requests');if(!rows.length){target.innerHTML='<p>درخواستی ثبت نشده است.</p>';return;}
+ target.innerHTML=rows.map(row=>{const id=escapeHTML(row.id),status=row.status||'new';const options=Object.entries(statusLabels).map(([value,label])=>'<option value="'+value+'" '+(status===value?'selected':'')+'>'+label+'</option>').join('');
+ return `<div class="row-card"><h3>${escapeHTML(row.full_name||'بدون نام')}</h3><p>نقش هنری: ${escapeHTML(row.artist_role||'—')}</p><p>ایمیل: ${escapeHTML(row.email||'—')}</p><p>تلفن: ${escapeHTML(row.phone||'—')}</p><p>موضوع: ${escapeHTML(row.subject||'—')}</p><p>پیام: ${escapeHTML(row.message||'—')}</p><p>تاریخ ثبت: ${formatDate(row.created_at)}</p><p>نمونه آثار: ${row.portfolio_url?'<a href="'+escapeHTML(row.portfolio_url)+'" target="_blank" rel="noopener">مشاهده پیوند</a>':'—'}</p><hr><div class="field"><label>وضعیت درخواست</label><select data-status-for="${id}">${options}</select></div><div class="field"><label>یادداشت مدیر</label><textarea data-notes-for="${id}">${escapeHTML(row.admin_notes||'')}</textarea></div><button type="button" data-save-artist="${id}">ذخیره تغییرات</button></div>`;}).join('');
+ }catch(error){target.innerHTML='<div class="status error">خطا در دریافت درخواست‌ها: '+escapeHTML(readableError(error))+'</div>';}
 }
-
-target.innerHTML=rows.map(row=>{
-const id=escapeHTML(row.id);
-const status=row.status||'new';
-
-const options=Object.entries(statusLabels).map(([value,label])=>
-'<option value="'+value+'" '+(status===value?'selected':'')+'>'+label+'</option>'
-).join('');
-
-return `
-<div class="row-card">
-<h3>${escapeHTML(row.full_name||'بدون نام')}</h3>
-<p>نقش هنری: ${escapeHTML(row.artist_role||'—')}</p>
-<p>ایمیل: ${escapeHTML(row.email||'—')}</p>
-<p>تلفن: ${escapeHTML(row.phone||'—')}</p>
-<p>موضوع: ${escapeHTML(row.subject||'—')}</p>
-<p>پیام: ${escapeHTML(row.message||'—')}</p>
-<p>تاریخ ثبت: ${formatDate(row.created_at)}</p>
-<p>نمونه آثار:
-${row.portfolio_url?
-'<a href="'+escapeHTML(row.portfolio_url)+'" target="_blank" rel="noopener">مشاهده پیوند</a>':'—'}
-</p>
-<hr>
-<div class="field">
-<label>وضعیت درخواست</label>
-<select data-status-for="${id}">${options}</select>
-</div>
-<div class="field">
-<label>یادداشت مدیر</label>
-<textarea data-notes-for="${id}">${escapeHTML(row.admin_notes||'')}</textarea>
-</div>
-<button type="button" data-save-artist="${id}">ذخیره تغییرات</button>
-</div>`;
-}).join('');
-
-}catch(error){
-target.innerHTML='<div class="status error">خطا در دریافت درخواست‌ها: '+escapeHTML(readableError(error))+'</div>';
-}
-}
-
 async function saveArtist(id){
-const statusElement=document.querySelector('[data-status-for="'+CSS.escape(id)+'"]');
-const notesElement=document.querySelector('[data-notes-for="'+CSS.escape(id)+'"]');
-
-if(!statusElement||!notesElement)return;
-
-const {error}=await supabaseClient
-.from('artist_requests')
-.update({
-status:statusElement.value,
-admin_notes:notesElement.value
-})
-.eq('id',id);
-
-if(error){
-setStatus('globalStatus','ذخیره تغییرات ناموفق بود: '+readableError(error),'error');
-return;
+ const statusElement=document.querySelector('[data-status-for="'+CSS.escape(id)+'"]'),notesElement=document.querySelector('[data-notes-for="'+CSS.escape(id)+'"]');if(!statusElement||!notesElement)return;
+ const {error}=await supabaseClient.from('artist_requests').update({status:statusElement.value,admin_notes:notesElement.value}).eq('id',id);
+ if(error){setStatus('globalStatus','ذخیره تغییرات ناموفق بود: '+readableError(error),'error');return;}
+ setStatus('globalStatus','تغییرات درخواست هنرمند ذخیره شد.','success');await loadArtists();await loadCounts();
 }
 
-setStatus('globalStatus','تغییرات درخواست هنرمند ذخیره شد.','success');
-await loadArtists();
-await loadCounts();
+/* مدیریت رسانه‌ها: فقط مسیرهای همین سه پوشه خوانده می‌شوند. */
+function formatBytes(bytes){if(!Number.isFinite(bytes))return '—';if(bytes<1024)return bytes+' بایت';if(bytes<1024*1024)return (bytes/1024).toFixed(1)+' کیلوبایت';return (bytes/1024/1024).toFixed(2)+' مگابایت';}
+function cleanMediaName(name){return String(name||'').replace(/[^a-zA-Z0-9._-]/g,'_').slice(0,140)||'file';}
+function releaseMediaObjectUrls(){for(const url of mediaObjectUrls)URL.revokeObjectURL(url);mediaObjectUrls.clear();}
+async function loadMediaList(){
+ if(!checkRole('media')){setStatus('mediaStatus','اجازه مشاهده رسانه‌ها را ندارید.','error');return;}
+ const target=$('mediaList');target.innerHTML='<p>در حال دریافت فهرست فایل‌ها...</p>';
+ try{
+  const all=[];
+  for(const folder of mediaFolders){
+   const {data,error}=await supabaseClient.storage.from('rangenava-media').list(folder,{limit:100,sortBy:{column:'name',order:'desc'}});
+   if(error)throw new Error('پوشه '+folder+': '+readableError(error));
+   (data||[]).filter(item=>item.name&&!item.id?.startsWith('folder-placeholder')).forEach(item=>all.push({folder,name:item.name,path:folder+'/'+item.name,metadata:item.metadata||{}}));
+  }
+  if(!all.length){target.innerHTML='<p>در این سه پوشه فایلی پیدا نشد.</p>';return;}
+  target.innerHTML='<div class="media-grid">'+all.map(item=>{
+   const image=/\.(jpe?g|png|webp)$/i.test(item.name),audio=/\.(mp3|wav|flac|m4a|aac|ogg|webm)$/i.test(item.name);
+   return `<article class="media-item"><div class="top"><strong>${escapeHTML(item.name)}</strong><span class="badge">${escapeHTML(item.folder)}</span></div><p class="small">حجم: ${formatBytes(Number(item.metadata.size))}</p>${image?'<div class="small">فایل تصویری</div>':audio?'<div class="small">فایل صوتی</div>':'<div class="small">نوع فایل بر اساس پسوند تشخیص داده نشد</div>'}<div class="media-path">${escapeHTML(item.path)}</div><div class="actions" style="margin-top:10px"><button type="button" data-media-preview="${escapeHTML(item.path)}">پیش‌نمایش / پخش</button><button type="button" class="secondary" data-media-link="${escapeHTML(item.path)}">لینک موقت</button><button type="button" class="secondary" data-media-replace="${escapeHTML(item.path)}">بارگذاری نسخه جدید</button><button type="button" class="danger" data-media-delete="${escapeHTML(item.path)}">حذف</button></div><div id="media-item-preview-${mediaDomId(item.path)}"></div></article>`;
+  }).join('')+'</div>';
+ }catch(error){target.innerHTML='<div class="status error">دریافت فهرست رسانه‌ها ناموفق بود: '+escapeHTML(readableError(error))+'<br>اگر خطای دسترسی دیدی، policy مربوط به SELECT در storage.objects و دسترسی نقش مدیر را بررسی می‌کنیم؛ RLS را خاموش نکن.</div>';}
 }
-
+function mediaDomId(path){return btoa(unescape(encodeURIComponent(path))).replace(/[^a-zA-Z0-9]/g,'').slice(0,32);}
+async function createMediaSignedUrl(path){
+ const {data,error}=await supabaseClient.storage.from('rangenava-media').createSignedUrl(path,3600);
+ if(error)throw error;return data.signedUrl;
+}
+async function previewStoredMedia(path){
+ const box=$('media-item-preview-'+mediaDomId(path));if(!box)return;
+ box.innerHTML='<p>در حال ساخت پیش‌نمایش امن...</p>';
+ try{
+  const url=await createMediaSignedUrl(path);
+  if(/\.(jpe?g|png|webp)$/i.test(path))box.innerHTML='<img class="media-preview" src="'+escapeHTML(url)+'" alt="پیش‌نمایش رسانه">';
+  else if(/\.(mp3|wav|flac|m4a|aac|ogg|webm)$/i.test(path))box.innerHTML='<audio class="media-audio" controls preload="none" src="'+escapeHTML(url)+'"></audio>';
+  else box.innerHTML='<a href="'+escapeHTML(url)+'" target="_blank" rel="noopener">بازکردن فایل</a>';
+ }catch(error){box.innerHTML='<div class="status error">پیش‌نمایش ساخته نشد: '+escapeHTML(readableError(error))+'</div>';}
+}
+async function showMediaLink(path){
+ try{const url=await createMediaSignedUrl(path);if(navigator.clipboard&&window.isSecureContext){await navigator.clipboard.writeText(url);setStatus('mediaStatus','لینک موقت یک‌ساعته ساخته و کپی شد. مسیر: '+path,'success');}
+ else{window.prompt('این لینک تا یک ساعت معتبر است؛ آن را کپی کنید:',url);setStatus('mediaStatus','لینک موقت ساخته شد.','success');}}
+ catch(error){setStatus('mediaStatus','ساخت لینک موقت ناموفق بود: '+readableError(error),'error');}
+}
+async function deleteStoredMedia(path){
+ if(!checkRole('media'))return;
+ if(!window.confirm('فایل زیر برای همیشه از Storage حذف شود؟\n'+path+'\nاین کار قابل بازگشت نیست.'))return;
+ try{const {error}=await supabaseClient.storage.from('rangenava-media').remove([path]);if(error)throw error;setStatus('mediaStatus','فایل حذف شد: '+path,'success');await loadMediaList();}
+ catch(error){setStatus('mediaStatus','حذف فایل ناموفق بود: '+readableError(error),'error');}
+}
+async function uploadMedia(replacePath=null){
+ if(!checkRole('media')){setStatus('mediaStatus','اجازه بارگذاری رسانه ندارید.','error');return;}
+ const file=$('mediaFile').files[0];if(!file){setStatus('mediaStatus','ابتدا یک فایل انتخاب کنید.','error');return;}
+ if(!allowedTypes.includes(file.type)){setStatus('mediaStatus','نوع فایل انتخاب‌شده مجاز نیست.','error');return;}
+ if(file.size>100*1024*1024){setStatus('mediaStatus','حجم فایل نباید بیشتر از ۱۰۰ مگابایت باشد.','error');return;}
+ const folder=replacePath?replacePath.split('/')[0]:$('mediaFolder').value;
+ const safeName=cleanMediaName(file.name),path=folder+'/'+Date.now()+'-'+safeName;
+ const button=$('uploadMediaBtn');button.disabled=true;button.textContent='در حال بارگذاری...';
+ try{
+  const {data,error}=await supabaseClient.storage.from('rangenava-media').upload(path,file,{cacheControl:'3600',upsert:false});if(error)throw error;
+  setStatus('mediaStatus','فایل با موفقیت بارگذاری شد. مسیر فایل جدید: '+data.path+(replacePath?'\nفایل قبلی حذف نشده است؛ پس از بررسی نسخه جدید، در صورت اطمینان آن را جداگانه حذف کنید.':''),'success');
+  const preview=$('mediaPreview'),objectUrl=URL.createObjectURL(file);mediaObjectUrls.add(objectUrl);
+  preview.innerHTML=file.type.startsWith('image/')?'<img class="media-preview" src="'+objectUrl+'" alt="پیش‌نمایش فایل تازه">':file.type.startsWith('audio/')?'<audio class="media-audio" controls src="'+objectUrl+'"></audio>':'';
+  $('mediaFile').value='';await loadMediaList();
+ }catch(error){setStatus('mediaStatus','بارگذاری انجام نشد: '+readableError(error),'error');}
+ finally{button.disabled=false;button.textContent='بارگذاری فایل';}
+}
+function selectFileForReplacement(path){
+ const input=$('mediaFile');input.value='';
+ input.onchange=async()=>{if(input.files&&input.files[0])await uploadMedia(path);input.onchange=null;};
+ input.click();
+}
 async function selectTab(tab){
-if(!checkRole(tab)){
-setStatus('globalStatus','این نقش اجازه دسترسی به این بخش را ندارد.','error');
-return;
+ if(!checkRole(tab)){setStatus('globalStatus','این نقش اجازه دسترسی به این بخش را ندارد.','error');return;}
+ document.querySelectorAll('[data-tab]').forEach(button=>button.classList.toggle('active',button.dataset.tab===tab));
+ document.querySelectorAll('.tabPanel').forEach(panel=>panel.classList.toggle('hidden',panel.id!=='panel-'+tab));
+ if(tab==='media'&&!loadedTabs.has(tab)&&!loadingTabs.has(tab)){loadingTabs.add(tab);await loadMediaList();loadedTabs.add(tab);loadingTabs.delete(tab);return;}
+ if(loadedTabs.has(tab)||loadingTabs.has(tab))return;
+ loadingTabs.add(tab);try{if(tab==='artists')await loadArtists();else if(tab==='backup'){}else await loadGeneric(tab);loadedTabs.add(tab);}
+ catch(error){setStatus('globalStatus','خطا در بارگذاری بخش: '+readableError(error),'error');}finally{loadingTabs.delete(tab);}
 }
-
-document.querySelectorAll('[data-tab]').forEach(button=>{
-button.classList.toggle('active',button.dataset.tab===tab);
-});
-
-document.querySelectorAll('.tabPanel').forEach(panel=>{
-panel.classList.toggle('hidden',panel.id!=='panel-'+tab);
-});
-
-if(loadedTabs.has(tab)||loadingTabs.has(tab))return;
-
-loadingTabs.add(tab);
-
-try{
-if(tab==='artists')await loadArtists();
-else if(tab==='media'||tab==='backup'){}
-else await loadGeneric(tab);
-
-loadedTabs.add(tab);
-}catch(error){
-setStatus('globalStatus','خطا در بارگذاری بخش: '+readableError(error),'error');
-}finally{
-loadingTabs.delete(tab);
-}
-}
-
 async function refreshAll(){
-loadedTabs.clear();
-loadingTabs.clear();
-await loadCounts();
-
-const active=document.querySelector('[data-tab].active');
-const tab=active?active.dataset.tab:Object.keys(allowedRoles).find(t=>checkRole(t));
-
-if(tab&&checkRole(tab)){
-await selectTab(tab);
+ loadedTabs.clear();loadingTabs.clear();await loadCounts();
+ const active=document.querySelector('[data-tab].active'),tab=active?active.dataset.tab:Object.keys(allowedRoles).find(t=>checkRole(t));
+ if(tab&&checkRole(tab)){if(tab==='media')await loadMediaList();else await selectTab(tab);}
+ setStatus('globalStatus','اطلاعات به‌روزرسانی شد.','success');
 }
-
-setStatus('globalStatus','اطلاعات به‌روزرسانی شد.','success');
-}
-
-async function uploadMedia(){
-if(!checkRole('media')){
-setStatus('mediaStatus','اجازه بارگذاری رسانه ندارید.','error');
-return;
-}
-
-const file=$('mediaFile').files[0];
-
-if(!file){
-setStatus('mediaStatus','ابتدا یک فایل انتخاب کنید.','error');
-return;
-}
-
-const allowedTypes=[
-'audio/mpeg','audio/mp3','audio/wav','audio/x-wav',
-'audio/flac','audio/x-flac','audio/mp4','audio/aac',
-'audio/ogg','audio/webm','image/jpeg','image/png','image/webp'
-];
-
-if(!allowedTypes.includes(file.type)){
-setStatus('mediaStatus','نوع فایل انتخاب‌شده مجاز نیست.','error');
-return;
-}
-
-if(file.size>100*1024*1024){
-setStatus('mediaStatus','حجم فایل نباید بیشتر از ۱۰۰ مگابایت باشد.','error');
-return;
-}
-
-const folder=$('mediaFolder').value;
-const safeName=file.name.replace(/[^a-zA-Z0-9._-]/g,'_');
-const path=folder+'/'+Date.now()+'-'+safeName;
-
-const button=$('uploadMediaBtn');
-button.disabled=true;
-button.textContent='در حال بارگذاری...';
-
-try{
-const {data,error}=await supabaseClient.storage
-.from('rangenava-media')
-.upload(path,file,{cacheControl:'3600',upsert:false});
-
-if(error)throw error;
-
-setStatus('mediaStatus','فایل با موفقیت بارگذاری شد. مسیر ذخیره‌سازی: '+data.path,'success');
-
-const preview=$('mediaPreview');
-const isImage=file.type.startsWith('image/');
-const isAudio=file.type.startsWith('audio/');
-
-if(isImage){
-const objectUrl=URL.createObjectURL(file);
-preview.innerHTML='<img class="media-preview" src="'+objectUrl+'" alt="پیش‌نمایش فایل">';
-}else if(isAudio){
-const objectUrl=URL.createObjectURL(file);
-preview.innerHTML='<audio class="media-audio" controls src="'+objectUrl+'"></audio>';
-}else{
-preview.innerHTML='';
-}
-
-$('mediaFile').value='';
-
-}catch(error){
-setStatus('mediaStatus','بارگذاری انجام نشد: '+readableError(error),'error');
-}finally{
-button.disabled=false;
-button.textContent='بارگذاری فایل';
-}
-}
-
 async function logout(){
-try{
-await supabaseClient.auth.signOut();
-}catch(error){
-console.error(error);
-}
-
-currentAdmin=null;
-currentRole=null;
-loadedTabs.clear();
-loadingTabs.clear();
-
-$('email').value='';
-$('password').value='';
-
-showLogin();
-setStatus('loginStatus','از حساب مدیریت خارج شدید.','success');
+ try{await supabaseClient.auth.signOut();}catch(error){console.error(error);}
+ currentAdmin=null;currentRole=null;loadedTabs.clear();loadingTabs.clear();releaseMediaObjectUrls();$('email').value='';$('password').value='';showLogin();setStatus('loginStatus','از حساب مدیریت خارج شدید.','success');
 }
 
 $('loginForm').addEventListener('submit',signIn);
-
-$('tabs').addEventListener('click',event=>{
-const button=event.target.closest('[data-tab]');
-if(button&&!button.classList.contains('hidden')){
-selectTab(button.dataset.tab);
-}
-});
-
+$('tabs').addEventListener('click',event=>{const button=event.target.closest('[data-tab]');if(button&&!button.classList.contains('hidden'))selectTab(button.dataset.tab);});
 document.addEventListener('click',event=>{
-const saveButton=event.target.closest('[data-save-artist]');
-if(saveButton)saveArtist(saveButton.dataset.saveArtist);
-
-const reloadButton=event.target.closest('[data-reload]');
-if(reloadButton){
-const tab=reloadButton.dataset.reload;
-loadedTabs.delete(tab);
-loadingTabs.delete(tab);
-
-if(tab==='artists')loadArtists();
-else loadGeneric(tab);
-}
+ const saveButton=event.target.closest('[data-save-artist]');if(saveButton)saveArtist(saveButton.dataset.saveArtist);
+ const reloadButton=event.target.closest('[data-reload]');if(reloadButton){const tab=reloadButton.dataset.reload;loadedTabs.delete(tab);if(tab==='artists')loadArtists();else loadGeneric(tab);}
+ const previewButton=event.target.closest('[data-media-preview]');if(previewButton)previewStoredMedia(previewButton.dataset.mediaPreview);
+ const linkButton=event.target.closest('[data-media-link]');if(linkButton)showMediaLink(linkButton.dataset.mediaLink);
+ const deleteButton=event.target.closest('[data-media-delete]');if(deleteButton)deleteStoredMedia(deleteButton.dataset.mediaDelete);
+ const replaceButton=event.target.closest('[data-media-replace]');if(replaceButton)selectFileForReplacement(replaceButton.dataset.mediaReplace);
 });
-
 $('refreshBtn').addEventListener('click',refreshAll);
 $('logoutBtn').addEventListener('click',logout);
-$('uploadMediaBtn').addEventListener('click',uploadMedia);
-
+$('uploadMediaBtn').addEventListener('click',()=>uploadMedia());
+$('refreshMediaBtn').addEventListener('click',loadMediaList);
 init();
-
 })();
 </script>
 </body>
