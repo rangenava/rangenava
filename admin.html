@@ -31,6 +31,7 @@ th,td{padding:10px;border-bottom:1px solid var(--line);text-align:right;vertical
 .media-item{border:1px solid var(--line);border-radius:12px;padding:14px;background:#fff;min-width:0}
 .media-item img{max-width:100%;max-height:190px;object-fit:contain;display:block;margin:10px auto;border-radius:8px}
 .media-item audio{width:100%;margin:10px 0}.media-path{direction:ltr;text-align:left;overflow-wrap:anywhere;font-size:12px;background:#f8fafc;padding:8px;border-radius:7px}
+.music-columns{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:14px}.music-form{border:1px solid var(--line);border-radius:12px;padding:14px;margin:12px 0;background:#fff}.music-form input,.music-form select,.music-form textarea{width:100%}.music-form textarea{min-height:90px}.music-list{max-height:520px;overflow:auto}.music-item{border:1px solid var(--line);border-radius:9px;padding:10px;margin:8px 0}.music-item .actions{margin-top:8px}.multi{min-height:115px}.checkline{display:flex;align-items:center;gap:8px}.checkline input{width:auto}
 @media(max-width:600px){.wrap{padding:12px}.card{padding:15px}h1{font-size:21px}.metric strong{font-size:23px}}
 </style>
 </head>
@@ -59,7 +60,7 @@ th,td{padding:10px;border-bottom:1px solid var(--line);text-align:right;vertical
 <button class="active" data-tab="artists" type="button">درخواست هنرمندان</button><button data-tab="ads" type="button">سفارش تبلیغات</button>
 <button data-tab="messages" type="button">پیام‌های تماس</button><button data-tab="views" type="button">بازدید صفحات</button>
 <button data-tab="events" type="button">رویدادهای آماری</button><button data-tab="activity" type="button">فعالیت مدیران</button>
-<button data-tab="media" type="button">مدیریت رسانه‌ها</button><button data-tab="backup" type="button">پشتیبان‌گیری</button>
+<button data-tab="media" type="button">مدیریت رسانه‌ها</button><button data-tab="music" type="button">مدیریت موسیقی</button><button data-tab="backup" type="button">پشتیبان‌گیری</button>
 </nav>
 <section id="panel-artists" class="card tabPanel"><div class="top"><h2>درخواست‌های هنرمندان</h2><button data-reload="artists" class="secondary" type="button">بارگذاری مجدد</button></div><div id="artistsContent">در حال بارگذاری...</div></section>
 <section id="panel-ads" class="card tabPanel hidden"><div class="top"><h2>سفارش‌های تبلیغات</h2><button data-reload="ads" class="secondary" type="button">بارگذاری مجدد</button></div><div id="adsContent">در حال بارگذاری...</div></section>
@@ -77,6 +78,14 @@ th,td{padding:10px;border-bottom:1px solid var(--line);text-align:right;vertical
 <div id="mediaStatus" class="status">آماده بارگذاری.</div><div id="mediaPreview"></div>
 <hr><div class="top"><h3>فایل‌های ذخیره‌شده</h3><span class="small">برای دیدن فایل‌های هر پوشه، فهرست را به‌روزرسانی کنید.</span></div>
 <div id="mediaList"><p>هنوز فهرست رسانه‌ها بارگذاری نشده است.</p></div>
+</section>
+
+<section id="panel-music" class="card tabPanel hidden">
+<h2>مدیریت موسیقی</h2>
+<div class="notice">در این بخش هنرمند، آلبوم و قطعه ثبت و ویرایش می‌شود. ژانرها و سازهای موجود از بانک اطلاعاتی خوانده می‌شوند. حذف دائمی رکوردهای اصلی فعال نیست؛ برای خارج‌کردن از سایت، انتشار را غیرفعال کنید. انتشار قطعه یا آلبوم فقط با وضعیت حقوقی مجاز و تأیید بررسی مدارک امکان‌پذیر است.</div>
+<div class="actions"><button type="button" data-music-section="artists">هنرمندان</button><button type="button" class="secondary" data-music-section="albums">آلبوم‌ها</button><button type="button" class="secondary" data-music-section="tracks">قطعه‌ها</button><button type="button" class="secondary" data-music-section="lookups">ژانرها و سازها</button></div>
+<div id="musicStatus" class="status">برای شروع، یکی از بخش‌ها را انتخاب کنید.</div>
+<div id="musicContent"></div>
 </section>
 
 <section id="panel-backup" class="card tabPanel hidden"><h2>پشتیبان‌گیری رنگ‌نوا</h2>
@@ -100,7 +109,7 @@ const loadedTabs=new Set(),loadingTabs=new Set();
 const mediaObjectUrls=new Set();
 const tableMap={artists:'artist_requests',ads:'ad_orders',messages:'contact_messages',views:'page_views',events:'analytics_events',activity:'admin_activity'};
 const statusLabels={new:'جدید',reviewing:'در حال بررسی',answered:'پاسخ داده شده',approved:'تأیید شده',rejected:'رد شده',closed:'بسته شده'};
-const allowedRoles={artists:['owner','artists'],ads:['owner','ads'],messages:['owner','support'],views:['owner'],events:['owner'],activity:['owner'],media:['owner','music','artists','content'],backup:['owner']};
+const allowedRoles={artists:['owner','artists'],ads:['owner','ads'],messages:['owner','support'],views:['owner'],events:['owner'],activity:['owner'],media:['owner','music','artists','content'],music:['owner','music','artists','content'],backup:['owner']};
 const mediaFolders=['audio','images','covers'];
 const allowedTypes=['audio/mpeg','audio/mp3','audio/wav','audio/x-wav','audio/flac','audio/x-flac','audio/mp4','audio/aac','audio/ogg','audio/webm','image/jpeg','image/png','image/webp'];
 
@@ -245,11 +254,114 @@ function selectFileForReplacement(path){
  input.onchange=async()=>{if(input.files&&input.files[0])await uploadMedia(path);input.onchange=null;};
  input.click();
 }
+
+/* مدیریت بانک موسیقی */
+const musicState={section:'artists',artists:[],albums:[],tracks:[],genres:[],instruments:[]};
+const musicLabels={artists:'هنرمندان',albums:'آلبوم‌ها',tracks:'قطعه‌ها',lookups:'ژانرها و سازها'};
+const rightsLabels={unknown:'نامشخص',licensed:'دارای مجوز',public_domain:'مالکیت عمومی',restricted:'محدود',permission_required:'نیازمند اجازه'};
+function musicStatus(message,type=''){setStatus('musicStatus',message,type);}
+function musicOptions(rows,valueKey,labelKey,selected=[]){return rows.map(row=>`<option value="${escapeHTML(row[valueKey])}" ${selected.includes(row[valueKey])?'selected':''}>${escapeHTML(row[labelKey]||row.name||row.title||'')}</option>`).join('');}
+async function fetchMusicRows(table,order='created_at'){
+ let q=supabaseClient.from(table).select('*');
+ if(order)q=q.order(order,{ascending:order==='name'||order==='title'});
+ const {data,error}=await q.limit(500);if(error)throw error;return data||[];
+}
+async function loadMusicData(){
+ const [artists,albums,tracks,genres,instruments]=await Promise.all([
+  fetchMusicRows('artists','name'),fetchMusicRows('albums','title'),fetchMusicRows('tracks','title'),fetchMusicRows('genres','name'),fetchMusicRows('instruments','name')
+ ]);
+ Object.assign(musicState,{artists,albums,tracks,genres,instruments});
+}
+function musicField(label,name,value='',type='text',extra=''){return `<div class="field"><label for="mf-${name}">${label}</label><input id="mf-${name}" name="${name}" type="${type}" value="${escapeHTML(value??'')}" ${extra}></div>`;}
+function musicTextarea(label,name,value=''){return `<div class="field"><label for="mf-${name}">${label}</label><textarea id="mf-${name}" name="${name}">${escapeHTML(value??'')}</textarea></div>`;}
+function musicSelect(label,name,rows,valueKey,labelKey,selected='',multiple=false){return `<div class="field"><label for="mf-${name}">${label}</label><select id="mf-${name}" name="${name}" ${multiple?'multiple class="multi"':''}>${multiple?'': '<option value="">— انتخاب کنید —</option>'}${musicOptions(rows,valueKey,labelKey,multiple?(selected||[]):(selected?[selected]:[]))}</select>${multiple?'<div class="small">برای انتخاب چند مورد، در موبایل روی موارد دلخواه بزنید.</div>':''}</div>`;}
+function musicCheck(label,name,checked=false){return `<label class="checkline"><input id="mf-${name}" name="${name}" type="checkbox" ${checked?'checked':''}> ${label}</label>`;}
+function musicRecordList(rows,kind){
+ if(!rows.length)return '<p>هنوز موردی ثبت نشده است.</p>';
+ return rows.map(r=>`<article class="music-item"><div class="top"><strong>${escapeHTML(r.name||r.title||'بدون عنوان')}</strong><span class="badge">${r.is_published?'منتشرشده':'پیش‌نویس'}</span></div><div class="small">${escapeHTML(r.slug||'')}</div><div class="actions"><button type="button" data-music-edit="${kind}" data-id="${escapeHTML(r.id)}">ویرایش</button><button type="button" class="secondary" data-music-toggle="${kind}" data-id="${escapeHTML(r.id)}" data-published="${r.is_published?'1':'0'}">${r.is_published?'لغو انتشار':'انتشار'}</button></div></article>`).join('');
+}
+function musicForm(kind,row={}){
+ const editing=!!row.id, prefix=kind==='artists'?'هنرمند':kind==='albums'?'آلبوم':'قطعه';let html=`<form class="music-form" data-music-form="${kind}" data-id="${escapeHTML(row.id||'')}"><h3>${editing?'ویرایش':'ثبت'} ${prefix}</h3>`;
+ if(kind==='artists'){
+  html+=musicField('نام هنرمند','name',row.name)+musicField('شناسه انگلیسی (slug)','slug',row.slug)+musicField('نوع هنرمند','artist_type',row.artist_type)+musicField('کشور','country',row.country)+musicTextarea('زندگی‌نامه','biography',row.biography)+musicField('مسیر تصویر در Storage','image_url',row.image_url)+musicSelect('سازهای مرتبط','instruments',musicState.instruments,'id','name',row._instrumentIds||[],true)+musicCheck('نمایش عمومی','is_published',!!row.is_published);
+ }else if(kind==='albums'){
+  html+=musicField('عنوان آلبوم','title',row.title)+musicField('شناسه انگلیسی (slug)','slug',row.slug)+musicField('تاریخ انتشار','release_date',row.release_date,'date')+musicField('مسیر تصویر جلد','cover_url',row.cover_url)+musicTextarea('توضیحات','description',row.description)+musicSelect('هنرمندان آلبوم','artists',musicState.artists,'id','name',row._artistIds||[],true)+musicField('نقش هنرمند در آلبوم','artist_role',row._artistRole||'main')+musicSelect('وضعیت حقوقی','rights_status',Object.entries(rightsLabels).map(([id,name])=>({id,name})), 'id','name',row.rights_status||'unknown')+musicCheck('مدارک مجوز/مالکیت بررسی شده است','rights_verified',false)+musicCheck('انتشار عمومی','is_published',!!row.is_published);
+ }else{
+  html+=musicField('عنوان قطعه','title',row.title)+musicField('شناسه انگلیسی (slug)','slug',row.slug)+musicSelect('آلبوم','album_id',musicState.albums,'id','title',row.album_id||'')+musicField('شماره قطعه','track_number',row.track_number??'','number','min="1" step="1"')+musicField('مدت (ثانیه)','duration_seconds',row.duration_seconds??'','number','min="0" step="1"')+musicField('مسیر فایل صوتی در Storage','audio_url',row.audio_url)+musicField('مسیر تصویر جلد','cover_url',row.cover_url)+musicField('مسیر تصویر پس‌زمینه','background_url',row.background_url)+musicTextarea('توضیحات','description',row.description)+musicTextarea('متن ترانه','lyrics',row.lyrics)+musicSelect('هنرمندان قطعه','artists',musicState.artists,'id','name',row._artistIds||[],true)+musicField('نقش هنرمند','artist_role',row._artistRole||'main')+musicSelect('ژانرها','genres',musicState.genres,'id','name',row._genreIds||[],true)+musicSelect('سازها','instruments',musicState.instruments,'id','name',row._instrumentIds||[],true)+musicSelect('وضعیت حقوقی','rights_status',Object.entries(rightsLabels).map(([id,name])=>({id,name})), 'id','name',row.rights_status||'unknown')+musicCheck('مدارک مجوز/مالکیت بررسی شده است','rights_verified',false)+musicCheck('انتشار عمومی','is_published',!!row.is_published);
+ }
+ html+='<div class="actions"><button type="submit">ذخیره</button><button type="button" class="secondary" data-music-cancel>پاک‌کردن فرم</button></div></form>';
+ return html;
+}
+function selectedValues(id){return [...($(id).selectedOptions||[])].map(o=>o.value).filter(Boolean);}
+async function relatedIds(table,foreignKey,id){const column=table==='artist_instruments'?'artist_id':table==='album_artists'?'album_id':'track_id';const {data,error}=await supabaseClient.from(table).select(foreignKey).eq(column,id);if(error)throw error;return (data||[]).map(x=>x[foreignKey]);}
+async function loadMusicSection(section=musicState.section){
+ musicState.section=section;const target=$('musicContent');target.innerHTML='<p>در حال دریافت اطلاعات...</p>';
+ try{
+  await loadMusicData();
+  if(section==='lookups'){
+   target.innerHTML='<div class="music-columns"><div><h3>ژانرهای موجود ('+musicState.genres.length+')</h3>'+musicState.genres.map(x=>`<div class="music-item">${escapeHTML(x.name)} <span class="small">${x.is_published?'منتشرشده':'پیش‌نویس'}</span></div>`).join('')+'</div><div><h3>سازهای موجود ('+musicState.instruments.length+')</h3>'+musicState.instruments.map(x=>`<div class="music-item">${escapeHTML(x.name)} <span class="small">${escapeHTML(x.instrument_family||'')}</span></div>`).join('')+'</div></div><p class="small">فهرست ژانرها و سازها فعلاً فقط خواندنی است تا اطلاعات پایه ناخواسته تغییر نکند.</p>';
+   return true;
+  }
+  const rows=musicState[section];target.innerHTML='<div class="music-columns"><div><h3>فهرست '+musicLabels[section]+'</h3><div class="music-list">'+musicRecordList(rows,section)+'</div></div><div id="musicEditor">'+musicForm(section)+'</div></div>';
+  musicStatus('اطلاعات '+musicLabels[section]+' بارگذاری شد.','success');return true;
+ }catch(error){target.innerHTML='<div class="status error">بارگذاری مدیریت موسیقی ناموفق بود: '+escapeHTML(readableError(error))+'</div>';musicStatus(readableError(error),'error');return false;}
+}
+async function loadMusicEdit(kind,id){
+ try{
+  const table=kind;const {data,error}=await supabaseClient.from(table).select('*').eq('id',id).single();if(error)throw error;const row=data;
+  if(kind==='artists')row._instrumentIds=await relatedIds('artist_instruments','instrument_id',id);
+  if(kind==='albums'){const {data:rels,error:re}=await supabaseClient.from('album_artists').select('artist_id,role').eq('album_id',id);if(re)throw re;row._artistIds=(rels||[]).map(x=>x.artist_id);row._artistRole=rels?.[0]?.role||'main';}
+  if(kind==='tracks'){
+   const [ar,gr,ir]=await Promise.all([supabaseClient.from('track_artists').select('artist_id,role').eq('track_id',id),supabaseClient.from('track_genres').select('genre_id').eq('track_id',id),supabaseClient.from('track_instruments').select('instrument_id').eq('track_id',id)]);
+   if(ar.error)throw ar.error;if(gr.error)throw gr.error;if(ir.error)throw ir.error;row._artistIds=(ar.data||[]).map(x=>x.artist_id);row._artistRole=ar.data?.[0]?.role||'main';row._genreIds=(gr.data||[]).map(x=>x.genre_id);row._instrumentIds=(ir.data||[]).map(x=>x.instrument_id);
+  }
+  $('musicEditor').innerHTML=musicForm(kind,row);
+ }catch(error){musicStatus('دریافت اطلاعات برای ویرایش ناموفق بود: '+readableError(error),'error');}
+}
+async function replaceRelations(table,key,id,values,extra={}){
+ const column=table==='artist_instruments'?'artist_id':table==='album_artists'?'album_id':'track_id';
+ const {error:delError}=await supabaseClient.from(table).delete().eq(column,id);if(delError)throw delError;
+ if(values.length){const records=values.map(value=>({[column]:id,[key]:value,...extra}));const {error}=await supabaseClient.from(table).insert(records);if(error)throw error;}
+}
+async function saveMusicForm(form){
+ const kind=form.dataset.musicForm,id=form.dataset.id||null;const val=n=>form.querySelector(`[name="${n}"]`)?.value?.trim()||null;const checked=n=>!!form.querySelector(`[name="${n}"]`)?.checked;const values=n=>{const el=form.querySelector(`[name="${n}"]`);return el?.multiple?[...el.selectedOptions].map(o=>o.value):[];};
+ const payload={};let relationWork=[];
+ if(kind==='artists'){
+  Object.assign(payload,{name:val('name'),slug:val('slug'),artist_type:val('artist_type'),country:val('country'),biography:val('biography'),image_url:val('image_url'),is_published:checked('is_published'),updated_at:new Date().toISOString()});
+ }else if(kind==='albums'){
+  const rights=val('rights_status')||'unknown',publish=checked('is_published');if(publish&&(!['licensed','public_domain'].includes(rights)||!checked('rights_verified')))throw Error('برای انتشار، وضعیت حقوقی باید «دارای مجوز» یا «مالکیت عمومی» باشد و مدارک آن واقعاً بررسی شده باشد.');
+  Object.assign(payload,{title:val('title'),slug:val('slug'),release_date:val('release_date'),cover_url:val('cover_url'),description:val('description'),rights_status:rights,is_published:publish,updated_at:new Date().toISOString()});
+ }else{
+  const rights=val('rights_status')||'unknown',publish=checked('is_published');if(publish&&(!['licensed','public_domain'].includes(rights)||!checked('rights_verified')))throw Error('برای انتشار، وضعیت حقوقی باید «دارای مجوز» یا «مالکیت عمومی» باشد و مدارک آن واقعاً بررسی شده باشد.');
+  const num=n=>val(n)===null?null:Number(val(n));
+  Object.assign(payload,{title:val('title'),slug:val('slug'),album_id:val('album_id'),track_number:num('track_number'),duration_seconds:num('duration_seconds'),audio_url:val('audio_url'),cover_url:val('cover_url'),background_url:val('background_url'),description:val('description'),lyrics:val('lyrics'),rights_status:rights,is_published:publish,updated_at:new Date().toISOString()});
+ }
+ if(!payload.name&&!payload.title)throw Error('نام یا عنوان را وارد کنید.');if(!payload.slug)throw Error('شناسه انگلیسی (slug) را وارد کنید.');
+ const result=id?await supabaseClient.from(kind).update(payload).eq('id',id).select('id').single():await supabaseClient.from(kind).insert(payload).select('id').single();if(result.error)throw result.error;const savedId=result.data.id;
+ if(kind==='artists')await replaceRelations('artist_instruments','instrument_id',savedId,values('instruments'));
+ if(kind==='albums')await replaceRelations('album_artists','artist_id',savedId,values('artists'),{role:val('artist_role')||'main'});
+ if(kind==='tracks'){
+  await replaceRelations('track_artists','artist_id',savedId,values('artists'),{role:val('artist_role')||'main'});
+  await replaceRelations('track_genres','genre_id',savedId,values('genres'));
+  await replaceRelations('track_instruments','instrument_id',savedId,values('instruments'));
+ }
+ musicStatus('اطلاعات با موفقیت ذخیره شد.','success');await loadMusicSection(kind);
+}
+async function toggleMusicPublish(kind,id,published){
+ try{
+  const row=musicState[kind].find(x=>String(x.id)===String(id));if(!row)throw Error('رکورد پیدا نشد.');
+  const next=!published;if(next&&['albums','tracks'].includes(kind)&&!['licensed','public_domain'].includes(row.rights_status))throw Error('تا زمانی که وضعیت حقوقی مجاز و مدارک آن بررسی نشده، انتشار ممکن نیست. ابتدا رکورد را ویرایش کنید.');
+  if(next&&!window.confirm('تأیید می‌کنید مدارک حقوقی این اثر بررسی شده و اجازه انتشار آن وجود دارد؟'))return;
+  const {error}=await supabaseClient.from(kind).update({is_published:next,updated_at:new Date().toISOString()}).eq('id',id);if(error)throw error;musicStatus(next?'رکورد منتشر شد.':'انتشار رکورد لغو شد.','success');await loadMusicSection(kind);
+ }catch(error){musicStatus('تغییر وضعیت انتشار ناموفق بود: '+readableError(error),'error');}
+}
+
 async function selectTab(tab){
  if(!checkRole(tab)){setStatus('globalStatus','این نقش اجازه دسترسی به این بخش را ندارد.','error');return;}
  document.querySelectorAll('[data-tab]').forEach(button=>button.classList.toggle('active',button.dataset.tab===tab));
  document.querySelectorAll('.tabPanel').forEach(panel=>panel.classList.toggle('hidden',panel.id!=='panel-'+tab));
  if(tab==='media'&&!loadedTabs.has(tab)&&!loadingTabs.has(tab)){loadingTabs.add(tab);await loadMediaList();loadedTabs.add(tab);loadingTabs.delete(tab);return;}
+ if(tab==='music'){if(!loadedTabs.has(tab)){loadingTabs.add(tab);const ok=await loadMusicSection('artists');if(ok)loadedTabs.add('music');loadingTabs.delete(tab);}return;}
  if(loadedTabs.has(tab)||loadingTabs.has(tab))return;
  loadingTabs.add(tab);try{if(tab==='artists')await loadArtists();else if(tab==='backup'){}else await loadGeneric(tab);loadedTabs.add(tab);}
  catch(error){setStatus('globalStatus','خطا در بارگذاری بخش: '+readableError(error),'error');}finally{loadingTabs.delete(tab);}
@@ -257,7 +369,7 @@ async function selectTab(tab){
 async function refreshAll(){
  loadedTabs.clear();loadingTabs.clear();await loadCounts();
  const active=document.querySelector('[data-tab].active'),tab=active?active.dataset.tab:Object.keys(allowedRoles).find(t=>checkRole(t));
- if(tab&&checkRole(tab)){if(tab==='media')await loadMediaList();else await selectTab(tab);}
+ if(tab&&checkRole(tab)){if(tab==='media')await loadMediaList();else if(tab==='music'){await loadMusicSection(musicState.section);loadedTabs.add('music');}else await selectTab(tab);}
  setStatus('globalStatus','اطلاعات به‌روزرسانی شد.','success');
 }
 async function logout(){
@@ -279,6 +391,13 @@ $('refreshBtn').addEventListener('click',refreshAll);
 $('logoutBtn').addEventListener('click',logout);
 $('uploadMediaBtn').addEventListener('click',()=>uploadMedia());
 $('refreshMediaBtn').addEventListener('click',loadMediaList);
+$('musicContent').addEventListener('submit',async event=>{const form=event.target.closest('[data-music-form]');if(!form)return;event.preventDefault();const button=form.querySelector('button[type="submit"]');button.disabled=true;try{await saveMusicForm(form);}catch(error){musicStatus('ذخیره اطلاعات ناموفق بود: '+readableError(error),'error');}finally{button.disabled=false;}});
+$('panel-music').addEventListener('click',event=>{
+ const section=event.target.closest('[data-music-section]');if(section){$('musicContent').innerHTML='';loadMusicSection(section.dataset.musicSection);return;}
+ const edit=event.target.closest('[data-music-edit]');if(edit){loadMusicEdit(edit.dataset.musicEdit,edit.dataset.id);return;}
+ const toggle=event.target.closest('[data-music-toggle]');if(toggle){toggleMusicPublish(toggle.dataset.musicToggle,toggle.dataset.id,toggle.dataset.published==='1');return;}
+ const cancel=event.target.closest('[data-music-cancel]');if(cancel){loadMusicSection(musicState.section);}
+});
 init();
 })();
 </script>
